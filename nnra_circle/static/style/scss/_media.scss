@@ -1,0 +1,113 @@
+//HEADER MEDIA QUERIES
+@media screen and (max-width: 1000px){
+    header{
+        .container{
+            padding: 20px 60px;
+
+        }
+    }
+}
+
+@media screen and (max-width: 900px){
+    header{
+        .container{
+            // .el-three{
+            //     display: none;
+            // }
+            padding: 20px 30px;
+
+        
+            .el-two{
+                top: -300px;
+                left: 0;
+                background-color: white;
+                position: fixed;
+                z-index: 999;
+        
+                max-width: 100%;
+                width: 100%;             
+                box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+                transition: all 0.5s ease-in-out;
+        
+        
+                ul{
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 20px 0;
+                    gap: 20px;
+                }
+            }
+        
+            .el-two.visible{
+                top: 0;
+
+                .close-nav{
+                    display: block;
+                }
+            }
+            .mobile{
+                display: block;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 490px){
+    header{
+        .container{
+            .el-three{
+                display: none;
+            }
+        }
+    }
+}
+
+//=========================================================
+
+//HERO SECTION MEDIA QUERY
+@media screen and (max-width: 1100px){
+    .hero-section{
+        .left-content{
+            .main-text{
+                font-size: 2.5rem;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 770px){
+    .hero-section{
+        .container{
+            flex-direction: column-reverse;
+            align-items: center;
+            justify-content: center;
+
+            .left-content{
+                width: 100%;
+                margin-top: 30px;
+            }
+
+            .right-content{
+                width: 100%;
+            }
+
+        }
+    }
+}
+
+@media screen and (max-width: 550px){
+    .hero-section{
+       padding: 0 60px;
+    }
+}
+
+
+@media screen and (max-width: 550px){
+    .hero-section{
+       padding: 0 10px;
+    }
+}
+
+
+

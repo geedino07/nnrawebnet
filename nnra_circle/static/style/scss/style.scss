@@ -1,0 +1,187 @@
+@import 'base';
+@import 'config/config';
+
+header{
+    width: 100%;
+    border-bottom: 0.5px solid var(--like-black);
+   
+    .container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px var(--section-edge-padding);
+
+        .mobile{
+            display: none;
+
+            i{
+                font-size: 1.6rem;
+            }
+        }
+        .el-one{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+
+            img{
+                width: 40px;
+                height: 40px;
+            }
+
+            p{
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+        }
+
+        .el-two{
+            width: 100%;
+            max-width: 350px;
+            ul{
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                justify-content: space-between;
+                gap: 10px;
+                li{
+                    list-style-type: none;
+                    a{
+                        text-decoration: none;
+                        color: var(--like-black);
+                    }
+                }
+
+              
+            }
+         
+            .close-nav{
+                position: absolute;
+                top: 0;
+                right: 0;
+                margin: 20px;
+                display: none;
+                i{
+                    font-size: 1.6rem;
+                }
+            }
+            
+        }
+
+        .el-three{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 5px;
+
+            .signin{
+                background-color: white;
+               
+                color: var(--like-black);
+                font-weight: 500;
+            }
+
+            .register{
+                background-color: var(--like-black);
+                color: white;
+                border-radius: 30px;
+            }
+            button{
+                padding: 10px 15px;
+                cursor: pointer;
+                border: none;
+                outline: none;
+            }
+        }
+    }
+    
+}
+
+.hero-section{
+    width: 100%;
+    // min-height: 80vh;
+
+    .container{
+        height: 100%;
+        display: flex;
+        // min-height: 80vh;
+        margin-top: 50px;
+
+
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .left-content{
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        .top-showcase{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 0.2rem;
+            i{
+                color: rgb(253, 168, 56);
+            }
+
+            p{
+                color: var(--soft-grey);
+            }
+        }
+        .welcome-txt{
+            font-size: 1.2rem;
+        }
+        .main-text{
+            font-size: 4rem;
+            font-weight: 700;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .buttons-container{
+            margin-top: 25px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px;
+            .btn-get-started{
+                background-color: var(--main-green);
+                color: white;
+            }
+            button{
+                padding: 15px 20px;
+                cursor: pointer;
+                border-radius: 60px;
+                outline: none;
+                border: none;
+            }
+        }
+    }
+
+    .right-content{
+        width: 50%;
+        
+        .image-container{
+            width: 100%;
+            max-width: 350px;
+            height: 450px;
+            margin-left: 100px;
+           
+
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+                border-radius: 10px;
+                
+
+            }
+        }
+    }
+}
+
+@import 'media';

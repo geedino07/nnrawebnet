@@ -1,0 +1,19 @@
+//contains default styles for the project
+@import 'config/config';
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:var(--body-font) ;
+}
+
+.section{
+    padding: 0 var(--section-edge-padding);
+}
+
+h1,h2,h3,h4,h5,h6,p{
+    color: var(--like-black);
+}

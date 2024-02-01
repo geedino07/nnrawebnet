@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %} NNRA circle | Home {% endblock %}
+
+{% block content %}
+<section class="hero-section section">
+    <div class="container">
+        <div class="left-content">
+            <div class="top-showcase">
+                <i class="ri-home-3-line"></i>
+                <p>Unified Vision, Collective Strength</p>
+            </div>
+
+            <h1 class="main-text">Collaboration <br> made easier <br> among staff <br> </h1>
+            <p class="welcome-txt">Welcome to NNRA's Collaborative Digital Environment</p>
+
+            <div class="buttons-container">
+                <button class="btn-get-started">Get Started</button>
+
+                <button class="btn-learn-more">Learn more</button>
+            </div>
+
+        </div>
+
+        <div class="right-content">
+            <div class="floating">
+                <img src="{% static 'img/connect-people.svg' %}" alt="NNRA circle connects people">
+            </div>
+            <!-- <div class="image-container">
+                <img src="{% static 'img/hero.png' %}" alt="NNRA Collaboration">
+
+            </div> -->
+        </div>
+    </div>
+</section>
+{% endblock %}
