@@ -17,7 +17,7 @@ header{
             display: none;
 
             i{
-                font-size: 1.6rem;
+                font-size: var(--menu-size);
             }
         }
         .el-one{
@@ -64,7 +64,7 @@ header{
                 margin: 20px;
                 display: none;
                 i{
-                    font-size: 1.6rem;
+                    font-size:var(--menu-size);
                 }
             }
             
@@ -154,7 +154,7 @@ header{
             button{
                 padding: 15px 20px;
                 cursor: pointer;
-                border-radius: 60px;
+                border-radius: 5px;
                 outline: none;
                 border: none;
             }

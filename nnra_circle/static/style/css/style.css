@@ -8,6 +8,7 @@
   --like-black: #191D29;
   --soft-grey: #8A9099;
   --section-edge-padding: 100px;
+  --menu-size: 1.7rem;
 }
 
 * {
@@ -34,6 +35,7 @@ h1, h2, h3, h4, h5, h6, p {
   --like-black: #191D29;
   --soft-grey: #8A9099;
   --section-edge-padding: 100px;
+  --menu-size: 1.7rem;
 }
 
 header {
@@ -52,7 +54,7 @@ header .container .mobile {
   display: none;
 }
 header .container .mobile i {
-  font-size: 1.6rem;
+  font-size: var(--menu-size);
 }
 header .container .el-one {
   display: flex;
@@ -93,7 +95,7 @@ header .container .el-two .close-nav {
   display: none;
 }
 header .container .el-two .close-nav i {
-  font-size: 1.6rem;
+  font-size: var(--menu-size);
 }
 header .container .el-three {
   display: flex;
@@ -168,7 +170,7 @@ header .container .el-three button {
 .hero-section .left-content .buttons-container button {
   padding: 15px 20px;
   cursor: pointer;
-  border-radius: 60px;
+  border-radius: 5px;
   outline: none;
   border: none;
 }
