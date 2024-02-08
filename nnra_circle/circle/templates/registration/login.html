@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signup | NNRA Digital Network</title>
+    <title>Login | NNRA Digital Network</title>
     <link rel="stylesheet" href="{% static 'style/css/auth_style.css' %}">
 
     <!--=============== REMIX ICONS ===============-->
@@ -13,13 +13,13 @@
 </head>
 <body>
 
-    <img src="{% static 'img/graphic.png' %}" alt="" class="graphic-top-left">
-    <img src="{% static 'img/bottom-right.png' %}" alt="" class="graphic-bottom-right">
+    <img src="{% static 'img/lock-top-left.png' %}" alt="" class="graphic-top-left graphic-lock">
+    <img src="{% static 'img/lock-bottom-right.png' %}" alt="" class="graphic-bottom-right graphic-lock">
 
     <div class="container">
         <div class="form-holder">
             <img src="{% static 'img/logo.png' %}" alt="Nnra logo">
-            <h3 class="form-title">NNRA Digital Network <br> <span>Sign up</span></h3>
+            <h3 class="form-title">NNRA Digital Network <br> <span>Login</span></h3>
             <!-- <p class="form-prompt">Welcome to NNRA digital network, please fill the form below to signup for an account</p> -->
 
             <div class="alert-containers" id="con-one">
@@ -35,11 +35,11 @@
                 
                 {{ form.as_p }}
                 {% csrf_token %}
-                <input type="submit" value="Submit" >
+                <input type="submit" value="Login" >
             </form>
 
             <div class="login-option">
-                <p>Already have an account? <span><a href="{% url "accounts:login" %}">Login</a></span></p>
+                <p>Dont have an account? <span><a href="{% url "accounts:register" %}">Sign up</a></span></p>
             </div>
 
             

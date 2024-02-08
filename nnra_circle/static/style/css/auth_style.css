@@ -186,6 +186,30 @@ h1, h2, h3, h4, h5, h6, p {
   --menu-size: 1.7rem;
 }
 
+.graphic-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  max-width: 220px;
+  z-index: -1;
+}
+
+.graphic-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  max-width: 220px;
+  z-index: -1;
+}
+
+.graphic-lock {
+  width: 80%;
+  max-width: 180px;
+  opacity: 0.7;
+}
+
 .container {
   width: 100%;
   min-height: 100vh;
@@ -205,13 +229,15 @@ h1, h2, h3, h4, h5, h6, p {
   padding: 10px;
 }
 .container .form-holder img {
-  width: 70px;
-  height: 70px;
+  width: 50px;
+  height: 50px;
 }
 .container .form-holder .form-title {
   margin-top: 10px;
-  font-size: 1.3rem;
+  font-size: 1rem;
   color: #1b1e27;
+  text-align: center;
+  font-family: "Poppins", sans-serif;
 }
 .container .form-holder .form-title span {
   color: var(--main-green);

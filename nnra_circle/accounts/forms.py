@@ -4,6 +4,9 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 
+class LoginForm(forms.Form):
+    email = forms.CharField(widget=forms.EmailInput({'placeholder': 'Email'}))
+    password = forms.CharField(widget=forms.PasswordInput({'placeholder': 'Password'}))
 class SignUpForm(forms.Form):
     username = forms.CharField(widget=forms.TextInput(attrs={'placeholder': 'Username'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email'}))

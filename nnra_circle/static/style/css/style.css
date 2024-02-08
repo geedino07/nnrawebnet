@@ -297,7 +297,8 @@ header .container .el-three button {
   color: var(--soft-grey);
 }
 .hero-section .left-content .welcome-txt {
-  font-size: 1.2rem;
+  font-size: 1rem;
+  margin-top: 6px;
 }
 .hero-section .left-content .main-text {
   font-size: 4rem;
@@ -404,10 +405,15 @@ header .container .el-three button {
 }
 @media screen and (max-width: 550px) {
   .hero-section {
-    padding: 0 60px;
+    padding: 0 30px;
   }
 }
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 330px) {
+  .hero-section {
+    padding: 0 20px;
+  }
+}
+@media screen and (max-width: 330px) {
   .hero-section {
     padding: 0 10px;
   }

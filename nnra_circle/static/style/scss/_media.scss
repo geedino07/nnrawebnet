@@ -96,14 +96,26 @@
     }
 }
 
+// @media screen and (max-width: 550px){
+//     .hero-section{
+//        padding: 0 60px;
+//     }
+// }
+
+
 @media screen and (max-width: 550px){
     .hero-section{
-       padding: 0 60px;
+       padding: 0 30px;
     }
 }
 
+@media screen and (max-width: 330px){
+    .hero-section{
+       padding: 0 20px;
+    }
+}
 
-@media screen and (max-width: 550px){
+@media screen and (max-width: 330px){
     .hero-section{
        padding: 0 10px;
     }
