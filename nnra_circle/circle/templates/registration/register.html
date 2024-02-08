@@ -12,14 +12,15 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
+
     
     <div class="container">
         <div class="form-holder">
             <img src="{% static 'img/logo.png' %}" alt="Nnra logo">
-            <h2 class="form-title">Sign up</h2>
-            <p class="form-prompt">Welcome to NNRA digital network, please fill the form below to signup for an account</p>
+            <h3 class="form-title">Welcome! <span>Sign up</span></h3>
+            <!-- <p class="form-prompt">Welcome to NNRA digital network, please fill the form below to signup for an account</p> -->
 
-            <div class="alert-containers">
+            <div class="alert-containers" id="con-one">
                 {% for message in messages %}
                 <div class="alert {{ message.tags }}">
                     <i class="ri-message-3-line"></i>                    
@@ -28,14 +29,16 @@
                 {% endfor %}
                
             </div>
-            <form action="">
-                <input type="text" name="username" placeholder="Username">
-                <input type="email" name="email" placeholder="Email">
-                <input type="password" name="password" placeholder="Password">
-                <input type="password" name="confirm-password" placeholder="Confirm password" onclick="showToast({message: 'Your account is not verified, please click on the verification link sent to your email to verify your email', style: 'success', duration: 10000})">
-
+            <form action="" method="post">
+                
+                {{ form.as_p }}
+                {% csrf_token %}
                 <input type="submit" value="Submit" >
             </form>
+
+            <div class="login-option">
+                <p>Already have an account? <span><a href="">Login</a></span></p>
+            </div>
 
             
         </div>

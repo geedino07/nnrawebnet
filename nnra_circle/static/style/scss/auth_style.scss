@@ -28,7 +28,11 @@
         .form-title{
             margin-top: 10px;
             font-size: 1.3rem;
-            color: var(--main-green);
+            color: #1b1e27;
+
+            span{
+                color: var(--main-green);
+            }
         }
 
         .form-prompt{
@@ -46,13 +50,42 @@
             justify-content: center;
             width: 100%;
 
+            p{
+                width: 100%;
+                padding: auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                
+            }
+
+            .errorlist{
+                width: 100%;
+                list-style-type: none;
+                padding: auto;
+                display: flex;
+                align-items: flex-start;
+                justify-content: flex-start;
+                padding-left: 23px;
+                max-width: 350px;
+                li{
+                    color: var(--soft-red);
+                }
+                text-align: start;
+            }
+
+            label{
+                display: none;
+            }
             input{
                 width: 100%;
                 margin: 10px 5px;
                 max-width: 350px;
                 padding: 0.9rem;
-                border: 0.5px solid rgb(126, 123, 123);
-                border-radius: 5px;
+                // border: 0.5px solid rgb(126, 123, 123);
+                border: none;
+                border-bottom: 0.5px solid rgb(126, 123, 123);
+                
                 outline: none;
             }
 
@@ -61,6 +94,10 @@
                 color: white;
                 cursor: pointer;
             }
+        }
+
+        .login-option{
+            margin-top: 10px;
         }
     }
 }

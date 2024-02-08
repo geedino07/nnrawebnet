@@ -1,8 +1,3 @@
-showToast({
-    message: 'A sample toast',
-    duration: 5000
-})
-
 /**Used to show one modal at a time by removing all existing modals and
  * dispying the required one
  * @param modalId the id of the modal to be displayed
@@ -33,6 +28,21 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
       }
     }
   }
+
+
+  function showAlert(containerId, message, tag, append=false){
+      const container = document.getElementById(containerId)
+      const alertHtml = `
+            <div class="alert ${tag}">
+                    <i class="ri-message-3-line"></i>                    
+                    <p>${message}</p>
+            </div>
+      `
+      if(!append) container.innerHTML = ''
+      container.insertAdjacentHTML('beforeend', alertHtml)
+  }
+
+  
 
 function showToast({
     message,
