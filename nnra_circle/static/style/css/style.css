@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,400;0,500;0,600;0,700;1,300;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;0,800;0,900;1,900&display=swap");
 :root {
-  --body-font: "Work Sans", sans-serif;
+  --body-font: "poppins", sans-serif;
   --main-green: #355E2D;
   --like-black: #191D29;
   --soft-grey: #8A9099;
@@ -11,6 +11,7 @@
   --soft-red2: #9F3418;
   --generic-grey: #f4f4f3;
   --light-red-01: #F2E4DF;
+  --text-dark: #49566B;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }
@@ -174,7 +175,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 :root {
-  --body-font: "Work Sans", sans-serif;
+  --body-font: "poppins", sans-serif;
   --main-green: #355E2D;
   --like-black: #191D29;
   --soft-grey: #8A9099;
@@ -182,6 +183,7 @@ h1, h2, h3, h4, h5, h6, p {
   --soft-red2: #9F3418;
   --generic-grey: #f4f4f3;
   --light-red-01: #F2E4DF;
+  --text-dark: #49566B;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }
@@ -257,7 +259,7 @@ header .container .el-three .signin {
   font-weight: 500;
 }
 header .container .el-three .register {
-  background-color: var(--like-black);
+  background-color: var(--text-dark);
   color: white;
   border-radius: 30px;
 }
@@ -266,6 +268,49 @@ header .container .el-three button {
   cursor: pointer;
   border: none;
   outline: none;
+}
+
+.why-use-digital-network .container {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1100px;
+}
+.why-use-digital-network .container h1 {
+  font-family: "Poppins", sans-serif;
+}
+.why-use-digital-network .container .left-content h1 {
+  color: var(--text-dark);
+}
+.why-use-digital-network .container .right-content {
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(2, 1fr);
+}
+.why-use-digital-network .container .right-content .reason-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
+.why-use-digital-network .container .right-content .reason-card .reason-image {
+  padding: 0.5rem 0.8rem;
+  font-size: 1.4rem;
+  border-radius: 5px;
+}
+.why-use-digital-network .container .right-content .reason-card .text-container {
+  margin-top: 10px;
+}
+.why-use-digital-network .container .right-content .reason-card .text-container .card-title {
+  max-width: 300px;
+}
+.why-use-digital-network .container .right-content .reason-card .text-container .card-des {
+  max-width: 300px;
+  font-size: 0.9rem;
+  color: var(--soft-grey);
 }
 
 .hero-section {
@@ -304,6 +349,7 @@ header .container .el-three button {
   font-size: 4rem;
   font-weight: 700;
   font-family: "Poppins", sans-serif;
+  color: var(--text-dark);
 }
 .hero-section .left-content .buttons-container {
   margin-top: 25px;

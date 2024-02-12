@@ -3,7 +3,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,400;0,500;0,600;0,700;1,300;1,400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,700;0,800;0,900;1,900&display=swap");
 :root {
-  --body-font: "Work Sans", sans-serif;
+  --body-font: "poppins", sans-serif;
   --main-green: #355E2D;
   --like-black: #191D29;
   --soft-grey: #8A9099;
@@ -11,6 +11,7 @@
   --soft-red2: #9F3418;
   --generic-grey: #f4f4f3;
   --light-red-01: #F2E4DF;
+  --text-dark: #49566B;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }
@@ -174,7 +175,7 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 :root {
-  --body-font: "Work Sans", sans-serif;
+  --body-font: "poppins", sans-serif;
   --main-green: #355E2D;
   --like-black: #191D29;
   --soft-grey: #8A9099;
@@ -182,6 +183,7 @@ h1, h2, h3, h4, h5, h6, p {
   --soft-red2: #9F3418;
   --generic-grey: #f4f4f3;
   --light-red-01: #F2E4DF;
+  --text-dark: #49566B;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }
