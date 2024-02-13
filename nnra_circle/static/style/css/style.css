@@ -366,6 +366,8 @@ header .container .el-three button {
   display: grid;
   gap: 15px;
   grid-template-columns: repeat(2, 1fr);
+  align-items: end;
+  justify-items: end;
 }
 .why-use-digital-network .container .right-content .reason-card {
   display: flex;
