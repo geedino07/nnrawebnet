@@ -1,0 +1,32 @@
+{% load static %}
+
+<header>
+    <div class="container">
+        <div class="el-one">
+            <img src="{% static 'img/logo.png' %}" alt="NNRA logo">
+            <p>NNRA <br> Digital Network</p>
+        </div>
+        
+        <div class="el-two">
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Memos</a></li>
+                <li><a href="/chat/room/">Chat</a></li>
+
+                <li class="close-nav">
+                    <i class="ri-close-line"></i>
+                </li>
+            </ul>  
+        </div>
+        <div class="el-three">
+
+            <button class="signin">Sign in</button>
+            <button class="register">Register</button>
+        </div>
+
+        <div class="mobile">
+            <i class="ri-menu-line"></i>
+        </div>
+    </div>
+</header>

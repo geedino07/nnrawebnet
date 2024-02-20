@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'chat.apps.ChatConfig',
     'circle.apps.CircleConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',

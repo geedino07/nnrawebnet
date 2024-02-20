@@ -1,0 +1,525 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} NNRA chat room | Interactive Live chat room, nnra digital network{% endblock %}
+
+{% block content %}
+<section class="chat-section">
+    <div class="left-most-tile">
+        <div class="logo-showcase">
+            <img src="{% static 'img/transp-logo.png' %}" alt="NNRA logo">
+            <h4>NNRA <br> Digital network</h4>
+        </div>
+
+        <div class="all-chats-groups">
+            <div class="all-chats">
+                <div class="left-all">
+                    <i class="ri-discuss-line"></i>
+                    <p>All chats</p>
+                </div>
+        
+                <p class="num-all-chats">30</p>
+            </div>
+
+            <div class="all-groups">
+                <div class="left-all">
+                    <i class="ri-group-line"></i>                    
+                    <p>Groups</p>
+                </div>
+        
+                <p class="num-group-messages">9</p>
+            </div>
+
+        </div>
+
+        <div class="hor-line"></div>
+
+        <div class="people-container">
+            <div class="top-holder">
+                <h4>People</h4>
+
+                <p>SEE ALL</p>
+            </div>
+            <div class="image-caret-container">
+                <div class="people-images-container">
+                    
+                    <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;">
+                    <img src="{% static 'img/samples/s3.jpg' %}" alt="" style="background-color: #D4DEE6;">
+                    <img src="{% static 'img/samples/s5.jpg' %}" alt="" style="background-color: #E0DCD1;">
+                    <img src="{% static 'img/samples/s4.jpg' %}" alt="" style="background-color: #E0DCD1;">
+
+                </div>
+
+                <!-- <i class="ri-arrow-right-s-line"></i> -->
+            </div>
+        </div>
+
+        <div class="hor-line"></div>
+
+        <div class="departments-container">
+            <div class="top-holder">
+                <i class="ri-arrow-down-s-line"></i>
+                <h4>Departments</h4>
+            </div>
+
+            <div class="all-departments">
+                <div class="department selected">
+                    <i class="ri-home-2-line"></i>
+                    <p class="department-name">ICT</p>
+                </div>
+
+                <div class="department">
+                    <i class="ri-home-2-line"></i>
+                    <p class="department-name">Enforcement</p>
+                </div>
+
+                <div class="department">
+                    <i class="ri-home-2-line"></i>
+                    <p class="department-name">licensing</p>
+                </div>
+
+               
+            </div>
+
+            <div class="browse-all-depts">
+                <div class="search-con">
+                    <i class="ri-search-line"></i>
+
+                </div>
+                <p>Browse all departments</p>
+
+            </div>
+        </div>
+
+        
+    </div>
+
+    <div class="center-tile">
+        <div class="center-item-top">
+            <div class="top-left">
+                <h1>Chat</h1>
+
+            </div>
+
+            <div class="top-right">
+                <i class="ri-chat-new-line"></i>
+
+                <i class="ri-moon-line"></i>
+
+                <div class="notification-con">
+                    <i class="ri-notification-3-line"></i>
+                    <div class="noti-alert"></div>
+                </div>
+    
+                <div class="user-container">
+                    <img src="{% static 'img/samples/s11.jpg' %}" alt="" style="background-color: #E0DCD1;">
+                    <div class="user-info-con">
+                        <h5 class="username">Code bee</h5>
+                        <p class="fullname">Onuh Kyrian Udochukwu</p>
+                    </div>
+                </div>
+            </div>
+            
+
+        
+        </div>
+
+        <div class="center-item-bottom">
+            <div class="center-item center-left">
+               <div class="search-section">
+                <div class="search-bar">
+                    <div class="short-line">
+                    
+                    </div>
+                    <input type="text" placeholder="Search">
+                    <i class="ri-search-line"></i>
+                </div>
+               </div>
+
+               <div class="chat-tiles-container">
+                    <div class="chat-item selected">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Faith Ene</h5>
+                                <p class="l-message">What is going on in Jos</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s2.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Jaher Flutter boss</h5>
+                                <p class="l-message">What is going on in Jos</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s3.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Kyrian Udo</h5>
+                                <p class="l-message">Hello bro</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s8.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s7.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s10.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s6.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s7.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s9.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s10.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="chat-item">
+                        <!-- <div class="selected-line"></div> -->
+
+                        <div class="con">
+                            <div class="image-container">
+                                <img src="{% static 'img/samples/s11.jpg' %}" alt="" style="background-color: #ACACAD;">
+                            </div>
+    
+                            <div class="username-msg">
+                                <h5>Justin Timberlake</h5>
+                                <p class="l-message">Are you still coming</p>
+                            </div>
+                        </div>
+
+                        <div class="time-num">
+                            <p class="time">1 min</p>
+                            <div class="num-container">
+                                <p class="num">3</p>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    
+               </div>
+            </div>
+
+            
+            <div class="center-item center-right">
+                <div class="logged-in-user-info">
+                    <img src="{% static 'img/samples/s4.jpg' %}" alt="" style="background-color: #ACACAD;">
+                    <div class="user-info">
+                        <p class="username">Faith Ene</p>
+                        <p class="status">Online</p>
+                    </div>
+                </div>
+
+                <div class="conversation-container">
+                    <div class="day-con">
+                        <span class="hor-line"></span>
+                        <p class="day">Friday</p>
+                        <span class="hor-line"></span>
+                    </div>
+
+                    <div class="conversation conv-left">
+                        <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Be like the person wey give me the work
+                                wan fall my hand and I don't want the 
+                                effort I've put into it to waste</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+                    <div class="conversation conv-right">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Ahbeg you know anybody wey go need the work</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+
+                    <div class="conversation conv-left">
+                        <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Be like the person wey give me the work
+                                wan fall my hand and I don't want the 
+                                effort I've put into it to waste</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+                    <div class="conversation conv-right">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Ahbeg you know anybody wey go need the work</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+                    <div class="conversation conv-left">
+                        <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Be like the person wey give me the work
+                                wan fall my hand and I don't want the 
+                                effort I've put into it to waste</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+                    <div class="conversation conv-right">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Ahbeg you know anybody wey go need the work</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+                    <div class="conversation conv-left">
+                        <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Hi</p>
+
+                            <p class="date-time">10:00pm</p>
+                        </div>
+                    </div>
+
+                    <div class="conversation conv-right">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="" style="background-color: #ACACAD;" class="u-profile-photo">
+                        <div class="conv-holder">
+                            <p class="message">Hi</p>
+
+                            <p class="date-time">11:00pm</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+     
+
+    </div>
+
+    <div class="right-most-tile">
+        <div class="top-info">
+            <div class="left-con">
+                <h4 class="profile-username">Python Geek</h4>
+                <p class="profile-fullname">Onuh Kyrian Udochukwu</p>
+            </div>
+    
+            <i class="ri-close-line"></i>
+         
+        </div>
+
+        <div class="profile-img-status-con">
+            <div class="con">
+                <img src="{% static 'img/samples/s1.jpg' %}" alt="" style="background-color: #ACACAD;">
+                <div class="status">
+                    <div class="circle"></div>
+                    <p>Active</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+</section>
+{% endblock %}
+
