@@ -14,3 +14,9 @@ class Profile(models.Model):
     is_online = models.BooleanField(default=False)
     joined = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now=True)
+
+class Otpcode(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False)
+    code = models.CharField(max_length=6, unique=True)
+    created = models.DateTimeField(auto_now_add=True)
+    used = models.BooleanField(default=False)

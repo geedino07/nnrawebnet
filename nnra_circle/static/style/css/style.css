@@ -36,6 +36,81 @@ h1, h2, h3, h4, h5, h6, p {
   color: var(--text-dark);
 }
 
+html::-webkit-scrollbar {
+  width: 0.5rem;
+  background-color: white;
+}
+
+html::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: #ebf5ea;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: -moz-max-content;
+  width: max-content;
+}
+form p {
+  width: 100%;
+  padding: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form .errorlist {
+  width: 100%;
+  list-style-type: none;
+  padding: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 23px;
+  max-width: 350px;
+  text-align: start;
+}
+form .errorlist li {
+  color: var(--soft-red);
+}
+form label {
+  display: none;
+}
+form input {
+  width: 100%;
+  background-color: transparent;
+  padding: 0.9rem;
+  border: none;
+  border-bottom: 0.5px solid rgb(126, 123, 123);
+  outline: none;
+}
+form input[type=submit] {
+  background-color: var(--main-green);
+  color: white;
+  cursor: pointer;
+}
+
+.graphic-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 80%;
+  max-width: 220px;
+  z-index: -1;
+}
+
+.graphic-bottom-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80%;
+  max-width: 220px;
+  z-index: -1;
+}
+
 .hor-line {
   width: 100%;
   height: 0.5px;
@@ -286,16 +361,6 @@ header .container .el-three button {
   cursor: pointer;
   border: none;
   outline: none;
-}
-
-html::-webkit-scrollbar {
-  width: 0.5rem;
-  background-color: white;
-}
-
-html::-webkit-scrollbar-thumb {
-  border-radius: 2rem;
-  background: #ebf5ea;
 }
 
 .hero-section {
@@ -1119,6 +1184,45 @@ html::-webkit-scrollbar-thumb {
   color: white;
   margin-left: 10px;
   font-weight: 500;
+}
+
+.confirmotp-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.confirmotp-section img {
+  width: 80%;
+  max-width: 450px;
+}
+.confirmotp-section div.right-section {
+  width: 90%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.confirmotp-section div.right-section .prompt-message {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  max-width: 400px;
+}
+.confirmotp-section div.right-section form {
+  width: 100%;
+  max-width: 300px;
+  align-items: flex-start;
+}
+.confirmotp-section div.right-section form input[type=text] {
+  text-align: center;
+}
+.confirmotp-section div.right-section form input[type=submit] {
+  margin-top: 20px;
+  border-radius: 5px;
 }
 
 .modal-overlay {

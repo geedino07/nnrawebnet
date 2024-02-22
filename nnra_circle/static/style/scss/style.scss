@@ -94,16 +94,7 @@ header {
   }
 }
 
-//custom scroll bar
-html::-webkit-scrollbar {
-  width: 0.5rem;
-  background-color: white;
-}
 
-html::-webkit-scrollbar-thumb {
-  border-radius: 2rem;
-  background: #ebf5ea;
-}
 
 .hero-section {
   width: 100%;
@@ -1054,6 +1045,48 @@ html::-webkit-scrollbar-thumb {
         color: white;
         margin-left: 10px;
         font-weight: 500;
+      }
+    }
+  }
+}
+
+.confirmotp-section{
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  img{
+    width: 80%;
+    max-width: 450px;
+  }
+
+  div.right-section{
+    width: 90%;
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    .prompt-message{
+      font-size: 0.9rem;
+      opacity: 0.8;
+      max-width: 400px;
+    }
+
+    form{
+      width: 100%;
+      max-width: 300px;
+      align-items: flex-start;
+      input[type=text]{
+        text-align: center;
+      }
+      input[type=submit]{
+        margin-top: 20px;
+        border-radius: 5px;
       }
     }
   }

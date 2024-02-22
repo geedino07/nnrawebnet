@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
-
+class OtpForm(forms.Form):
+    code = forms.CharField(widget=forms.TextInput({'placeholder': 'Enter your verification code'}))
 class LoginForm(forms.Form):
     email = forms.CharField(widget=forms.EmailInput({'placeholder': 'Email'}))
     password = forms.CharField(widget=forms.PasswordInput({'placeholder': 'Password'}))

@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 from pathlib import Path
 import os
-
+from dotenv import load_dotenv
+load_dotenv()
+# from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,6 +27,8 @@ SECRET_KEY = 'django-insecure-8gy%-bc__6#t@q(ad^m-!mr3danz!80@j#0nt=&qqvb=2e#%(4
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -128,3 +132,16 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]#specifies where to draw st
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
+    EMAIL_PORT = '2525'
+    EMAIL_USE_TLS = True
+    EMAIL_HOST_USER = 'e1c66396671ac5'
+    EMAIL_HOST_PASSWORD = 'b7b9bff8b5ffb2'
+    EMAIL_FROM_USER = 'e1c66396671ac5'
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+    

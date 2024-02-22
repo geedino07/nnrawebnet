@@ -1,7 +1,21 @@
+{% extends "base.html" %}
+
 {% load static %}
 
-{% extends base.html %}
 
 {% block content %}
+<img src="{% static 'img/graphic.png' %}" alt="" class="graphic-top-left">
+<img src="{% static 'img/bottom-right.png' %}" alt="" class="graphic-bottom-right">
+<section class="confirmotp-section">
+    <img src="{% static 'img/person-get-code.svg' %}" alt="Confirm your account">
 
+    <div class="right-section">
+        <h1>Enter verification code!</h1>
+        <p class="prompt-message">We just sent an email to <b>onuhudoudo@gmail.com</b> containing your six digit verification code. </p>
+        <form action="">
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</section>
 {% endblock %}
