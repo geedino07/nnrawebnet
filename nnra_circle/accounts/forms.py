@@ -42,6 +42,11 @@ class UserRegistrationForm(forms.ModelForm):
     def clean_email(self):
         cd= self.cleaned_data
         if User.objects.filter(email= cd['email']).exists():
-            raise forms.ValidationError('User already exists')
+            raise forms.ValidationError('Email is already in use')
         return cd['email']
     
+    def clean_username(self):
+        cd = self.cleaned_data
+        if User.objects.filter(username=cd['username']).exists():
+            raise forms.ValidationError('Username already exists')
+        return cd['username']

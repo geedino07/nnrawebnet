@@ -2,6 +2,7 @@
 
 {% load static %}
 
+{% block title %} Activate your account | NNRA digital network{% endblock %}
 
 {% block content %}
 <img src="{% static 'img/graphic.png' %}" alt="" class="graphic-top-left">
@@ -11,11 +12,36 @@
 
     <div class="right-section">
         <h1>Enter verification code!</h1>
-        <p class="prompt-message">We just sent an email to <b>onuhudoudo@gmail.com</b> containing your six digit verification code. </p>
-        <form action="">
+        <p class="prompt-message">We just sent an email to <b>{{user.email}}</b> containing your six digit verification code. </p>
+
+        <div class="alert-containers" id="con-one">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                <i class="ri-message-3-line"></i>                    
+                <p>{{message}}</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <form action="" method="post" id="form">
+            {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Submit">
+            <button type="submit" class="toggler-btn">
+                <img src="{% static 'img/spinner.gif' %}" alt="" >
+                Submit
+            </button>
+            <!-- <input type="submit" value="Submit"> -->
         </form>
+        <p class="resend-prompt"><a href="{% url 'accounts:resendcode' uid=user.id %}">Resend activation code</a></p>
+
     </div>
 </section>
+
+<script src="{% static 'js/components.js' %}"></script>
+<script>
+    document.getElementById('form').addEventListener('submit', function(){
+        disableToggler(document.querySelector('.toggler-btn'))
+    })
+</script>
+
 {% endblock %}

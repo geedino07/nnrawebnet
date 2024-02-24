@@ -46,6 +46,39 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.toggler-btn {
+  background-color: var(--main-green);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  outline: none;
+  border: none;
+  padding: 15px !important;
+  margin: 10px 0;
+  align-items: center;
+  width: 95%;
+  max-width: 450px;
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+  border-radius: 5px;
+  gap: 10px;
+}
+.toggler-btn img {
+  width: 20px !important;
+  height: 20px !important;
+  display: none;
+}
+
+.toggler-btn:disabled {
+  background-color: var(--soft-grey);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.toggler-btn:disabled img {
+  display: block;
+}
+
 form {
   margin-top: 20px;
   display: flex;
@@ -75,6 +108,7 @@ form .errorlist {
 }
 form .errorlist li {
   color: var(--soft-red);
+  font-size: 0.85rem;
 }
 form label {
   display: none;
@@ -206,6 +240,7 @@ form input[type=submit] {
 }
 .alert p {
   margin-left: 10px;
+  font-size: 0.9rem;
   color: var(--soft-red);
 }
 
@@ -1194,10 +1229,11 @@ header .container .el-three button {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  padding: 20px;
 }
 .confirmotp-section img {
   width: 80%;
-  max-width: 450px;
+  max-width: 400px;
 }
 .confirmotp-section div.right-section {
   width: 90%;
@@ -1207,10 +1243,18 @@ header .container .el-three button {
   align-items: flex-start;
   justify-content: flex-start;
 }
+.confirmotp-section div.right-section .alert {
+  margin: 15px 0;
+}
 .confirmotp-section div.right-section .prompt-message {
   font-size: 0.9rem;
   opacity: 0.8;
   max-width: 400px;
+}
+.confirmotp-section div.right-section .resend-prompt {
+  text-align: center;
+  margin-top: 17px;
+  font-size: 0.9rem;
 }
 .confirmotp-section div.right-section form {
   width: 100%;
@@ -1223,6 +1267,137 @@ header .container .el-three button {
 .confirmotp-section div.right-section form input[type=submit] {
   margin-top: 20px;
   border-radius: 5px;
+}
+
+.selectdept-container {
+  margin: auto;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+  min-height: 90vh;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  z-index: 1000;
+}
+.selectdept-container .header-search-title {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+.selectdept-container .header-search-title input[type=text] {
+  padding: 15px;
+  width: 90%;
+  background-color: #F3F3F3;
+  outline: none;
+  border-radius: 20px;
+  border: none;
+  margin-top: 20px;
+}
+.selectdept-container .departments-container::-webkit-scrollbar {
+  width: 0.3rem;
+  background-color: var(--chat-background);
+}
+.selectdept-container .departments-container::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: rgba(130, 138, 138, 0.7058823529);
+}
+.selectdept-container .departments-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60vh;
+  overflow-y: scroll;
+}
+.selectdept-container .departments-container .department-not-found {
+  display: flex;
+  opacity: 0.6;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+.selectdept-container .departments-container .department-not-found i {
+  font-size: 1.3rem;
+  color: var(--text-dark);
+}
+.selectdept-container .departments-container .department-item {
+  cursor: pointer;
+  margin: 3px 0;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+}
+.selectdept-container .departments-container .department-item .selected-indicator {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 1px solid var(--main-green);
+}
+.selectdept-container .departments-container .department-item .right {
+  display: flex;
+  flex-direction: column;
+  margin-left: 0.7rem;
+}
+.selectdept-container .departments-container .department-item .right .office-name {
+  color: #303132;
+  font-weight: 500;
+}
+.selectdept-container .departments-container .department-item .right .department-name {
+  font-size: 0.7rem;
+  color: #303132;
+  opacity: 0.6;
+}
+.selectdept-container .departments-container .department-item.selected {
+  background-color: #F3F3F3;
+}
+.selectdept-container .departments-container .department-item.selected .selected-indicator {
+  background-color: var(--main-green);
+}
+.selectdept-container .bottom-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: center;
+}
+.selectdept-container .bottom-container img {
+  width: 30px;
+  height: 30px;
+}
+.selectdept-container .bottom-container .continue-btn {
+  background-color: var(--main-green);
+  padding: 15px 20px;
+  cursor: pointer;
+  color: white;
+  outline: none;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+.selectdept-container .bottom-container .continue-btn img {
+  width: 20px;
+  height: 20px;
+}
+.selectdept-container .bottom-container .continue-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}
+.selectdept-container .hor-line {
+  width: 90%;
+  background-color: #F3F4F4;
+  height: 1.7px;
 }
 
 .modal-overlay {
@@ -1391,5 +1566,13 @@ header .container .el-three button {
 @media screen and (max-width: 470px) {
   .chat-section .center-tile .center-item-top .user-container .user-info-con {
     display: none;
+  }
+}
+@media screen and (max-width: 700px) {
+  .confirmotp-section {
+    flex-direction: column;
+  }
+  .confirmotp-section img {
+    max-width: 300px;
   }
 }/*# sourceMappingURL=style.css.map */

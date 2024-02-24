@@ -237,3 +237,15 @@
     }
   }
 }
+
+
+//============================= CONFIRM OTP MEDIA QUERIES ==============================
+@media screen and (max-width: 700px){
+  .confirmotp-section{
+    flex-direction: column;
+
+    img{
+      max-width: 300px;
+    }
+  }
+}

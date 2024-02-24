@@ -111,3 +111,8 @@ function showToast({
     const toast = document.getElementById(toastId);
     toast.style.transform = "translateY(-150%)";
   }
+
+function disableToggler(button){
+  button.disabled=true
+  console.log('button disabled')
+}

@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Select your department | NNRA digital network {% endblock %}
+
+{% block content %}
+<!-- 
+    <img src="{% static 'img/graphic.png' %}" alt="" class="graphic-top-left">
+    <img src="{% static 'img/bottom-right.png' %}" alt="" class="graphic-bottom-right"> -->
+
+
+    <div class="selectdept-container">
+        <div class="header-search-title">
+            <h3>Select your department</h3>
+            <input type="text" placeholder="Search" class="search-input">
+        </div>
+
+        <div class="hor-line"></div>
+
+        <div class="departments-container">
+          
+            {% for office in offices %}
+            <div class="department-item" data-office_name="{{office.office_name}}" data-dept_name="{{office.department.dept_name}}">
+                <span class="selected-indicator"></span>
+                <div class="right">
+                    <p class="office-name">{{ office.office_name }}</p>
+                    <p class="department-name">{{ office.department.dept_name }}</p>
+                </div>
+            </div>
+            {% endfor %}
+
+           
+        </div>
+
+       
+
+        <div class="hor-line"></div>
+
+        <div class="bottom-container">
+            <button class="toggler-btn" style="width: max-content;">
+                <img src="{% static 'img/spinner.gif' %}" alt="">
+
+                Continue</button>
+        </div>
+    </div>
+
+
+    <script src="{% static 'js/select-dept.js' %}"></script>
+
+{% endblock %}

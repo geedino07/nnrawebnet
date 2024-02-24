@@ -31,11 +31,15 @@
                 {% endfor %}
                
             </div>
-            <form action="" method="post">
+            <form action="" method="post" id="register-form">
                 
                 {{ form.as_p }}
                 {% csrf_token %}
-                <input type="submit" value="Submit" >
+                <button type="submit" class="toggler-btn">
+                    <img src="{% static 'img/spinner.gif' %}" alt="" >
+                    Submit
+                </button>
+                <!-- <input type="submit" value="Submit" > -->
             </form>
 
             <div class="login-option">
@@ -46,7 +50,12 @@
         </div>
     </div>
 
-
+  
     <script src="{% static 'js/components.js' %}"></script>
+    <script>
+        document.getElementById('register-form').addEventListener('submit', function(){
+            disableToggler(document.querySelector('.toggler-btn'))
+        })
+    </script>
 </body>
 </html>

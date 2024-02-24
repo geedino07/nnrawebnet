@@ -179,6 +179,8 @@ header {
   }
 }
 
+
+//====================================================
 .why-use-digital-network {
   // width: 100%;
   // display: flex;
@@ -241,6 +243,7 @@ header {
   }
 }
 
+//=================================================
 .chat-section {
   width: 100%;
   height: 100vh;
@@ -363,6 +366,9 @@ header {
     .departments-container {
       display: flex;
       flex-direction: column;
+  
+
+      
 
       .top-holder {
         display: flex;
@@ -1050,6 +1056,7 @@ header {
   }
 }
 
+//==============================================
 .confirmotp-section{
   width: 100%;
   min-height: 100vh;
@@ -1058,10 +1065,11 @@ header {
   align-items: center;
   justify-content: center;
   gap: 20px;
+  padding: 20px;
 
   img{
     width: 80%;
-    max-width: 450px;
+    max-width: 400px;
   }
 
   div.right-section{
@@ -1071,12 +1079,21 @@ header {
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
+
+    .alert{
+      margin: 15px 0;
+    }
     .prompt-message{
       font-size: 0.9rem;
       opacity: 0.8;
       max-width: 400px;
     }
 
+    .resend-prompt{
+      text-align: center;
+      margin-top: 17px;
+      font-size: 0.9rem;
+    }
     form{
       width: 100%;
       max-width: 300px;
@@ -1089,6 +1106,163 @@ header {
         border-radius: 5px;
       }
     }
+  }
+}
+
+//==============================================
+.selectdept-container{
+  margin: auto;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
+  min-height: 90vh;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  z-index: 1000;
+  
+  .header-search-title{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    
+    input[type="text"]{
+      padding: 15px;
+      width: 90%;
+      background-color: #F3F3F3;
+      outline: none;
+      border-radius: 20px;
+      border: none;
+      margin-top: 20px;
+    }
+
+    
+    
+  }
+
+  .departments-container::-webkit-scrollbar {
+    width: 0.3rem;
+    background-color: var(--chat-background);
+  }
+
+  .departments-container::-webkit-scrollbar-thumb {
+    border-radius: 2rem;
+    background: #828a8ab4;
+    // min-height: 40px;
+    // max-height: 100px;
+  }
+
+  .departments-container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 60vh;
+    overflow-y: scroll;
+    
+    .department-not-found{
+      display: flex;
+      opacity: 0.6;
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+
+      i{
+        font-size: 1.3rem;
+        color: var(--text-dark);
+        
+      }
+    }
+
+    .department-item{
+      cursor: pointer;
+      margin: 3px 0;
+      width: 90%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      padding: 10px;
+      border-radius: 5px;
+
+      .selected-indicator{
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        border: 1px solid var(--main-green);
+      }
+
+      .right{
+        display: flex;
+        flex-direction: column;
+        margin-left: 0.7rem;
+
+        .office-name{
+          color: #303132;
+          font-weight: 500;
+        }
+
+        .department-name{
+          font-size: 0.7rem;
+          color: #303132;
+          opacity: 0.6;
+        }
+      }
+     
+    }
+
+    .department-item.selected{
+      background-color: #F3F3F3;
+
+      .selected-indicator{
+        background-color: var(--main-green);
+      }
+    }
+  }
+
+  .bottom-container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: center;
+    img{
+      width: 30px;
+      height: 30px;
+    }
+
+    .continue-btn{
+      background-color: var(--main-green);
+      padding: 15px 20px; 
+      cursor: pointer;
+      color: white;
+      outline: none;
+      border: none;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 4px;
+      img{
+        width: 20px;
+        height: 20px;
+      }
+    }
+
+    .continue-btn:disabled{
+      cursor: not-allowed;
+      opacity: 0.3;
+    }
+  }
+
+  .hor-line{
+    width: 90%;
+    background-color: #F3F4F4;
+    height: 1.7px;
   }
 }
 
