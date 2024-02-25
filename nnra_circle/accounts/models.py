@@ -17,7 +17,7 @@ class Office(models.Model):
 
 class Profile(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='profile')
-    dept = models.ForeignKey(Department, null=True, on_delete= models.SET_NULL)
+    office = models.ForeignKey(Office, null=True, on_delete= models.SET_NULL )
     profileImg= models.ImageField(upload_to='users/%Y/%M/%d', default='def-user-img.png')
     phone = models.CharField(max_length=11, null=True, blank=True)
     is_online = models.BooleanField(default=False)

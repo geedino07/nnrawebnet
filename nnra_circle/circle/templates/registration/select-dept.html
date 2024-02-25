@@ -8,11 +8,15 @@
     <img src="{% static 'img/graphic.png' %}" alt="" class="graphic-top-left">
     <img src="{% static 'img/bottom-right.png' %}" alt="" class="graphic-bottom-right"> -->
 
+    <input type="hidden" name="uid" value="{{ uid }}" id="uid">
 
     <div class="selectdept-container">
         <div class="header-search-title">
             <h3>Select your department</h3>
             <input type="text" placeholder="Search" class="search-input">
+            <div class="messages-container" id="messages-container">
+
+            </div>
         </div>
 
         <div class="hor-line"></div>
@@ -37,14 +41,15 @@
         <div class="hor-line"></div>
 
         <div class="bottom-container">
-            <button class="toggler-btn" style="width: max-content;">
+            <button class="toggler-btn" style="width: max-content;" id="btn-continue">
                 <img src="{% static 'img/spinner.gif' %}" alt="">
 
                 Continue</button>
         </div>
     </div>
 
-
+    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="{% static 'js/components.js' %}"></script>
     <script src="{% static 'js/select-dept.js' %}"></script>
 
 {% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Welcome | NNRA digital network {% endblock %}
+
+{% block content %}
+    
+    <img src="{% static 'img/graphic.png' %}" alt="" class="graphic-top-left">
+    <img src="{% static 'img/bottom-right.png' %}" alt="" class="graphic-bottom-right">
+
+    <section class="confirmotp-section">
+        <img src="{% static 'img/vector-user-happy.svg' %}" alt="Confirm your account">
+    
+        <div class="right-section">
+            <h1>Welcome aboard {{ user.username }} your account setup is now complete!</h1>
+            <p class="prompt-message" style="margin-top: 4px;">We're delighted to have you join 
+                the community. You'll be automatically logged in with your
+                email address, {{ user.email }} </p>
+
+                <button type="submit" class="toggler-btn" style="margin-top: 20px; width: 80%; max-width: 400px;">
+                    <img src="{% static 'img/spinner.gif' %}" alt="" >
+                    Continue
+                </button>
+        </div>
+    </section>
+{% endblock %}

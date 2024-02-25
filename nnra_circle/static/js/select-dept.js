@@ -1,6 +1,8 @@
 const searchInput = document.querySelector(".search-input");
 const departmentsContainer = document.querySelector(".departments-container");
-
+const btnContinue = document.getElementById('btn-continue')
+let selectedDepartment = null
+const userId = document.getElementById('uid').value
 class Office {
   constructor(officeName, departmentName) {
     this.officeName = officeName;
@@ -22,21 +24,57 @@ searchInput.addEventListener("input", function (text) {
   searchOfficesForUi(searchValue);
 });
 
+btnContinue.addEventListener('click', function(){
+    if ( !selectedDepartment){
+        showAlert('messages-container', "Please select a department", 'error', false)
+        return
+    }
+
+    setDepartment(userId, selectedDepartment)
+    btnContinue.disabled = true
+})
+
 departmentsContainer.addEventListener("click", function (e) {
     const clickedDepartment = e.target.closest('.department-item')
-    console.log(clickedDepartment)
     if (clickedDepartment){
         clickedDepartment.classList.add('selected')
-
         document.querySelectorAll('.department-item').forEach(function(item) {
             if (item !== clickedDepartment) {
                 item.classList.remove('selected');
             }
         });
 
+        const clickedOffice = officeList.find(office=> office.officeName == clickedDepartment.getAttribute('data-office_name'))
+        if (clickedOffice) selectedDepartment = clickedOffice
     }
 
 });
+
+function setDepartment(userId, selectedDepartment){
+    const csrftoken = Cookies.get('csrftoken')
+
+    const formData = new FormData()
+    formData.append('office_name', selectedDepartment.officeName)
+    formData.append('department_name', selectedDepartment.departmentName)
+
+    const options = {
+            method: 'POST',
+            headers: {'X-CSRFToken': csrftoken},
+            mode: 'same-origin',
+            body: formData
+        }
+    
+    fetch(`/accounts/selectdept/${userId}/`, options)
+    .then(response => {
+        if (response.status !== 200){
+            showAlert('messages-container', "An error occured, please try again", 'error', false)
+        }
+        else{
+            btnContinue.disabled= false
+            window.location.href = `/accounts/welcomeuser/${userId}/`
+        }
+    })
+}
 
 function searchOfficesForUi(word) {
   const offices = searchOffices(word);
@@ -52,7 +90,7 @@ function searchOfficesForUi(word) {
   }
 
   offices.forEach(function (office) {
-    const departmentItem = `<div class="department-item" data-office_name="{{office.office_name}}" data-dept_name="{{office.department.dept_name}}">
+    const departmentItem = `<div class="department-item" data-office_name="${office.officeName}" data-dept_name="${office.departmentName}">
         <span class="selected-indicator"></span>
         <div class="right">
             <p class="office-name">${office.officeName}</p>
@@ -68,8 +106,8 @@ function searchOffices(word) {
   itemsFound = officeList
     .filter(
       (office) =>
-        office.officeName.toLowerCase().includes(searchValue.toLowerCase()) ||
-        office.departmentName.toLowerCase().includes(searchValue.toLowerCase())
+        office.officeName.toLowerCase().includes(word.toLowerCase()) ||
+        office.departmentName.toLowerCase().includes(word.toLowerCase())
     )
     .reverse();
   return itemsFound;

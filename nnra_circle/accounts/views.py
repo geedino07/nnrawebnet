@@ -4,16 +4,66 @@ from .forms import UserRegistrationForm, LoginForm, OtpForm
 from django.contrib.auth.models import User
 from .utils import generate_send_otp_code
 from .models import Otpcode, Profile, Office
-import json
-from django.core.serializers import serialize
+from django.http import JsonResponse
+from django.http import HttpResponseRedirect
+
+
 
 # Create your views here.
+def welcome_user(request, uid):
+    try:
+        user = User.objects.get(id=uid)
+    except User.DoesNotExist:
+        user= None
+
+    return render(request, 'registration/regcomplete.html', {
+        'user': user
+    })
+
 
 def select_dept(request, uid):
     offices = Office.objects.all()
 
     if request.method == 'GET':
-        return render(request,'registration/select-dept.html', {'offices': offices})
+        return render(request,'registration/select-dept.html', {
+            'offices': offices,
+            'uid': uid})
+    elif request.method == 'POST':
+        office_name = request.POST.get('office_name')
+        
+        #get the selected office
+        try: 
+            office = Office.objects.get(office_name=office_name)
+        except Office.DoesNotExist:
+            office = None
+            return JsonResponse({
+                'status': 404, 
+                'message': 'Office not found'
+            }, status=404)
+
+        #Get the user
+        try: 
+            user = User.objects.get(id=uid)
+            profile = user.profile.first()
+        except User.DoesNotExist:
+            user= None
+            return JsonResponse({
+                'status': 404, 
+                'message': 'User not found'
+            }, status=404)
+        
+        if profile:
+            profile.office = office
+            profile.save()
+            return JsonResponse({
+                'status': 200, 
+                'message': 'Department set successfully'
+            }, status=200)
+        else:
+             return JsonResponse({
+                'status': 404, 
+                'message': 'User profile not found'
+            }, status=404)
 
 def resend_activation_code(request, uid):
     #get the user
@@ -39,7 +89,6 @@ def resend_activation_code(request, uid):
     else:
         messages.error(request, 'Fatal: An error occured.')
 
-
 def confirmcode(request, uid):
     #get the user with the uid
     try:
@@ -60,11 +109,14 @@ def confirmcode(request, uid):
 
             #check if the users account is already verified
             if profile and profile.is_email_verified:  
-                messages.success(request, 'Your email is already verified, please login to use your account.')
-                return render(request, 'registration/confirmotp.html', {
-                        'form': form,
-                        'user': user
-                })
+                if profile.office:
+                    messages.success(request, 'Your email is already verified, please login to use your account.')
+                    return render(request, 'registration/confirmotp.html', {
+                            'form': form,
+                            'user': user
+                    })
+                else:
+                    return redirect('accounts:selectdept', uid=user.id)
 
 
             #Validate otpcode
@@ -96,6 +148,7 @@ def confirmcode(request, uid):
                 #activate the user
                 user.is_active=True
                 messages.success(request, 'Account verified successfully')
+                return redirect('accounts:selectdept', uid=user.id)
             else: 
                 messages.error(request, 'Invalid code, please check the code in your mail and try again')
         else:
@@ -107,6 +160,7 @@ def confirmcode(request, uid):
     })
 
 def login(request):
+    messages.error(request, 'This is a test error')
     if request.method == 'POST':
         messages.success(request, 'Login successful')
     login_form = LoginForm()

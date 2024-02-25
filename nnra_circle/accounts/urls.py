@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('selectdept/<int:uid>/', views.select_dept, name='selectdept'),
+    path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser')
     # path('seed/department/', seed_departments, name='seeddartments'),
     # path('seed/offices/', seed_offices, name='seedoffices')
 ]

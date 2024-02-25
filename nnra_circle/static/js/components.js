@@ -30,7 +30,7 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
   }
 
 
-  function showAlert(containerId, message, tag, append=false){
+  function showAlert(containerId, message, tag='success', append=false){
       const container = document.getElementById(containerId)
       const alertHtml = `
             <div class="alert ${tag}">
