@@ -53,8 +53,11 @@
 @media screen and (max-width: 490px) {
   header {
     .container {
-      .el-three {
+      .el-three.desktop {
         display: none;
+      }
+      .el-three.phone{
+        display: block;
       }
     }
   }

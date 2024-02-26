@@ -9,9 +9,10 @@ urlpatterns = [
     path('confirmcode/<int:uid>/', views.confirmcode, name='confirmcode'),
     path('resendcode/<int:uid>/', views.resend_activation_code, name='resendcode'),
     path('register/', views.register, name='register'),
-    path('login/', views.login, name='login'),
+    path('login/', views.user_login, name='login'),
     path('selectdept/<int:uid>/', views.select_dept, name='selectdept'),
-    path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser')
+    path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser'),
+    path('editprofile/<int:uid>/', views.edit_profile, name='editprofile')
     # path('seed/department/', seed_departments, name='seeddartments'),
     # path('seed/offices/', seed_offices, name='seedoffices')
 ]

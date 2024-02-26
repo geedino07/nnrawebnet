@@ -66,11 +66,35 @@ header {
       }
     }
 
+
+
     .el-three {
       display: flex;
       flex-direction: row;
       align-items: center;
       gap: 5px;
+
+      .user-auth{
+        cursor: pointer;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        svg{
+          width: 20px;
+          height: 20px;
+          fill: var(--text-dark);
+        }
+
+        p{
+          margin-left: 5px;
+          font-weight: 500;
+          max-width: 70px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          text-wrap: nowrap;
+        }
+      }
 
       .signin {
         background-color: white;
@@ -90,6 +114,11 @@ header {
         border: none;
         outline: none;
       }
+    }
+
+    .el-three.phone{
+      display: none;
+      margin: 20px 0;
     }
   }
 }

@@ -6,16 +6,23 @@ from .utils import generate_send_otp_code
 from .models import Otpcode, Profile, Office
 from django.http import JsonResponse
 from django.http import HttpResponseRedirect
+from django.contrib.auth import authenticate, login
 
 
 
 # Create your views here.
+
+def edit_profile(request, uid):
+    return render(request, 'accounts/editprofile.html')
+
+
 def welcome_user(request, uid):
     try:
         user = User.objects.get(id=uid)
     except User.DoesNotExist:
         user= None
 
+    #TODO: create a 404 page and render thatt page if user is none
     return render(request, 'registration/regcomplete.html', {
         'user': user
     })
@@ -146,8 +153,8 @@ def confirmcode(request, uid):
                     user_profile.save()
                 
                 #activate the user
-                user.is_active=True
-                messages.success(request, 'Account verified successfully')
+                user.is_active = True
+                user.save()
                 return redirect('accounts:selectdept', uid=user.id)
             else: 
                 messages.error(request, 'Invalid code, please check the code in your mail and try again')
@@ -159,20 +166,37 @@ def confirmcode(request, uid):
         'user': user
     })
 
-def login(request):
-    messages.error(request, 'This is a test error')
+def user_login(request):
     if request.method == 'POST':
-        messages.success(request, 'Login successful')
-    login_form = LoginForm()
-    return render(request, 'registration/login.html', {'form': login_form})
+        form = LoginForm(data=request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+    
+            user = authenticate(request, username=cd['email'], password=cd['password'])
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    return redirect('/')
+                else:
+                    messages.error(request, 'Your account seems to be deactivated at this moment, please seek admin support.')
+            else:
+                messages.error(request, 'Invalid email or password.')
+        else:
+            messages.error(request, 'An error occured.')
+    else:
+        form = LoginForm()
+    return render(request, 'registration/login.html', {'form': form})
 
 def register(request):
     if request.method == 'POST':
         register_form = UserRegistrationForm(request.POST)
     
         if register_form.is_valid():               
+            cd = register_form.cleaned_data
+
             #create new user account
             user = register_form.save(commit=False)
+            user.set_password(cd['password'])
             user.is_active = False
             user.save()
 
