@@ -11,9 +11,15 @@ from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
+def list_items(request):
+    profiles = Profile.objects.all().select_related('user')
+    return render(request, 'accounts/listitems.html', {'profiles': profiles})
 
 def edit_profile(request, uid):
-    return render(request, 'accounts/editprofile.html')
+    offices = Office.objects.all()
+    return render(request, 'accounts/editprofile.html', {
+        'offices': offices
+    })
 
 
 def welcome_user(request, uid):

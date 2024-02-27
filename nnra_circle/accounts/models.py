@@ -24,6 +24,10 @@ class Profile(models.Model):
     joined = models.DateTimeField(auto_now_add=True)
     updated= models.DateTimeField(auto_now=True)
     is_email_verified = models.BooleanField(default=False)
+    about = models.TextField(blank=True, null=True)
+
+    def __str__(self) -> str:
+        return self.user.username
 
 class Otpcode(models.Model):
     class Type(models.TextChoices):

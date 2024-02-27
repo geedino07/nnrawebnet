@@ -1,0 +1,274 @@
+{% extends "base.html" %} {% load static %} {% block title %} View all users |
+NNRA digital network{% endblock %} {% block content %}
+<section class="list-all-section">
+  <div class="left-nav">
+    <img
+      src="{% static 'img/transp-logo.png' %}"
+      alt="Nigerian Nuclear Regulatory Authority"
+      class="logo-img"
+    />
+
+    <div class="options-select-container">
+      <div class="option-item selected">
+        <i class="ri-user-3-line"></i>
+      </div>
+
+      <div class="option-item">
+        <i class="ri-home-3-line"></i>
+      </div>
+
+      <div class="user-image-container">
+        <img src="{% static 'img/samples/s8.jpg' %}" alt="" />
+      </div>
+    </div>
+  </div>
+  <div class="middle-content">
+    <p class="top-heading-text">People</p>
+
+    <div class="search-filter-container">
+      <div class="search-input-container">
+        <input type="text" class="search-input" placeholder="Search a person" />
+        <i class="ri-search-line"></i>
+      </div>
+
+      <div class="filter">
+        <i class="ri-filter-2-line"></i>
+      </div>
+    </div>
+
+    <div class="user-cards-container">
+        {% for profile in profiles %}
+        <div class="user-card">
+            <img
+              src="{% static 'img/samples/s3.jpg' %}"
+              alt=""
+              class="profile-img"
+            />
+            <p class="txt-fullname">{{profile.user.get_full_name}}</p>
+            <p class="sub-text">{{profile.user.username}}</p>
+            <p class="sub-text">+2348143015512</p>
+    
+            <div class="status online">
+              <p>Online</p>
+            </div>
+    
+            <div class="department">
+              <i class="ri-home-3-line"></i>
+              <p>Nuclear security and something something</p>
+            </div>
+          </div>
+        {% endfor %}
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s3.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status online">
+          <p>Online</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security and something something</p>
+        </div>
+      </div>
+
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s4.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status online">
+          <p>Online</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security and something something</p>
+        </div>
+      </div>
+
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s5.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status online">
+          <p>Online</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security and something something</p>
+        </div>
+      </div>
+
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s6.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status online">
+          <p>Online</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security and something something</p>
+        </div>
+      </div>
+
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s7.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status online">
+          <p>Online</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security and something something</p>
+        </div>
+      </div>
+
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s8.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status online">
+          <p>Online</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security and something something</p>
+        </div>
+      </div>
+
+      <div class="user-card">
+        <img
+          src="{% static 'img/samples/s9.jpg' %}"
+          alt=""
+          class="profile-img"
+        />
+        <p class="txt-fullname">Martins Okonkwo</p>
+        <p class="sub-text">beekeeper</p>
+        <p class="sub-text">+2348143015512</p>
+
+        <div class="status offline">
+          <p>Offline</p>
+        </div>
+
+        <div class="department">
+          <i class="ri-home-3-line"></i>
+          <p>Nuclear security</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-profile-content">
+    <div class="profile-tile">
+      <div class="top-info">
+        <div class="left-con">
+          <h4 class="profile-username">Python Geek</h4>
+          <p class="profile-fullname">Onuh Kyrian Udochukwu</p>
+        </div>
+
+        <i class="ri-close-line"></i>
+      </div>
+
+      <div class="profile-img-status-con">
+        <div class="con">
+          <img
+            src="{% static 'img/samples/s1.jpg' %}"
+            alt=""
+            style="background-color: #acacad"
+          />
+          <div class="status">
+            <div class="circle"></div>
+            <p>Active</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile-information">
+        <p class="username">Python Geek</p>
+        <p class="about">
+          Web developer with passion for json, I love airplanes, bees and books.
+          I am eager to receive improved responsibilites and workload
+        </p>
+
+        <div class="extras-container">
+          <div class="extra">
+            <i class="ri-mail-fill"></i>
+            <div class="extra-info">
+              <p class="extra-description">Email Address</p>
+              <p class="extra-content">beescript@outlook.com</p>
+            </div>
+          </div>
+
+          <div class="extra">
+            <i class="ri-phone-fill"></i>
+            <div class="extra-info">
+              <p class="extra-description">Phone</p>
+              <p class="extra-content">08143015512</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button class="chat-with-person">
+        <i class="ri-message-2-line"></i>
+        <p>Message</p>
+      </button>
+    </div>
+
+    <div class="placeholder" style="display: none;">
+      <img
+        src="{% static 'img/transp-logo.png' %}"
+        alt="Nigerian Nuclear Regulatory Authority"
+      />
+      <p>NNRA digital network</p>
+    </div>
+
+    <div class="loading-container" style="display: none">
+      <img src="{% static 'img/spinner.gif' %}" alt="" />
+      <p>Fetching profile..</p>
+    </div>
+  </div>
+</section>
+{% endblock %}

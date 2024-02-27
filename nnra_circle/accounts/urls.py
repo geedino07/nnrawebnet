@@ -12,7 +12,8 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('selectdept/<int:uid>/', views.select_dept, name='selectdept'),
     path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser'),
-    path('editprofile/<int:uid>/', views.edit_profile, name='editprofile')
+    path('editprofile/<int:uid>/', views.edit_profile, name='editprofile'),
+    path('list/', views.list_items, name='listitems')
     # path('seed/department/', seed_departments, name='seeddartments'),
     # path('seed/offices/', seed_offices, name='seedoffices')
 ]
