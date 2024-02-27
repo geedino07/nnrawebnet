@@ -38,15 +38,17 @@ NNRA digital network{% endblock %} {% block content %}
 
     <div class="user-cards-container">
         {% for profile in profiles %}
-        <div class="user-card">
+        <div class="user-card" data-profile_id="{{profile.id}}">
             <img
-              src="{% static 'img/samples/s3.jpg' %}"
+              src="{{ profile.profileImg.url }}"
               alt=""
               class="profile-img"
             />
             <p class="txt-fullname">{{profile.user.get_full_name}}</p>
             <p class="sub-text">{{profile.user.username}}</p>
-            <p class="sub-text">+2348143015512</p>
+            {% if profile.phone %}
+            <p class="sub-text">{{profile.phone}}</p>
+            {% endif %}
     
             <div class="status online">
               <p>Online</p>
@@ -54,7 +56,7 @@ NNRA digital network{% endblock %} {% block content %}
     
             <div class="department">
               <i class="ri-home-3-line"></i>
-              <p>Nuclear security and something something</p>
+              <p>{{profile.office.office_name}}</p>
             </div>
           </div>
         {% endfor %}
@@ -201,7 +203,7 @@ NNRA digital network{% endblock %} {% block content %}
   </div>
 
   <div class="right-profile-content">
-    <div class="profile-tile">
+    <div class="profile-tile" style="display: none;">
       <div class="top-info">
         <div class="left-con">
           <h4 class="profile-username">Python Geek</h4>
@@ -257,7 +259,7 @@ NNRA digital network{% endblock %} {% block content %}
       </button>
     </div>
 
-    <div class="placeholder" style="display: none;">
+    <div class="placeholder">
       <img
         src="{% static 'img/transp-logo.png' %}"
         alt="Nigerian Nuclear Regulatory Authority"

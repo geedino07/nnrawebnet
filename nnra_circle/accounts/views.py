@@ -12,7 +12,7 @@ from django.contrib.auth import authenticate, login
 
 # Create your views here.
 def list_items(request):
-    profiles = Profile.objects.all().select_related('user')
+    profiles = Profile.objects.all().select_related('user', 'office')
     return render(request, 'accounts/listitems.html', {'profiles': profiles})
 
 def edit_profile(request, uid):

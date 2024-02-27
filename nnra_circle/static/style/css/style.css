@@ -1957,10 +1957,11 @@ header .container .el-three.phone {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 100%;
+  max-width: 100%;
+  justify-self: baseline;
+  margin-top: 20px;
 }
 .list-all-section .middle-content .user-cards-container .user-card .department i {
   font-size: 0.9rem;
@@ -1969,6 +1970,7 @@ header .container .el-three.phone {
 .list-all-section .middle-content .user-cards-container .user-card .department p {
   overflow: hidden;
   width: 100%;
+  max-width: 100%;
   text-overflow: ellipsis;
   text-wrap: nowrap;
   font-size: 0.85rem;
