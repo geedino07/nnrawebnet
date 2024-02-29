@@ -94,6 +94,11 @@
               <p>{{profile.office.office_name}}</p>
             </div>
           </div>
+          {% empty %}
+          <div class="empty-result">
+            <i class="ri-indeterminate-circle-line"></i>
+            <p>No User matches your lookup</p>
+          </div>
         {% endfor %}
 
       <!-- <div class="user-card">
