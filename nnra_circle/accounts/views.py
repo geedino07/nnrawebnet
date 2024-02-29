@@ -4,16 +4,58 @@ from .forms import UserRegistrationForm, LoginForm, OtpForm
 from django.contrib.auth.models import User
 from .utils import generate_send_otp_code
 from .models import Otpcode, Profile, Office
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.http import HttpResponseRedirect
 from django.contrib.auth import authenticate, login
-
+from django.forms.models import model_to_dict
+from .serializers import ProfileSerializer
+from django.db.models import Q, F
 
 
 # Create your views here.
+def get_user_profile(request, profile_id):
+    if request.method == 'POST':
+        try: 
+            # profile = Profile.objects.filter(id=profile_id).select_related('user', 'office')
+            profile = Profile.objects.get(id=profile_id)
+        except Profile.DoesNotExist:
+            return JsonResponse({
+                'status': 404,
+                'message': 'Profile not found'
+            }, status=404)
+        
+        serialiazer = ProfileSerializer(profile)
+
+        return JsonResponse({
+            'status': 200, 
+            'message': 'Success',
+            'profile': serialiazer.data
+        }, status=200)
+
 def list_items(request):
+    search= request.GET.get('search')
+    fd = request.GET.get('fd')
+
     profiles = Profile.objects.all().select_related('user', 'office')
-    return render(request, 'accounts/listitems.html', {'profiles': profiles})
+    offices = Office.objects.all()
+
+    if search is not None:
+        username_lookup = Q(user__username__icontains=search)
+        firstname_lookup = Q(user__first_name__icontains=search)
+        lastname_lookup = Q(user__last_name__icontains=search)
+        fullname_lookup = Q(fullname__icontains=search)
+        profiles = profiles.filter(username_lookup | firstname_lookup | lastname_lookup | fullname_lookup)
+    
+    if fd is not None:
+        office_lookup = Q(office__office_name__icontains=fd)
+        # department_lookup = Q(office__department__dept_name__icontains=fd)
+        profiles = profiles.filter(office_lookup)
+
+    return render(request, 'accounts/listitems.html', {
+        'profiles': profiles,
+        'search_term': search, 
+        'offices': offices,
+        'fd': fd})
 
 def edit_profile(request, uid):
     offices = Office.objects.all()

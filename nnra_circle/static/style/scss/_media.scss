@@ -252,3 +252,104 @@
     }
   }
 }
+
+
+//============================ PEOPLE LIST MEDIA QUERY ================================
+
+@media  screen and (max-width: 865px) {
+  .profile-tile{
+    .top-info{
+      i{
+        display: block;
+      }
+    }
+  }
+
+  .list-all-section{
+    .middle-content{
+      width: 90%;
+    }
+
+    .right-profile-content{
+      display: none;
+    }
+    .right-profile-content.visible{
+      z-index: 10;
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+      position: absolute;
+
+      .placeholder{
+        display: none;
+      }
+
+      .loading-container{
+        display: none;
+      }
+
+    }
+  }
+}
+
+@media screen and (max-width: 700px){
+  .list-all-section{
+    .left-nav{
+      .user-image-container{
+        img{
+          width: 40px;
+          height: 40px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px){
+  .list-all-section{
+    flex-direction: column-reverse;
+
+    .left-nav{
+      width: 100%;
+      min-height: auto;
+      position: fixed;
+      bottom: 0;
+      flex-direction: row;
+      padding: 5px 0;
+      z-index: 9;
+      background-color: white;
+
+      .logo-img{
+        display: none;
+        margin-top: 0;
+      }
+
+      .options-select-container{
+        margin-left: 5px;
+        margin-top: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+      }
+      .user-image-container{
+        position: relative;
+        margin-bottom: 0;
+      }
+    }
+
+    .middle-content{
+      width: 100%;
+      padding: 20px 10px;
+
+      .user-cards-container{
+        justify-items: center;
+        margin-bottom: 50px;
+
+        .user-card{
+          max-width: 300px;
+        }
+      }
+    }
+  }
+}

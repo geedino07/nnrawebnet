@@ -2,6 +2,8 @@ const searchInput = document.querySelector(".search-input");
 const departmentsContainer = document.querySelector(".departments-container");
 const btnContinue = document.getElementById('btn-continue')
 let selectedDepartment = null
+
+
 const userId = document.getElementById('uid').value
 class Office {
   constructor(officeName, departmentName) {
@@ -15,7 +17,7 @@ const departmentItems = document.querySelectorAll(".department-item");
 
 departmentItems.forEach(function (departmentItem) {
   const officeName = departmentItem.getAttribute("data-office_name");
-  const departmentName = departmentItem.getAttribute("data-dept_name");
+  const departmentName = departmentItem.getAttribute("data-office_id");
   officeList.push(new Office(officeName, departmentName));
 });
 

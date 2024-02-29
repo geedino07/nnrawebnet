@@ -25,9 +25,22 @@ class Profile(models.Model):
     updated= models.DateTimeField(auto_now=True)
     is_email_verified = models.BooleanField(default=False)
     about = models.TextField(blank=True, null=True)
+    fullname = models.CharField(max_length=100, null=True, blank=True)
+
+    class Meta:
+        ordering = ['-joined']
+        indexes = [
+            models.Index(fields=['-joined'])
+        ]
+
 
     def __str__(self) -> str:
         return self.user.username
+    
+    def save(self, *args, **kwargs):
+        self.fullname = self.user.get_full_name()
+        super().save(*args, **kwargs)
+        
 
 class Otpcode(models.Model):
     class Type(models.TextChoices):

@@ -22,7 +22,6 @@
         <div class="hor-line"></div>
 
         <div class="departments-container">
-          
             {% for office in offices %}
             <div class="department-item" data-office_name="{{office.office_name}}" data-dept_name="{{office.department.dept_name}}">
                 <span class="selected-indicator"></span>
@@ -32,12 +31,7 @@
                 </div>
             </div>
             {% endfor %}
-
-           
         </div>
-
-       
-
         <div class="hor-line"></div>
 
         <div class="bottom-container">

@@ -1,5 +1,9 @@
-{% extends "base.html" %} {% load static %} {% block title %} View all users |
-NNRA digital network{% endblock %} {% block content %}
+{% extends "base.html" %} 
+{% load static %} 
+
+{% block title %} View all users | NNRA digital network {% endblock %} 
+
+{% block content %}
 <section class="list-all-section">
   <div class="left-nav">
     <img
@@ -23,22 +27,53 @@ NNRA digital network{% endblock %} {% block content %}
     </div>
   </div>
   <div class="middle-content">
-    <p class="top-heading-text">People</p>
+    <div class="top-middle">
+      <p class="top-heading-text">People</p>
+
+      {% if fd or search_term %}
+      <div class="filter-present">
+        <p class="filter-msg">Applying filters</p>
+
+        <div class="filters-container">
+          {% if search_term %}
+          <div class="filter">
+            <p>{{ search_term }}</p>
+            <a href="/accounts/list/{% if fd %}?fd={{ fd }} {% endif %}"><i class="ri-close-line"></i></a>
+          </div>
+          {% endif %}
+
+          {% if fd %}
+          <div class="filter">
+            <p>{{fd}}</p>
+            <a href="/accounts/list/{% if search_term %}?search={{search_term}} {% endif %}"><i class="ri-close-line"></i></a>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}
+      
+    </div>
 
     <div class="search-filter-container">
-      <div class="search-input-container">
-        <input type="text" class="search-input" placeholder="Search a person" />
-        <i class="ri-search-line"></i>
-      </div>
+      <form class="search-input-container" id="search-form">
+        {% csrf_token %}
+        {% if search_term %}
+        <input type="text" class="search-input" placeholder="Search a person" value="{{search_term}}" />
+        {% else %}
+        <input type="text" class="search-input" placeholder="Search a person"/>
+        {% endif %}
 
-      <div class="filter">
+        <i class="ri-search-line"></i>
+      </form>
+
+      <div class="filter" id="btn-filter-dept">
         <i class="ri-filter-2-line"></i>
       </div>
     </div>
 
     <div class="user-cards-container">
         {% for profile in profiles %}
-        <div class="user-card" data-profile_id="{{profile.id}}">
+        <div class="user-card" data-profile_id="{{profile.id}}" data-username="{{profile.user.username}}" data-firstname="{{profile.user.first_name}}" data-lastname="{{profile.user.last_name}}">
             <img
               src="{{ profile.profileImg.url }}"
               alt=""
@@ -60,7 +95,8 @@ NNRA digital network{% endblock %} {% block content %}
             </div>
           </div>
         {% endfor %}
-      <div class="user-card">
+
+      <!-- <div class="user-card">
         <img
           src="{% static 'img/samples/s3.jpg' %}"
           alt=""
@@ -78,188 +114,73 @@ NNRA digital network{% endblock %} {% block content %}
           <i class="ri-home-3-line"></i>
           <p>Nuclear security and something something</p>
         </div>
-      </div>
+      </div> -->
 
-      <div class="user-card">
-        <img
-          src="{% static 'img/samples/s4.jpg' %}"
-          alt=""
-          class="profile-img"
-        />
-        <p class="txt-fullname">Martins Okonkwo</p>
-        <p class="sub-text">beekeeper</p>
-        <p class="sub-text">+2348143015512</p>
-
-        <div class="status online">
-          <p>Online</p>
-        </div>
-
-        <div class="department">
-          <i class="ri-home-3-line"></i>
-          <p>Nuclear security and something something</p>
-        </div>
-      </div>
-
-      <div class="user-card">
-        <img
-          src="{% static 'img/samples/s5.jpg' %}"
-          alt=""
-          class="profile-img"
-        />
-        <p class="txt-fullname">Martins Okonkwo</p>
-        <p class="sub-text">beekeeper</p>
-        <p class="sub-text">+2348143015512</p>
-
-        <div class="status online">
-          <p>Online</p>
-        </div>
-
-        <div class="department">
-          <i class="ri-home-3-line"></i>
-          <p>Nuclear security and something something</p>
-        </div>
-      </div>
-
-      <div class="user-card">
-        <img
-          src="{% static 'img/samples/s6.jpg' %}"
-          alt=""
-          class="profile-img"
-        />
-        <p class="txt-fullname">Martins Okonkwo</p>
-        <p class="sub-text">beekeeper</p>
-        <p class="sub-text">+2348143015512</p>
-
-        <div class="status online">
-          <p>Online</p>
-        </div>
-
-        <div class="department">
-          <i class="ri-home-3-line"></i>
-          <p>Nuclear security and something something</p>
-        </div>
-      </div>
-
-      <div class="user-card">
-        <img
-          src="{% static 'img/samples/s7.jpg' %}"
-          alt=""
-          class="profile-img"
-        />
-        <p class="txt-fullname">Martins Okonkwo</p>
-        <p class="sub-text">beekeeper</p>
-        <p class="sub-text">+2348143015512</p>
-
-        <div class="status online">
-          <p>Online</p>
-        </div>
-
-        <div class="department">
-          <i class="ri-home-3-line"></i>
-          <p>Nuclear security and something something</p>
-        </div>
-      </div>
-
-      <div class="user-card">
-        <img
-          src="{% static 'img/samples/s8.jpg' %}"
-          alt=""
-          class="profile-img"
-        />
-        <p class="txt-fullname">Martins Okonkwo</p>
-        <p class="sub-text">beekeeper</p>
-        <p class="sub-text">+2348143015512</p>
-
-        <div class="status online">
-          <p>Online</p>
-        </div>
-
-        <div class="department">
-          <i class="ri-home-3-line"></i>
-          <p>Nuclear security and something something</p>
-        </div>
-      </div>
-
-      <div class="user-card">
-        <img
-          src="{% static 'img/samples/s9.jpg' %}"
-          alt=""
-          class="profile-img"
-        />
-        <p class="txt-fullname">Martins Okonkwo</p>
-        <p class="sub-text">beekeeper</p>
-        <p class="sub-text">+2348143015512</p>
-
-        <div class="status offline">
-          <p>Offline</p>
-        </div>
-
-        <div class="department">
-          <i class="ri-home-3-line"></i>
-          <p>Nuclear security</p>
-        </div>
-      </div>
+     
+      
     </div>
   </div>
 
-  <div class="right-profile-content">
-    <div class="profile-tile" style="display: none;">
-      <div class="top-info">
-        <div class="left-con">
-          <h4 class="profile-username">Python Geek</h4>
-          <p class="profile-fullname">Onuh Kyrian Udochukwu</p>
-        </div>
+  <div class="right-profile-content" id="profile-section">
 
-        <i class="ri-close-line"></i>
-      </div>
-
-      <div class="profile-img-status-con">
-        <div class="con">
-          <img
-            src="{% static 'img/samples/s1.jpg' %}"
-            alt=""
-            style="background-color: #acacad"
-          />
-          <div class="status">
-            <div class="circle"></div>
-            <p>Active</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="profile-information">
-        <p class="username">Python Geek</p>
-        <p class="about">
-          Web developer with passion for json, I love airplanes, bees and books.
-          I am eager to receive improved responsibilites and workload
-        </p>
-
-        <div class="extras-container">
-          <div class="extra">
-            <i class="ri-mail-fill"></i>
-            <div class="extra-info">
-              <p class="extra-description">Email Address</p>
-              <p class="extra-content">beescript@outlook.com</p>
+    <div class="profile-tile-container profile" style="display: none;">
+        <div class="profile-tile profile">
+            <div class="top-info">
+              <div class="left-con">
+                <h4 class="profile-username">[404]</h4>
+                <p class="profile-fullname">[404]</p>
+              </div>
+      
+              <i class="ri-close-line" onclick="closeRightProfileContent()"></i>
             </div>
-          </div>
-
-          <div class="extra">
-            <i class="ri-phone-fill"></i>
-            <div class="extra-info">
-              <p class="extra-description">Phone</p>
-              <p class="extra-content">08143015512</p>
+      
+            <div class="profile-img-status-con">
+              <div class="con">
+                <img
+                  src="{% static 'img/samples/s1.jpg' %}"
+                  alt=""
+                  style="background-color: #acacad"
+                />
+                <div class="status">
+                  <div class="circle"></div>
+                  <p>[404]</p>
+                </div>
+              </div>
             </div>
+      
+            <div class="profile-information">
+              <p class="username">[404]</p>
+              <p class="about">
+                [404]
+              </p>
+      
+              <div class="extras-container">
+                <div class="extra">
+                  <i class="ri-mail-fill"></i>
+                  <div class="extra-info">
+                    <p class="extra-description">Email Address</p>
+                    <p class="extra-content">[404]</p>
+                  </div>
+                </div>
+      
+                <div class="extra">
+                  <i class="ri-phone-fill"></i>
+                  <div class="extra-info">
+                    <p class="extra-description">Phone</p>
+                    <p class="extra-content">[404]</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+            <button class="chat-with-person">
+              <i class="ri-message-2-line"></i>
+              <p>[404]</p>
+            </button>
           </div>
-        </div>
-      </div>
-
-      <button class="chat-with-person">
-        <i class="ri-message-2-line"></i>
-        <p>Message</p>
-      </button>
     </div>
-
-    <div class="placeholder">
+    
+    <div class="placeholder idle">
       <img
         src="{% static 'img/transp-logo.png' %}"
         alt="Nigerian Nuclear Regulatory Authority"
@@ -267,10 +188,48 @@ NNRA digital network{% endblock %} {% block content %}
       <p>NNRA digital network</p>
     </div>
 
-    <div class="loading-container" style="display: none">
+    <div class="loading-container loading" style="display: none">
       <img src="{% static 'img/spinner.gif' %}" alt="" />
       <p>Fetching profile..</p>
     </div>
   </div>
 </section>
+
+<div class="modal-section" id="select-dept-modal">
+  <div class="modal-content" style="padding: 10px;">
+    <div class="header-search-title">
+        <h3 style="font-size: 0.9rem;">Filter by department</h3>
+        <!-- <input type="text" placeholder="Search" class="search-input"> -->
+        <div class="messages-container" id="messages-container">
+
+        </div>
+    </div>
+
+  <div class="hor-line"></div>
+    <div class="departments-container">
+      
+      {% for office in offices %}
+      <div class="department-item" data-office_name="{{office.office_name}}" data-dept_name="{{office.department.dept_name}}" data-office_id-="{{office.id}}">
+          <span class="selected-indicator"></span>
+          <div class="right">
+              <p class="office-name">{{ office.office_name }}</p>
+              <p class="department-name">{{ office.department.dept_name }}</p>
+          </div>
+      </div>
+      {% endfor %}
+  </div>
+  <div class="hor-line"></div>
+
+  <div class="bottom-container" style="justify-content: center;">
+      <button class="toggler-btn" style="width: max-content;" id="btn-continue">
+          <img src="{% static 'img/spinner.gif' %}" alt="">Apply</button>
+  </div>
+</div>
+  </div>
+</div>
+
+<script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script src="{% static 'js/components.js' %}"></script>
+<script src="{% static 'js/list.js' %}"></script>
+
 {% endblock %}

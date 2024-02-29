@@ -30,7 +30,7 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
   }
 
 
-  function showAlert(containerId, message, tag='success', append=false){
+function showAlert(containerId, message, tag='success', append=false){
       const container = document.getElementById(containerId)
       const alertHtml = `
             <div class="alert ${tag}">
@@ -115,4 +115,37 @@ function showToast({
 function disableToggler(button){
   button.disabled=true
   console.log('button disabled')
+}
+
+function changeProfileHolderState(containerId, state){
+  const container = document.getElementById(containerId)
+  for(let i=0; i< container.children.length; i++){
+    const child = container.children[i]
+    
+    if(window.innerWidth > 865){
+      if(child.classList.contains(state)){
+        child.style.display = 'flex'
+      }
+      else{
+        child.style.display= 'none';
+      }
+    }
+    else{
+      const rightProfileContent = document.querySelector('.right-profile-content')
+      if(child.classList.contains('profile') && state == 'profile'){
+        rightProfileContent.classList.add('visible')
+        child.style.display = 'flex'
+      }
+      else{
+        child.style.display = 'none'
+      }
+    }
+   
+  }
+  
+}
+
+function closeRightProfileContent(){
+  const rightProfileContent = document.querySelector('.right-profile-content')
+  rightProfileContent.classList.remove('visible')
 }

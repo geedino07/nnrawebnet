@@ -2,7 +2,6 @@
 @import "config/config";
 
 .profile-tile {
-  background-color: red;
   width: 100%;
   position: relative;
   height: 100vh;
@@ -29,6 +28,7 @@
     }
 
     i {
+      display: none;
       font-size: 1.3rem;
       cursor: pointer;
     }
@@ -42,12 +42,19 @@
     align-items: center;
 
     .con {
+      width: 90%;
+      max-width: 200px;
       position: relative;
+      height: max-content;
 
       img {
-        width: 80%;
+        width: 100%;
+        height: 150px;
         max-width: 200px;
         border-radius: 8px;
+        object-fit: cover;
+        object-position: center;
+        margin: auto;
       }
 
       .status {
@@ -1695,9 +1702,86 @@ header {
     flex-direction: column;
     padding: 20px;
 
-    .top-heading-text{
-      font-size: 1.2rem;
+    .top-middle{
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+
+      .top-heading-text{
+        font-size: 1.2rem;
+      }
+
+      .filter-present{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        .filter-msg{
+          font-weight: 500;
+          font-size: 0.8rem;
+        }
+        .filters-container{
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 5px;
+          margin-top: 5px;
+  
+          .filter{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background-color: var(--chat-background);
+            padding: 0.5rem;
+            border-radius: 5px;
+            gap: 5px;
+            p{
+              font-size: 0.8rem;
+              max-width: 100px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              text-wrap: nowrap;
+              opacity: 0.7;
+            }
+            
+            a{
+              text-decoration: none;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: var(--text-dark);
+             
+            }
+            i{
+              font-size: 1.2rem;
+               cursor: pointer;
+               color: var(--text-dark);
+            }
+          }
+        }
+      }
+      
+
+      
+
+      .cancel-search-con{
+        display: flex;
+        flex-direction: column;
+
+        a{
+          font-size: 0.9rem;
+          color: var(--main-green);
+        }
+      }
+
+      .searching-for{
+        font-size: 0.8rem;
+        opacity: 0.7;
+      }
+
+
+    
     }
+   
 
     .search-filter-container{
       display: flex;
@@ -1706,12 +1790,15 @@ header {
       margin-top: 20px;
 
       .search-input-container{
-        background-color: white;
         position: relative;
         width: 80%;
         max-width: 350px;
         border-radius: 10px;
-
+        display: flex;
+        background-color: white;
+        flex-direction: row;
+        margin: 0;
+      
         input{
           outline: none;
           border: none;
@@ -1860,6 +1947,9 @@ header {
     align-items: center;
     justify-content: center;
 
+    .profile{
+      width: 100%;
+    }
     .loading-container{
       display: flex;
       flex-direction: column;

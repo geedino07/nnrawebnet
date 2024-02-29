@@ -37,6 +37,155 @@ html::-webkit-scrollbar-thumb {
 
 ///// =================== OTHER STYLES ========================
 
+.header-search-title{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;  
+  input[type="text"]{
+    padding: 15px;
+    width: 90%;
+    background-color: #F3F3F3;
+    outline: none;
+    border-radius: 20px;
+    border: none;
+    margin-top: 10px;
+  }  
+}
+
+.departments-container::-webkit-scrollbar {
+  width: 0.3rem;
+  background-color: var(--chat-background);
+}
+
+.departments-container::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: #828a8ab4;
+}
+
+.departments-container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 60vh;
+  overflow-y: scroll;
+  
+  .department-not-found{
+    display: flex;
+    opacity: 0.6;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+
+    i{
+      font-size: 1.3rem;
+      color: var(--text-dark);
+      
+    }
+  }
+
+  .department-item{
+    cursor: pointer;
+    margin: 3px 0;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 10px;
+    border-radius: 5px;
+
+    .selected-indicator{
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      border: 1px solid var(--main-green);
+    }
+
+    .right{
+      display: flex;
+      flex-direction: column;
+      margin-left: 0.7rem;
+
+      .office-name{
+        color: #303132;
+        font-weight: 500;
+      }
+
+      .department-name{
+        font-size: 0.7rem;
+        color: #303132;
+        opacity: 0.6;
+      }
+    }
+   
+  }
+
+  .department-item.selected{
+    background-color: #F3F3F3;
+
+    .selected-indicator{
+      background-color: var(--main-green);
+    }
+  }
+}
+
+.bottom-container{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-items: center;
+  img{
+    width: 30px;
+    height: 30px;
+  }
+
+  button{
+    background-color:var(--main-green);
+    width: 90% !important;
+  }
+}
+
+.hor-line{
+  width: 90%;
+  background-color: #F3F4F4;
+  height: 1.7px;
+}
+
+.modal-section{
+  z-index: 999;
+  background-color: rgba(0,0,0,0.3);
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  .modal-content{
+      background-color: white;
+      width: 90%;
+      max-width: 400px;
+      padding: var(--default-modal-padding);
+      border-radius: 5px;
+
+      p{
+          opacity: 0.7;
+      }
+  }
+}
+
+.modal-section.visible{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+
 .toggler-btn {
   background-color: var(--main-green);
   color: white;
