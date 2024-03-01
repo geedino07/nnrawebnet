@@ -181,10 +181,14 @@ function makeProfileTile(profile){
       </div>
     </div>
 
-    <button class="chat-with-person">
-      <i class="ri-message-2-line"></i>
-      <p>Message</p>
-    </button>
+    <a href="/chat/room/?chat=${profile.user.id}" class="chat-link">
+      <button class="chat-with-person">
+          <i class="ri-message-2-line"></i>
+          <p>Message</p>
+      </button>
+    </a>
+
+
   </div>
     `
 

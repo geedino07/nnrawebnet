@@ -136,31 +136,36 @@
     }
   }
 
-  .chat-with-person {
-    width: 80%;
-    max-width: 600px;
-    align-self: center;
-    background-color: var(--main-green);
-    display: flex;
-    flex-direction: row;
-    padding: 15px;
-    border: none;
-    outline: none;
-    align-items: center;
-    border-radius: 8px;
-    cursor: pointer;
+  .chat-link{
+    align-self: center;  
     position: absolute;
     bottom: 30px;
-    i {
-      font-size: 1.2rem;
-      color: white;
-    }
-    p {
-      color: white;
-      margin-left: 10px;
-      font-weight: 500;
+    width: 80%;
+    text-decoration: none;
+    .chat-with-person {
+      max-width: 600px;
+      width: 100%;
+      background-color: var(--main-green);
+      display: flex;
+      flex-direction: row;
+      padding: 15px;
+      border: none;
+      outline: none;
+      align-items: center;
+      border-radius: 8px;
+      cursor: pointer;
+      i {
+        font-size: 1.2rem;
+        color: white;
+      }
+      p {
+        color: white;
+        margin-left: 10px;
+        font-weight: 500;
+      }
     }
   }
+ 
 }
 
 header {
@@ -1867,6 +1872,7 @@ header {
           color: var(--text-dark);
         }
       }
+
       .user-card{
         display: flex;
         flex-direction: column;

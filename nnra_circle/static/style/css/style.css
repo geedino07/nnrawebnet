@@ -642,10 +642,16 @@ footer .copyright-message p {
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.profile-tile .chat-with-person {
-  width: 80%;
-  max-width: 600px;
+.profile-tile .chat-link {
   align-self: center;
+  position: absolute;
+  bottom: 30px;
+  width: 80%;
+  text-decoration: none;
+}
+.profile-tile .chat-link .chat-with-person {
+  max-width: 600px;
+  width: 100%;
   background-color: var(--main-green);
   display: flex;
   flex-direction: row;
@@ -655,14 +661,12 @@ footer .copyright-message p {
   align-items: center;
   border-radius: 8px;
   cursor: pointer;
-  position: absolute;
-  bottom: 30px;
 }
-.profile-tile .chat-with-person i {
+.profile-tile .chat-link .chat-with-person i {
   font-size: 1.2rem;
   color: white;
 }
-.profile-tile .chat-with-person p {
+.profile-tile .chat-link .chat-with-person p {
   color: white;
   margin-left: 10px;
   font-weight: 500;

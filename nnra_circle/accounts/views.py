@@ -4,15 +4,30 @@ from .forms import UserRegistrationForm, LoginForm, OtpForm
 from django.contrib.auth.models import User
 from .utils import generate_send_otp_code
 from .models import Otpcode, Profile, Office
-from django.http import JsonResponse, HttpResponse
-from django.http import HttpResponseRedirect
-from django.contrib.auth import authenticate, login
-from django.forms.models import model_to_dict
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login, logout
 from .serializers import ProfileSerializer
-from django.db.models import Q, F
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
+
+@login_required
+def log_out(request):
+    logout(request)
+    return redirect('/')
+
+@login_required
+def network_prompt(request):
+    user = request.user
+    try: 
+        office = Office.objects.get(user=user)
+    except Office.DoesNotExist:
+        return redirect('accounts:selectdept')
+    return render(request, 'accounts/networkprompt.html')
+
+
 def get_user_profile(request, profile_id):
     if request.method == 'POST':
         try: 
@@ -32,9 +47,12 @@ def get_user_profile(request, profile_id):
             'profile': serialiazer.data
         }, status=200)
 
+@login_required
 def list_items(request):
     search= request.GET.get('search')
     fd = request.GET.get('fd')
+    user= request.user
+    user_profile = Profile.objects.filter(user=user).select_related('user').first()#getting the profile for the currently logged in user
 
     profiles = Profile.objects.all().select_related('user', 'office')
     offices = Office.objects.all()
@@ -55,7 +73,8 @@ def list_items(request):
         'profiles': profiles,
         'search_term': search, 
         'offices': offices,
-        'fd': fd})
+        'fd': fd, 
+        'user_profile': user_profile})
 
 def edit_profile(request, uid):
     offices = Office.objects.all()
