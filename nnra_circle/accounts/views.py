@@ -21,12 +21,32 @@ def log_out(request):
 @login_required
 def network_prompt(request):
     user = request.user
-    try: 
-        office = Office.objects.get(user=user)
-    except Office.DoesNotExist:
-        return redirect('accounts:selectdept')
-    return render(request, 'accounts/networkprompt.html')
 
+    try:
+        profile = Profile.objects.select_related('user', 'office').get(user=user)
+    except Profile.DoesNotExist:
+        return redirect('accounts:resendcode', uid=user.id)
+    
+    if not profile.office:
+        return redirect('accounts:selectdept', uid=user.id)
+
+    peopley_may_know = get_people_may_know(user_profile=profile)
+    return render(request, 'accounts/networkprompt.html', {
+        'people_may_know': peopley_may_know
+    })
+
+
+def get_people_may_know(user_profile):
+    required_number = 5
+    users = Profile.objects.exclude(user=user_profile.user).filter(office =user_profile.office)
+    number_of_users = users.count()
+    remainder = required_number - number_of_users
+
+    if remainder > 0:
+        users_value = users.values_list('id', flat=True)
+        more_users = Profile.objects.exclude(Q(id=user_profile.id) | Q(id__in=users_value))[:remainder]
+        users = more_users | users 
+    return users
 
 def get_user_profile(request, profile_id):
     if request.method == 'POST':
@@ -172,6 +192,7 @@ def confirmcode(request, uid):
         user= None
     except Profile.DoesNotExist:
         profile = None
+
     if request.method == 'GET':
         form = OtpForm()
     elif request.method == 'POST':

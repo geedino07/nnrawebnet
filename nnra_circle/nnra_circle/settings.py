@@ -36,6 +36,8 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'chat.apps.ChatConfig',
     'circle.apps.CircleConfig',
     'accounts.apps.AccountsConfig',
@@ -117,6 +119,9 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend', 
     'accounts.authentication.EmailBackend'
 ]
+
+ASGI_APPLICATION = "nnra_circle.asgi.application"
+
 
 
 # Internationalization

@@ -54,6 +54,80 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.user-item {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+  padding: 10px 20px;
+  align-items: center;
+  justify-content: space-between;
+  width: 90%;
+  max-width: 400px;
+  cursor: pointer;
+  margin-top: 10px;
+  text-decoration: none;
+}
+.user-item .con {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.user-item .con .image-container {
+  width: 55px !important;
+  height: 55px !important;
+  background-color: #e5e5e5;
+  border-radius: 50%;
+}
+.user-item .con .image-container img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 50%;
+}
+.user-item .con .username-msg {
+  margin-left: 10px;
+}
+.user-item .con .username-msg h5 {
+  max-width: 270px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+}
+.user-item .con .username-msg .l-message {
+  max-width: 260px;
+  font-size: 0.65rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--soft-grey);
+}
+.user-item .time-num {
+  display: flex;
+  flex-direction: column;
+  justify-self: flex-end;
+  align-items: center;
+}
+.user-item .time-num .time {
+  font-size: 0.8rem;
+}
+.user-item .time-num .num-container {
+  background-color: var(--main-green);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+}
+.user-item .time-num .num-container .num {
+  color: white;
+  font-size: 0.7rem;
+}
+
 .header-search-title {
   display: flex;
   flex-direction: column;
@@ -1671,7 +1745,7 @@ header .container .el-three.phone {
 .selectdept-container .header-search-title input[type=text] {
   padding: 15px;
   width: 90%;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   outline: none;
   border-radius: 20px;
   border: none;
@@ -1735,7 +1809,7 @@ header .container .el-three.phone {
   opacity: 0.6;
 }
 .selectdept-container .departments-container .department-item.selected {
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 }
 .selectdept-container .departments-container .department-item.selected .selected-indicator {
   background-color: var(--main-green);
@@ -1775,7 +1849,7 @@ header .container .el-three.phone {
 }
 .selectdept-container .hor-line {
   width: 90%;
-  background-color: #F3F4F4;
+  background-color: #f3f4f4;
   height: 1.7px;
 }
 
@@ -1851,7 +1925,7 @@ header .container .el-three.phone {
   padding: 20px;
   width: 70%;
   min-height: 100vh;
-  background-color: #FAFAFA;
+  background-color: #fafafa;
   display: flex;
   flex-direction: column;
 }
@@ -1928,7 +2002,7 @@ header .container .el-three.phone {
   justify-content: space-between;
   width: 100%;
   min-height: 100vh;
-  background-color: #F0F0EE;
+  background-color: #f0f0ee;
 }
 .list-all-section .left-nav {
   min-height: 100vh;
@@ -1986,7 +2060,7 @@ header .container .el-three.phone {
 .list-all-section .middle-content {
   width: 75%;
   height: 100vh;
-  background-color: #F0F0EE;
+  background-color: #f0f0ee;
   display: flex;
   flex-direction: column;
   padding: 20px;
@@ -2167,7 +2241,7 @@ header .container .el-three.phone {
   font-size: 0.7rem;
 }
 .list-all-section .middle-content .user-cards-container .user-card .status.offline {
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 }
 .list-all-section .middle-content .user-cards-container .user-card .status.offline p {
   opacity: 0.7;
@@ -2242,6 +2316,104 @@ header .container .el-three.phone {
   height: 70px;
 }
 .list-all-section .right-profile-content .placeholder p {
+  font-size: 0.9rem;
+}
+
+.people-you-may-know-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.people-you-may-know-section .left-content {
+  width: 40%;
+  height: 100vh;
+  position: relative;
+}
+.people-you-may-know-section .left-content .overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.people-you-may-know-section .left-content .overlay .build-network {
+  padding: 20px;
+}
+.people-you-may-know-section .left-content .overlay .build-network h1 {
+  color: white;
+  font-size: 2.4rem;
+}
+.people-you-may-know-section .left-content .overlay .build-network p {
+  max-width: 80%;
+  color: rgb(243, 240, 240);
+  font-size: 1.1rem;
+}
+.people-you-may-know-section .left-content img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.people-you-may-know-section .right-content {
+  width: 60%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--chat-background);
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.people-you-may-know-section .right-content .p-1 {
+  font-weight: 500;
+}
+.people-you-may-know-section .right-content .p-2 {
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+.people-you-may-know-section .right-content .users-container {
+  margin-top: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.people-you-may-know-section .right-content .see-all-prompt {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 25px;
+}
+.people-you-may-know-section .right-content .see-all-prompt .p-th {
+  font-size: 0.6rem;
+  opacity: 0.7;
+}
+.people-you-may-know-section .right-content .see-all-prompt .btn-arr-txt {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  text-decoration: none;
+  align-items: center;
+  margin-top: 5px;
+  border: 0.5px solid var(--text-dark);
+  padding: 10px 20px;
+  border-radius: 50px;
+}
+.people-you-may-know-section .right-content .see-all-prompt .btn-arr-txt i {
+  color: var(--text-dark);
+  font-size: 1rem;
+}
+.people-you-may-know-section .right-content .see-all-prompt .btn-arr-txt p {
+  font-weight: 500;
+  color: var(--text-dark);
   font-size: 0.9rem;
 }
 
@@ -2494,5 +2666,26 @@ header .container .el-three.phone {
   }
   .list-all-section .middle-content .user-cards-container .user-card {
     max-width: 300px;
+  }
+}
+@media screen and (max-width: 700px) {
+  .people-you-may-know-section {
+    flex-direction: column;
+  }
+  .people-you-may-know-section .left-content {
+    width: 100%;
+    height: 0;
+    min-height: 70vh;
+  }
+  .people-you-may-know-section .right-content {
+    width: 100%;
+  }
+}
+@media screen and (max-width: 400px) {
+  .user-item .con .username-msg h5 {
+    max-width: 190px;
+  }
+  .user-item .con .username-msg .l-message {
+    max-width: 190px;
   }
 }/*# sourceMappingURL=style.css.map */

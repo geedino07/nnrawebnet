@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Kikstart your network | NNRA digital network {% endblock %}
+
+{% block content %}
+    <section class="people-you-may-know-section" >
+        <div class="left-content">
+            <img src="{% static 'img/office-group-2.png' %}" alt="">
+            <div class="overlay">
+                <div class="build-network">
+                    <h1>Start building <br> your network.</h1>
+                    <p>Connect with the people you already know! 
+                        Send a message to kick-off your experience.</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-content">
+            <p class="p-1">Here's some people you may know</p>
+            <p class="p-2">Send a message to kick-off your experience</p>
+            
+            <div class="users-container">
+                {% for profile in people_may_know %}
+              
+                <a class="user-item" href="/chat/room/?chat={{profile.user.id}}">
+                    <!-- <div class="selected-line"></div> -->
+        
+                    <div class="con">
+                        <div class="image-container">
+                            <img
+                            src="{{profile.profileImg.url}}"
+                            alt=""
+                            style="background-color: #acacad"
+                            />
+                        </div>
+            
+                        <div class="username-msg">
+                            <h5>{{profile.user.get_full_name}}</h5>
+                            <p class="l-message">{{profile.office.office_name}}</p>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+        
+            </div>
+
+            <div class="see-all-prompt">
+                <p class="p-th">There's more where that came from</p>
+                <a href="{% url 'accounts:listitems' %}" class="btn-arr-txt">
+                    <i class="ri-arrow-right-up-line"></i>
+                    <p>
+                        See all NNRA staff
+                    </p>
+                </a>
+            </div>
+        </div>
+    </section>
+{% endblock %}

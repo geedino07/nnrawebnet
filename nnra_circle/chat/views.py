@@ -5,8 +5,7 @@ from .models import Thread
 
 # Create your views here.
 @login_required(login_url='accounts:login')
-def chatroom(request):
-    
+def chatroom(request):  
     chat_user_id = request.GET.get('chat')
     user = request.user
     user_threads = Thread.theadm.by_user(user=user)
