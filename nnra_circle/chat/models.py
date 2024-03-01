@@ -19,7 +19,7 @@ class ThreadManager(models.Manager):
             return None, False
         
         qlookup_one = Q(user_one__id=userId) & Q(user_two__id=other_userId)
-        qlookup_two = q(user_one__id=other_userId) & Q(user_two__id=userId)
+        qlookup_two = Q(user_one__id=other_userId) & Q(user_two__id=userId)
         query_set = self.get_queryset().filter(qlookup_one | qlookup_two).distinct()
         
         if query_set.count == 1:
