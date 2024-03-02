@@ -49,6 +49,30 @@ class Thread(models.Model):
     @property
     def room_group_name(self):
         return f'chat_{self.id}'
+    
+
+class ChatManager(models.Manager):
+    def create_chat(self, sender, receiverid, message, commit=True):
+        if sender.id == receiverid:
+            return None, 'Sender and receiver cannot be thesame'
+        
+        receiver = User.objects.filter(id=receiverid).first()
+        if receiver is not None:
+            obj = self.model(
+                sender = sender,
+                receiver = receiver,
+                message = message
+            )
+            if commit: 
+                obj.save()
+            return obj, 'chat created'
+        else:
+            return None, 'Receiver was not found'
+        
+
+
+
+
 class ChatMessage(models.Model):
     # thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='sender')
@@ -57,7 +81,15 @@ class ChatMessage(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
 
+    objects = models.Manager()
+    chatm = ChatManager()
+
     class Meta:
         ordering = ['-created']
+        indexes =[
+            models.Index(fields=['sender', 'receiver']),
+            models.Index(fields=['-created'])
+        ]
+
         
 

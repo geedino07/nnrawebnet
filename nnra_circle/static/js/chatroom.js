@@ -93,7 +93,7 @@ function setFocusUser(userid){
 
 //clears the chate messages container and repopulates it 
 function populateChatMessages(chatMessages){
-
+    
 }
 
 
