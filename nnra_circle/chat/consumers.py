@@ -20,6 +20,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         return super().disconnect(code)
 
     async def receive(self, text_data=None, bytes_data=None):
+        user = self.scope['user']
         rd = json.loads(text_data)
         receiver = rd.get('receiver')
         action = rd.get('action')
@@ -28,6 +29,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         if action == 'chat_message':
             my_response = {
                 'message': rd.get('message_body'),
+                'sender': user.id,
+                'receiver': receiver,
                 'timestamp': timezone.now().isoformat()
             }
 

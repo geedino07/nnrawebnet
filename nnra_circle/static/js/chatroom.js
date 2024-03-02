@@ -4,6 +4,7 @@ const focusUsername = document.querySelector('.focus-username')
 const focusUserImg = document.querySelector('.focus-user-img')
 const chatMessageInput = document.getElementById("chat-message-input")
 const chatForm = document.getElementById('chat-form')
+const conversationContainer = document.querySelector('.conversation-container')
 
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
 let focusUser = null
@@ -30,32 +31,30 @@ function connectWebsocket(){
     loc = window.location
     wsprotocol = loc === "https" ? "wss://" : "ws://";//setting the websocket protocol for the connection
     const endpoint = wsprotocol + loc.host + loc.pathname
-    // const endpoint = 'ws://localhost:8000/chat/room/?userid=89'
-
-    console.log(endpoint)
-
     const socket  = new WebSocket(endpoint)
 
     socket.addEventListener('message', function(e){
-        const recieved = JSON.parse(e.data)
-        const chatmessage = new ChatMessage(recieved.message, recieved.timestamp, 'received')
-        console.log(chatmessage)
-        console.log('websocket message', e.data)
-        
+        const received = JSON.parse(e.data)
+        if (received.sender == focusUser.user.id){
+            const chatmessage = new ChatMessage(received.message, received.timestamp, 'received')
+            appendChatMessage(chatmessage)        
+        }
+
     })
 
     socket.addEventListener('open', function(){
-      
         chatForm.onsubmit = function(e){
             e.preventDefault()
-            const chatMessage = chatMessageInput.value
+            const messagebody = chatMessageInput.value
 
             const messageStr = JSON.stringify({
                 'action': 'chat_message',
                 'receiver': focusUser.user.id,
-                'message_body': chatMessage
+                'message_body': messagebody
             })
             socket.send(messageStr)
+            const chatmessage = new ChatMessage(messagebody, new Date(), 'sender')
+            appendChatMessage(chatmessage)
             chatMessageInput.value = ''
         }
 
@@ -99,8 +98,33 @@ function populateChatMessages(chatMessages){
 
 
 //apends a new chat message to the messages container
-function appendChatMessage(chatMessage){
+function appendChatMessage(chatmessage){
+    const convClass = chatmessage.type === 'sender'? 'conv-right': 'conv-left'
+    const imgSrc = chatmessage.type === 'sender'? profileImg: focusUser.profileImg
+    const timestamp = new Date(chatmessage.timestamp)
 
+    const htmlel = `
+    <div class="conversation ${convClass}">
+    <img
+      src="${imgSrc}"
+      alt=""
+      style="background-color: #acacad"
+      class="u-profile-photo"
+    />
+    <div class="conv-holder">
+      <p class="message">
+        ${chatmessage.message}
+      </p>
+
+      <p class="date-time">${getFormattedTime(timestamp)}</p>
+    </div>
+  </div>
+    `
+    conversationContainer.insertAdjacentHTML('beforeend', htmlel)
+}
+
+function getFormattedTime(date){
+    return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 }
 
 //==========
