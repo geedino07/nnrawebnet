@@ -9,9 +9,6 @@ const conversationContainer = document.querySelector('.conversation-container')
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
 let focusUser = null
 
-const now = new Date()
-console.log(now)
-
 class ChatMessage{
     constructor(message, timestamp, type){
         this.message = message
@@ -72,8 +69,6 @@ function connectWebsocket(){
     return socket
 }
 
-
-
 function setFocusUser(userid){
     const csrftoken = Cookies.get('csrftoken')
     fetch(`/chat/getchatmessages/${userid}/`, {
@@ -82,20 +77,27 @@ function setFocusUser(userid){
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data)
         const chatUserProfile = data.data.chat_user
         focusUsername.textContent = chatUserProfile.user.username
         focusUserImg.src = chatUserProfile.profileImg
-        populateChatMessages(data.data.chat_messages)
         focusUser = chatUserProfile
+        populateChatMessages(data.data.chat_messages)
+
     })
 }
 
 //clears the chate messages container and repopulates it 
-function populateChatMessages(chatMessages){
-    
-}
+function populateChatMessages(chatmessages){
+    console.log(chatmessages)
+    conversationContainer.innerHTML = ''
+    // console.log(focusUser.user.id)
 
+    chatmessages.forEach(function(msg){
+        console.log(msg.sender.id)
+        const type = msg.sender.id == focusUser.user.id? 'receiver' : 'sender'
+        appendChatMessage(new ChatMessage(msg.message,msg.created, type))
+    })
+}
 
 //apends a new chat message to the messages container
 function appendChatMessage(chatmessage){
@@ -121,6 +123,11 @@ function appendChatMessage(chatmessage){
   </div>
     `
     conversationContainer.insertAdjacentHTML('beforeend', htmlel)
+    scrollToContainerEnd(conversationContainer)
+}
+
+function scrollToContainerEnd(container){
+    container.scrollTop = container.scrollHeight
 }
 
 function getFormattedTime(date){

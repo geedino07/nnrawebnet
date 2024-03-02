@@ -6,6 +6,8 @@ from .models import Thread, ChatMessage
 from django.contrib.auth.models import User
 from accounts.serializers import UserSerializer, ProfileSerializer
 from .serializers import ChatMessageSerializer
+from django.db.models import Q
+
 
 
 # Create your views here.
@@ -51,8 +53,9 @@ def getChatMessages(request, userid):
             'data': {}
         })
 
-    
-    chat_messages = ChatMessage.objects.filter(sender=user, receiver=chat_user.user)
+    lookup_one = Q(sender=user, receiver=chat_user.user)
+    lookup_two = Q(sender=chat_user.user, receiver=user)
+    chat_messages = ChatMessage.objects.filter(lookup_one | lookup_two).order_by('created')
     chats_serializer = ChatMessageSerializer(chat_messages, many=True)
     return JsonResponse({
         'message': 'success',
