@@ -50,8 +50,14 @@ class Thread(models.Model):
     def room_group_name(self):
         return f'chat_{self.id}'
 class ChatMessage(models.Model):
-    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False)
+    # thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False)
+    sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='sender')
+    receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='receiver')
     message = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created']
+        
 

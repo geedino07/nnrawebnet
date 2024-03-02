@@ -161,3 +161,9 @@ if DEBUG:
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
     
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
