@@ -203,6 +203,34 @@
             </div>
           </div>
 
+          {% for thread in threads %}
+          <div class="chat-item">
+            <!-- <div class="selected-line"></div> -->
+
+            <div class="con">
+              <div class="image-container">
+                <img
+                  src="{% static 'img/samples/s2.jpg' %}"
+                  alt=""
+                  style="background-color: #acacad"
+                />
+              </div>
+
+              <div class="username-msg">
+                <h5>{{thread.user_one.username}}</h5>
+                <p class="l-message">{{thread.last_message.message}}</p>
+              </div>
+            </div>
+
+            <div class="time-num">
+              <p class="time">1 min</p>
+              <div class="num-container">
+                <p class="num">3</p>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
          
 
         </div>
@@ -229,7 +257,7 @@
             <span class="hor-line"></span>
           </div>
 
-          <div class="conversation conv-left">
+          <!-- <div class="conversation conv-left">
             <img
               src="{% static 'img/samples/s1.jpg' %}"
               alt=""
@@ -258,7 +286,7 @@
 
               <p class="date-time">10:00pm</p>
             </div>
-          </div>
+          </div> -->
          
         </div>
 

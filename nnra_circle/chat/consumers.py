@@ -2,7 +2,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 import json
 from channels.db import database_sync_to_async
 from django.utils import timezone
-from .models import ChatMessage
+from .models import ChatMessage, Thread
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -52,6 +52,10 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def create_chat_message(self, receiver, msg):
         sender= self.scope['user']
-        chat_message, message = ChatMessage.chatm.create_chat(sender, receiver, msg )
-        print(message)
-        return chat_message
+        thread, created = Thread.threadm.get_or_new(sender,receiver)
+        if thread:
+            chat_message, message = ChatMessage.chatm.create_chat(sender, receiver, msg, thread )
+            return chat_message
+
+        print('Error: Invalid thread')
+        return thread

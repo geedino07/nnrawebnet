@@ -7,13 +7,19 @@ from django.db.models import Q
 
 class ThreadManager(models.Manager):
     def by_user(self, user):
+        """
+        Get the threads related to User user
+        """
         lookup_one = Q(user_one=user) | Q(user_two=user)
         lookup_two = Q(user_one=user) & Q(user_two=user)
         qs = self.get_queryset().filter(lookup_one).exclude(lookup_two).distinct()
         return qs
-    
-
+  
     def get_or_new(self, user, other_userId):
+        """
+        gets or creates a new thread related to User user and user with an id of other_userId
+        returns Thread (created or found thread object), Boolean(true if a new thread was created, false otherwise)
+        """
         userId = user.id
         if userId == other_userId:
             return None, False
@@ -37,28 +43,33 @@ class ThreadManager(models.Manager):
                 return obj, True
             return None, False
 
+#a thread of messages between two users
 class Thread(models.Model):
     user_one = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='user_thread_one')
     user_two = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='user_thread_two')
     created = models.DateTimeField(auto_now_add=True)
 
     objects = models.Manager()
-    theadm = ThreadManager()
+    threadm = ThreadManager()
 
-    
     @property
     def room_group_name(self):
         return f'chat_{self.id}'
     
 
 class ChatManager(models.Manager):
-    def create_chat(self, sender, receiverid, message, commit=True):
+    def create_chat(self, sender, receiverid, message, thread, commit=True):
+        """
+        creates a new ChatMessage instance and returns it 
+        if commit = True, the created chat message is persisted to the database
+        """
         if sender.id == receiverid:
             return None, 'Sender and receiver cannot be thesame'
         
         receiver = User.objects.filter(id=receiverid).first()
         if receiver is not None:
             obj = self.model(
+                thread=thread,
                 sender = sender,
                 receiver = receiver,
                 message = message
@@ -70,11 +81,8 @@ class ChatManager(models.Manager):
             return None, 'Receiver was not found'
         
 
-
-
-
 class ChatMessage(models.Model):
-    # thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False)
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='sender')
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='receiver')
     message = models.TextField()
