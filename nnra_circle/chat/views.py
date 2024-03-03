@@ -16,9 +16,6 @@ def chatroom(request):
     user = request.user
     user_threads = Thread.threadm.by_user(user=user)
 
-    threads = ThreadSerializer(user_threads, many=True)
-    print(threads.data)
-
     if not user_threads and not chat_user_id:
         return redirect('accounts:networkprompt')
     
@@ -32,14 +29,33 @@ def chatroom(request):
     return render(request, 'chat/room.html', {
         'profile': profile,
         'chat_user': chat_user,
-        'threads': threads.data
     })
     
+
+def getUserThreads(request):
+    """
+    gets all the threads for the user that is currently logged in
+    """
+    if request.method == 'POST':
+        user = request.user
+        user_threads = ThreadSerializer(Thread.threadm.by_user(user=user), many=True)
+        return JsonResponse({
+            'status': 200, 
+            'message': 'success',
+            'data': {
+                'user_threads': user_threads.data
+            }
+        })
+
+    return JsonResponse({
+        'status': 405,
+        'message': 'method not allowed', 
+        'data': {}
+    })
 
 @login_required
 def getChatMessages(request, userid):
     user = request.user
-    print(user.id)
 
     try: 
         chat_user = Profile.objects.select_related('user').get(user__id=userid)

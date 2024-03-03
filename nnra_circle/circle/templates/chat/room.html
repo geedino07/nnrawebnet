@@ -133,6 +133,7 @@
           />
           <div class="user-info-con">
             <input type="hidden" name="profileimg" value="{{profile.profileImg.url}}" id="profileimginput">
+            <input type="hidden" name="userid" value="{{profile.user.id}}" id="inputuserid">
             <h5 class="username">{{profile.user.username}}</h5>
             <p class="fullname">{{profile.user.get_full_name}}</p>
           </div>
@@ -152,7 +153,6 @@
 
         <div class="chat-tiles-container">
           <div class="chat-item selected">
-            <!-- <div class="selected-line"></div> -->
 
             <div class="con">
               <div class="image-container">
@@ -205,7 +205,6 @@
 
           {% for thread in threads %}
           <div class="chat-item">
-            <!-- <div class="selected-line"></div> -->
 
             <div class="con">
               <div class="image-container">

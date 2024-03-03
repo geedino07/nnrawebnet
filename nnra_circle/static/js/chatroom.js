@@ -7,6 +7,7 @@ const chatForm = document.getElementById('chat-form')
 const conversationContainer = document.querySelector('.conversation-container')
 
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
+const userId = document.getElementById('inputuserid').value
 let focusUser = null
 
 class ChatMessage{
@@ -19,6 +20,7 @@ class ChatMessage{
 
 const chatParam = getParam('chat')
 setFocusUser(chatParam)
+getUserThreads()
 
 const socket = connectWebsocket()
 
@@ -69,6 +71,55 @@ function connectWebsocket(){
     return socket
 }
 
+function getUserThreads(){
+    const csrftoken = Cookies.get('csrftoken')
+    fetch('/chat/getuserthreads/', {
+        method: 'POST',
+        headers : {'X-CSRFToken': csrftoken}
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status == 200) populateUserThreads(data.data.user_threads)
+    })
+}
+
+function populateUserThreads(threads){
+    const chatTilesContainer = document.querySelector('.chat-tiles-container')
+    chatTilesContainer.innerHTML = ''
+    threads.forEach(function(thread){
+        console.log(thread)
+        const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
+
+        const htmel = `
+        <div class="chat-item">
+        <div class="con">
+          <div class="image-container">
+            <img
+              src="${loaduser.profile.profileImg}"
+              alt=""
+              style="background-color: #acacad"
+            />
+          </div>
+
+          <div class="username-msg">
+            <h5>${loaduser.username}</h5>
+            <p class="l-message">${thread.last_message.message}</p>
+          </div>
+        </div>
+
+        <div class="time-num">
+          <p class="time">1 min</p>
+          <div class="num-container">
+            <p class="num">3</p>
+          </div>
+        </div>
+      </div>
+        `
+        chatTilesContainer.insertAdjacentHTML('beforeend', htmel)
+    })
+}
+
+
 function setFocusUser(userid){
     const csrftoken = Cookies.get('csrftoken')
     fetch(`/chat/getchatmessages/${userid}/`, {
@@ -88,12 +139,8 @@ function setFocusUser(userid){
 
 //clears the chate messages container and repopulates it 
 function populateChatMessages(chatmessages){
-    console.log(chatmessages)
     conversationContainer.innerHTML = ''
-    // console.log(focusUser.user.id)
-
     chatmessages.forEach(function(msg){
-        console.log(msg.sender.id)
         const type = msg.sender.id == focusUser.user.id? 'receiver' : 'sender'
         appendChatMessage(new ChatMessage(msg.message,msg.created, type))
     })
