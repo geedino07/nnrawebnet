@@ -39,7 +39,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
             await self.create_chat_message(receiver, message)
 
             await self.channel_layer.group_send(
-                f'user_group_{receiver}', #THIS is the group name
+                f'user_group_{receiver}', #THIS is the group name of the person supposed to get the message
                 {
                     "type": 'chat.message',
                     'text': my_response,
@@ -52,7 +52,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     @database_sync_to_async
     def create_chat_message(self, receiver, msg):
         sender= self.scope['user']
-        thread, created = Thread.threadm.get_or_new(sender,receiver)
+        
+        thread, created = Thread.threadm.get_or_new(sender, receiver)
+
         if thread:
             chat_message, message = ChatMessage.chatm.create_chat(sender, receiver, msg, thread )
             return chat_message

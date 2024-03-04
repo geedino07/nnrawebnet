@@ -13,6 +13,7 @@ class ThreadManager(models.Manager):
         lookup_one = Q(user_one=user) | Q(user_two=user)
         lookup_two = Q(user_one=user) & Q(user_two=user)
         qs = self.get_queryset().filter(lookup_one).exclude(lookup_two).distinct()
+        print(qs)
         return qs
   
     def get_or_new(self, user, other_userId):
@@ -28,7 +29,7 @@ class ThreadManager(models.Manager):
         qlookup_two = Q(user_one__id=other_userId) & Q(user_two__id=userId)
         query_set = self.get_queryset().filter(qlookup_one | qlookup_two).distinct()
         
-        if query_set.count == 1:
+        if query_set.count() == 1:
             return query_set.first(), False
         elif query_set.count() > 1:
             return query_set.order_by('created').first(), False

@@ -85,9 +85,9 @@ function getUserThreads(){
 
 function populateUserThreads(threads){
     const chatTilesContainer = document.querySelector('.chat-tiles-container')
+    console.log(threads)
     chatTilesContainer.innerHTML = ''
     threads.forEach(function(thread){
-        console.log(thread)
         const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
 
         const htmel = `
