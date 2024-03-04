@@ -5,6 +5,8 @@ const focusUserImg = document.querySelector('.focus-user-img')
 const chatMessageInput = document.getElementById("chat-message-input")
 const chatForm = document.getElementById('chat-form')
 const conversationContainer = document.querySelector('.conversation-container')
+const chatTilesContainer = document.querySelector('.chat-tiles-container')
+
 
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
 const userId = document.getElementById('inputuserid').value
@@ -18,11 +20,28 @@ class ChatMessage{
     }
 }
 
+class Thread{
+    constructor(username, profileImg, lastMessage, userId){
+        this.username = username
+        this.profileImg = profileImg
+        this.lastMessage = lastMessage
+        this.userId = userId
+    }
+}
+
 const chatParam = getParam('chat')
 setFocusUser(chatParam)
 getUserThreads()
 
 const socket = connectWebsocket()
+
+chatTilesContainer.addEventListener('click', function(e){
+    const clickedTile = e.target.closest('.chat-item')
+
+    const userId = clickedTile.getAttribute('data-userid')
+    setFocusUser(userId)
+})
+
 
 // const chatParam = getAndRemoveQueryParam('chat')//checking if there is a chat parameter in the url
 
@@ -57,15 +76,15 @@ function connectWebsocket(){
             chatMessageInput.value = ''
         }
 
-        console.log('websocket opened')
+        console.log('ws opened')
     })
 
     socket.addEventListener('error', function(e){
-        console.error('websocket error', e)
+        console.error('ws error', e)
     })
 
     socket.addEventListener('close', function(){
-        console.log('websocket closed')
+        console.log('ws closed')
     })
 
     return socket
@@ -84,26 +103,33 @@ function getUserThreads(){
 }
 
 function populateUserThreads(threads){
-    const chatTilesContainer = document.querySelector('.chat-tiles-container')
-    console.log(threads)
     chatTilesContainer.innerHTML = ''
     threads.forEach(function(thread){
         const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
+        const profileimg = loaduser.profile.profileImg
+        const username = loaduser.username
+        const lastmessage = thread.last_message.message
 
-        const htmel = `
-        <div class="chat-item">
+        const userThread = new Thread(username, profileimg, lastmessage, loaduser.id)
+        appendUserThread(userThread)
+    })
+}
+
+function appendUserThread(thread){
+    const htmel = `
+        <div class="chat-item" id="thread-el-${thread.userId}" data-userid="${thread.userId}">
         <div class="con">
           <div class="image-container">
             <img
-              src="${loaduser.profile.profileImg}"
+              src="${thread.profileImg}"
               alt=""
               style="background-color: #acacad"
             />
           </div>
 
           <div class="username-msg">
-            <h5>${loaduser.username}</h5>
-            <p class="l-message">${thread.last_message.message}</p>
+            <h5>${thread.username}</h5>
+            <p class="l-message">${thread.lastMessage}</p>
           </div>
         </div>
 
@@ -116,7 +142,6 @@ function populateUserThreads(threads){
       </div>
         `
         chatTilesContainer.insertAdjacentHTML('beforeend', htmel)
-    })
 }
 
 

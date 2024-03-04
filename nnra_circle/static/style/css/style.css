@@ -1267,6 +1267,7 @@ header .container .el-three.phone {
   overflow-y: scroll;
 }
 .chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item {
+  cursor: pointer;
   display: flex;
   flex-direction: row;
   background-color: white;
