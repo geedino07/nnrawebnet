@@ -145,6 +145,19 @@ function changeProfileHolderState(containerId, state){
   
 }
 
+function toggleContainerState(containerId, state){
+    const container = document.getElementById(containerId)
+    for(let i =0; i<container.children.length; i++){
+      const child = container.children[i]
+      if(child.classList.contains(state)){
+        child.style.display = 'flex'
+      }
+      else{
+        child.style.display = 'none'
+      }
+    }
+}
+
 function closeRightProfileContent(){
   const rightProfileContent = document.querySelector('.right-profile-content')
   rightProfileContent.classList.remove('visible')

@@ -19,6 +19,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
 
     async def disconnect(self, code):
+        print('ws disconnected')
         return super().disconnect(code)
 
     async def receive(self, text_data=None, bytes_data=None):
@@ -29,11 +30,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         if action == 'chat_message':
             message = rd.get('message_body')
+            statusid = rd.get('statusid')
             my_response = {
                 'message': message,
                 'sender': user.id,
                 'receiver': receiver,
-                'timestamp': timezone.now().isoformat()
+                'timestamp': timezone.now().isoformat(),
+                'action': 're_message'#indicates you are receiving a message
             }
 
             await self.create_chat_message(receiver, message)
@@ -46,7 +49,25 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 }
             )
 
+            # notify the sender that message has been sent
+            sent_res = {
+                'action': 'msg_confirmation',
+                'statusid': statusid
+            }
+            await self.channel_layer.group_send(
+                f'user_group_{user.id}',
+                {
+                    "type": 'msg.confirmation',
+                    "text": sent_res
+                }
+            )
+
+
     async def chat_message(self, event):
+        await self.send(text_data=json.dumps(event['text']))
+    
+    #When a message is sent, we reply with this to notify sender that message is sent
+    async def msg_confirmation(self, event):
         await self.send(text_data=json.dumps(event['text']))
 
     @database_sync_to_async

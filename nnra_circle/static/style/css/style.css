@@ -1348,23 +1348,28 @@ header .container .el-three.phone {
   display: flex;
   flex-direction: column;
 }
-.chat-section .center-tile .center-item-bottom .center-right .logged-in-user-info {
+.chat-section .center-tile .center-item-bottom .center-right .focused {
+  display: flex;
+  flex-direction: column;
+  height: 90vh;
+}
+.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.chat-section .center-tile .center-item-bottom .center-right .logged-in-user-info .user-info {
+.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info .user-info {
   margin-left: 15px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .logged-in-user-info .user-info .username {
+.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info .user-info .username {
   font-family: "inter", sans-serif;
   font-weight: 600;
 }
-.chat-section .center-tile .center-item-bottom .center-right .logged-in-user-info .user-info .status {
+.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info .user-info .status {
   font-size: 0.8rem;
   opacity: 0.8;
 }
-.chat-section .center-tile .center-item-bottom .center-right .logged-in-user-info img {
+.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info img {
   width: 65px;
   height: 65px;
   background-color: #e5e5e5;
@@ -1374,15 +1379,15 @@ header .container .el-three.phone {
      object-position: center;
   border-radius: 50%;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container::-webkit-scrollbar {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container::-webkit-scrollbar {
   width: 0.3rem;
   background-color: var(--chat-background);
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container::-webkit-scrollbar-thumb {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container::-webkit-scrollbar-thumb {
   border-radius: 2rem;
   background: rgba(241, 242, 242, 0.7058823529);
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container {
   position: relative;
   overflow-y: scroll;
   padding-top: 10px;
@@ -1393,7 +1398,7 @@ header .container .el-three.phone {
   gap: 10px;
   margin: auto;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .day-con {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .day-con {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -1403,54 +1408,54 @@ header .container .el-three.phone {
   gap: 8px;
   margin: auto;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .day-con .hor-line {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .day-con .hor-line {
   width: 60px;
   height: 1px;
   background-color: var(--soft-grey);
   opacity: 0.6;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .day-con .day {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .day-con .day {
   font-size: 0.8rem;
   opacity: 0.8;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-left {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-left {
   flex-direction: row;
   align-self: flex-start;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-left .conv-holder {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-left .conv-holder {
   border-radius: 20px 7px 7px 0px;
   background-color: white;
   margin-left: 10px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-left .conv-holder .message {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-left .conv-holder .message {
   margin-left: 3px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-left .conv-holder .date-time {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-left .conv-holder .date-time {
   justify-self: flex-end;
   align-self: flex-end;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-right {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-right {
   flex-direction: row-reverse;
   align-self: flex-end;
   flex-grow: 1;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-right .conv-holder {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-right .conv-holder {
   border-radius: 7px 20px 0px 7px;
   background-color: var(--main-green);
   margin-right: 10px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-right .conv-holder .message {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-right .conv-holder .message {
   color: white;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conv-right .conv-holder .date-time {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-right .conv-holder .date-time {
   color: white;
   align-self: flex-end;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conversation {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation {
   display: flex;
   width: 95%;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conversation .u-profile-photo {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation .u-profile-photo {
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -1461,7 +1466,7 @@ header .container .el-three.phone {
   -o-object-position: center;
      object-position: center;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conversation .conv-holder {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation .conv-holder {
   display: flex;
   flex-direction: column;
   width: -moz-max-content;
@@ -1471,16 +1476,19 @@ header .container .el-three.phone {
   margin-bottom: 10px;
   max-width: 260px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conversation .conv-holder .date-time {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation .conv-holder .date-time {
   font-size: 0.6rem;
   margin-top: 2px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .conversation-container .conversation .message {
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation .conv-holder .date-time .msg-status {
+  font-size: 0.55rem;
+}
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation .message {
   font-size: 0.8rem;
   opacity: 0.8;
   line-height: 1.2rem;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container {
   width: 100%;
   background-color: var(--chat-background);
   border-top: 0.5px solid var(--soft-grey);
@@ -1489,21 +1497,21 @@ header .container .el-three.phone {
   flex-direction: row;
   align-items: center;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container svg {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container svg {
   width: 22px;
   height: 22px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container .attachment-icon {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container .attachment-icon {
   fill: var(--soft-grey);
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container form {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container form {
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container form .chatmessage {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container form .chatmessage {
   border: none;
   outline: none;
   flex-grow: 1;
@@ -1513,19 +1521,19 @@ header .container .el-three.phone {
   background-color: var(--chat-background);
   font-family: "poppins", sans-serif;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container form .chatmessage::-webkit-scrollbar {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container form .chatmessage::-webkit-scrollbar {
   width: 0.1rem;
   background-color: white;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container form .chatmessage::-webkit-scrollbar-thumb {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container form .chatmessage::-webkit-scrollbar-thumb {
   border-radius: 2rem;
   background: #ebf5ea;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container form button {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container form button {
   outline: none;
   border: none;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container .send-container {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container .send-container {
   background-color: var(--main-green);
   border-radius: 50%;
   width: 40px;
@@ -1535,9 +1543,28 @@ header .container .el-three.phone {
   justify-content: center;
   padding: 5px;
 }
-.chat-section .center-tile .center-item-bottom .center-right .inputs-container .send-container .send-icon {
+.chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container .send-container .send-icon {
   fill: white;
   margin: auto;
+}
+.chat-section .center-tile .center-item-bottom .center-right .idle-con {
+  width: 100%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.chat-section .center-tile .center-item-bottom .center-right .idle-con .idle-img {
+  width: 70px;
+  opacity: 0.4;
+}
+.chat-section .center-tile .center-item-bottom .center-right .idle-con .title-text {
+  font-weight: 500;
+}
+.chat-section .center-tile .center-item-bottom .center-right .idle-con .moto-txt {
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
 .chat-section .center-tile .chat-item.selected {
   border-left: 2px solid var(--main-green);

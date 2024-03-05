@@ -22,13 +22,13 @@ def chatroom(request):
 
     profile = Profile.objects.filter(user=user).select_related('user', 'office').first()
 
-    if chat_user_id:
-        chat_user = Profile.objects.filter(user__id=chat_user_id).select_related('user').first()
+    # if chat_user_id:
+    #     chat_user = Profile.objects.filter(user__id=chat_user_id).select_related('user').first()
 
 
     return render(request, 'chat/room.html', {
         'profile': profile,
-        'chat_user': chat_user,
+        # 'chat_user': chat_user,
     })
     
 

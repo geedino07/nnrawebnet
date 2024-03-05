@@ -13,27 +13,39 @@ const userId = document.getElementById('inputuserid').value
 let focusUser = null
 
 class ChatMessage{
-    constructor(message, timestamp, type){
+    constructor(message, timestamp, type, statusid=null, status='sent'){
         this.message = message
         this.timestamp= timestamp
         this.type=type
+        this.statusid= statusid
+        this.status = status
     }
 }
 
 class Thread{
-    constructor(username, profileImg, lastMessage, userId){
+    constructor(username, profileImg, lastMessage, userId, date){
         this.username = username
         this.profileImg = profileImg
         this.lastMessage = lastMessage
         this.userId = userId
+        this.date = date
     }
 }
 
-const chatParam = getParam('chat')
-setFocusUser(chatParam)
+// const chatParam = getParam('chat')
+const chatParam = getAndRemoveQueryParam('chat')//checking if there is a chat parameter in the url
+if (chatParam){
+    setFocusUser(chatParam)
+}
+else{
+    toggleContainerState('center-right', 'idle-con')
+}
+
+
 getUserThreads()
 
 const socket = connectWebsocket()
+
 
 chatTilesContainer.addEventListener('click', function(e){
     const clickedTile = e.target.closest('.chat-item')
@@ -43,8 +55,7 @@ chatTilesContainer.addEventListener('click', function(e){
 })
 
 
-// const chatParam = getAndRemoveQueryParam('chat')//checking if there is a chat parameter in the url
-
+/**Establishes a websocket connection to the chat message consumer and returns the websocket instance */
 function connectWebsocket(){
     loc = window.location
     wsprotocol = loc === "https" ? "wss://" : "ws://";//setting the websocket protocol for the connection
@@ -53,10 +64,18 @@ function connectWebsocket(){
 
     socket.addEventListener('message', function(e){
         const received = JSON.parse(e.data)
-        if (received.sender == focusUser.user.id){
-            const chatmessage = new ChatMessage(received.message, received.timestamp, 'received')
-            appendChatMessage(chatmessage)        
+        if(received.action == 're_message'){
+            if (received.sender == focusUser.user.id){
+                const chatmessage = new ChatMessage(received.message, received.timestamp, 'received')
+                appendChatMessage(chatmessage)        
+            }
         }
+
+        if(received.action == 'msg_confirmation'){
+            const msgStatus = document.querySelector(`.status-${received.statusid}`)
+            msgStatus.textContent = '~ sent'
+        }
+        
 
     })
 
@@ -64,14 +83,15 @@ function connectWebsocket(){
         chatForm.onsubmit = function(e){
             e.preventDefault()
             const messagebody = chatMessageInput.value
-
+            const uid = generateRandomString()
             const messageStr = JSON.stringify({
                 'action': 'chat_message',
                 'receiver': focusUser.user.id,
-                'message_body': messagebody
+                'message_body': messagebody,
+                'statusid': uid
             })
             socket.send(messageStr)
-            const chatmessage = new ChatMessage(messagebody, new Date(), 'sender')
+            const chatmessage = new ChatMessage(messagebody, new Date(), 'sender', uid, 'pending')
             appendChatMessage(chatmessage)
             chatMessageInput.value = ''
         }
@@ -90,6 +110,13 @@ function connectWebsocket(){
     return socket
 }
 
+function generateRandomString(){
+    return Math.random().toString(36).slice(2)
+}
+
+/**Makes a fetch request to get all the threads associated with a user
+ * if request is successfull, the ui is populated using the fetched threads
+ */
 function getUserThreads(){
     const csrftoken = Cookies.get('csrftoken')
     fetch('/chat/getuserthreads/', {
@@ -102,20 +129,27 @@ function getUserThreads(){
     })
 }
 
+
+/** Populates the ui with threads */
 function populateUserThreads(threads){
     chatTilesContainer.innerHTML = ''
     threads.forEach(function(thread){
         const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
+
         const profileimg = loaduser.profile.profileImg
         const username = loaduser.username
         const lastmessage = thread.last_message.message
 
-        const userThread = new Thread(username, profileimg, lastmessage, loaduser.id)
+        const userThread = new Thread(username, profileimg, lastmessage, loaduser.id, thread.last_message.created)
         appendUserThread(userThread)
     })
 }
 
+/** appends a new thread to the ui  
+ * @param thread the thread object to be appended
+*/
 function appendUserThread(thread){
+    console.log(thread.date)
     const htmel = `
         <div class="chat-item" id="thread-el-${thread.userId}" data-userid="${thread.userId}">
         <div class="con">
@@ -144,7 +178,10 @@ function appendUserThread(thread){
         chatTilesContainer.insertAdjacentHTML('beforeend', htmel)
 }
 
-
+/** Changes the fouced user, i.e the user we are currently chatting with 
+ * also fetches all the messages between the logged in user and the focused user
+ * @param userid: the id of the user to be put in focus
+ */
 function setFocusUser(userid){
     const csrftoken = Cookies.get('csrftoken')
     fetch(`/chat/getchatmessages/${userid}/`, {
@@ -157,6 +194,7 @@ function setFocusUser(userid){
         focusUsername.textContent = chatUserProfile.user.username
         focusUserImg.src = chatUserProfile.profileImg
         focusUser = chatUserProfile
+        toggleContainerState('center-right', 'focused')
         populateChatMessages(data.data.chat_messages)
 
     })
@@ -174,23 +212,18 @@ function populateChatMessages(chatmessages){
 //apends a new chat message to the messages container
 function appendChatMessage(chatmessage){
     const convClass = chatmessage.type === 'sender'? 'conv-right': 'conv-left'
-    const imgSrc = chatmessage.type === 'sender'? profileImg: focusUser.profileImg
+    const msgStatus = chatmessage.type === 'sender'? `<span class="msg-status status-${chatmessage.statusid}">~ ${chatmessage.status}</span>` : ''
+    // const imgSrc = chatmessage.type === 'sender'? profileImg: focusUser.profileImg
     const timestamp = new Date(chatmessage.timestamp)
 
     const htmlel = `
     <div class="conversation ${convClass}">
-    <img
-      src="${imgSrc}"
-      alt=""
-      style="background-color: #acacad"
-      class="u-profile-photo"
-    />
     <div class="conv-holder">
       <p class="message">
         ${chatmessage.message}
       </p>
 
-      <p class="date-time">${getFormattedTime(timestamp)}</p>
+      <p class="date-time">${getFormattedTime(timestamp)} ${msgStatus}</p>
     </div>
   </div>
     `
@@ -198,10 +231,20 @@ function appendChatMessage(chatmessage){
     scrollToContainerEnd(conversationContainer)
 }
 
+/** Forces a scrollable container to scroll to end
+ * @param container the container to be scrolled
+ */
 function scrollToContainerEnd(container){
     container.scrollTop = container.scrollHeight
 }
 
+function getFormattedDate(date){
+
+}
+
+/** Returns a formatted time in form of (11:00pm)
+ * @param date: A date object 
+ */
 function getFormattedTime(date){
     return date.toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true });
 }
