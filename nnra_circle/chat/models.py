@@ -89,6 +89,7 @@ class ChatMessage(models.Model):
     message = models.TextField()
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    seen = models.BooleanField(default=False)
 
     objects = models.Manager()
     chatm = ChatManager()

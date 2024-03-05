@@ -10,6 +10,35 @@ from django.db.models import Q, OuterRef, Subquery, Max, F
 from django.db import models
 
 # Create your views here.
+
+@login_required
+def mark_as_seen(request, mid):
+    try:
+        message = ChatMessage.objects.get(id=mid)
+    except ChatMessage.DoesNotExist:
+        return JsonResponse({
+            'status': 404,
+            'message': 'message not found',
+            'data': {}
+        }, status=404)
+    
+    if request.user is not message.receiver:
+        if not message.seen: 
+            message.seen = True
+            message.save()
+
+        return JsonResponse({
+            'message': 'success',
+            'status': 200,
+            'data': {}
+        }, status=200)
+    else: 
+        return JsonResponse({
+            'status': 404, 
+            'message': 'User is not allowed to see this message',
+            'data': {}
+        }, status=404)        
+
 @login_required(login_url='accounts:login')
 def chatroom(request):  
     chat_user_id = request.GET.get('chat')
@@ -21,9 +50,6 @@ def chatroom(request):
     
 
     profile = Profile.objects.filter(user=user).select_related('user', 'office').first()
-
-    # if chat_user_id:
-    #     chat_user = Profile.objects.filter(user__id=chat_user_id).select_related('user').first()
 
 
     return render(request, 'chat/room.html', {
@@ -40,9 +66,6 @@ def getUserThreads(request):
         user = request.user
         
         user_threads = ThreadSerializer(Thread.threadm.by_user(user=user), many=True)
-        for data in user_threads.data:
-            print(data)
-            print('===========================')
         return JsonResponse({
             'status': 200, 
             'message': 'success',

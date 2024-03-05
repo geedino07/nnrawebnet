@@ -13,12 +13,14 @@ const userId = document.getElementById('inputuserid').value
 let focusUser = null
 
 class ChatMessage{
-    constructor(message, timestamp, type, statusid=null, status='sent'){
+    constructor({message, timestamp, type, statusid=null, status='sent', id=null, senderId=null}){
         this.message = message
         this.timestamp= timestamp
         this.type=type
         this.statusid= statusid
         this.status = status
+        this.id=id
+        this.senderId = senderId
     }
 }
 
@@ -64,9 +66,15 @@ function connectWebsocket(){
 
     socket.addEventListener('message', function(e){
         const received = JSON.parse(e.data)
-        if(received.action == 're_message'){
+        if(received.action == 're_message'){//when this user receives a message
             if (received.sender == focusUser.user.id){
-                const chatmessage = new ChatMessage(received.message, received.timestamp, 'received')
+                const chatmessage = new ChatMessage({
+                    message: received.message,
+                    timestamp:received.timestamp,
+                    type: 'receiver', 
+                    id: received.id,
+                    senderId: received.sender
+                })
                 appendChatMessage(chatmessage)        
             }
         }
@@ -74,8 +82,13 @@ function connectWebsocket(){
         if(received.action == 'msg_confirmation'){
             const msgStatus = document.querySelector(`.status-${received.statusid}`)
             msgStatus.textContent = '~ sent'
+            msgStatus.classList.replace(`status-${received.statusid}`, `status-${received.id}`)
         }
         
+        if(received.action == 'msg_seen'){
+            const msgStatus = document.querySelector(`.status-${received.msg_id}`)
+            msgStatus.textContent = '~ seen'
+        }
 
     })
 
@@ -90,8 +103,15 @@ function connectWebsocket(){
                 'message_body': messagebody,
                 'statusid': uid
             })
-            socket.send(messageStr)
-            const chatmessage = new ChatMessage(messagebody, new Date(), 'sender', uid, 'pending')
+            socket.send(messageStr)//send a message
+            const chatmessage = new ChatMessage({
+                message: messagebody,
+                timestamp: new Date(),
+                type: 'sender',
+                statusid: uid,
+                status: 'pending',
+                senderId: Number(userId)
+            })
             appendChatMessage(chatmessage)
             chatMessageInput.value = ''
         }
@@ -133,7 +153,7 @@ function getUserThreads(){
 /** Populates the ui with threads */
 function populateUserThreads(threads){
     chatTilesContainer.innerHTML = ''
-    threads.sort((a,b)=> {
+    threads.sort((a,b)=> {//sorting the threads in descending order by the created attribute of the last messages
         if(a.last_message.created > b.last_message.created) return -1
         if(b.last_message.created > a.last_message.created) return 1
     })
@@ -208,7 +228,16 @@ function populateChatMessages(chatmessages){
     conversationContainer.innerHTML = ''
     chatmessages.forEach(function(msg){
         const type = msg.sender.id == focusUser.user.id? 'receiver' : 'sender'
-        appendChatMessage(new ChatMessage(msg.message,msg.created, type))
+        const status = msg.seen? 'seen': 'sent'
+        appendChatMessage(new ChatMessage({
+            message: msg.message,
+            timestamp: msg.created,
+            type: type,
+            statusid: `status-${msg.id}`,
+            status: status,
+            id: msg.id,
+            senderId: msg.sender.id
+        }))
     })
 }
 
@@ -231,6 +260,30 @@ function appendChatMessage(chatmessage){
   </div>
     `
     conversationContainer.insertAdjacentHTML('beforeend', htmlel)
+
+    if (chatmessage.status !== 'seen' && chatmessage.type === 'receiver'){
+        //notify the database of message seen
+        fetch(`/chat/markasseen/${chatmessage.id}/`, {
+            method: 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status == 200){
+                if (chatmessage.senderId){
+                    //notify the websocket of message seen
+                    const payload = JSON.stringify({
+                        'msg_id': chatmessage.id,
+                        'sender_id': chatmessage.senderId,
+                        'action': 'msg_seen'
+                    })
+                    socket.send(payload)//send a message
+                }
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error)
+        })
+    }
     scrollToContainerEnd(conversationContainer)
 }
 
