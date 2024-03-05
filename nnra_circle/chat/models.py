@@ -83,7 +83,7 @@ class ChatManager(models.Manager):
         
 
 class ChatMessage(models.Model):
-    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False)
+    thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=False, blank=False, related_name='msgthread')
     sender = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='sender')
     receiver = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=False, blank=False, related_name='receiver')
     message = models.TextField()

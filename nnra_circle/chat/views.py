@@ -38,7 +38,11 @@ def getUserThreads(request):
     """
     if request.method == 'POST':
         user = request.user
+        
         user_threads = ThreadSerializer(Thread.threadm.by_user(user=user), many=True)
+        for data in user_threads.data:
+            print(data)
+            print('===========================')
         return JsonResponse({
             'status': 200, 
             'message': 'success',

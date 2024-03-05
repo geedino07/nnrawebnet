@@ -133,6 +133,10 @@ function getUserThreads(){
 /** Populates the ui with threads */
 function populateUserThreads(threads){
     chatTilesContainer.innerHTML = ''
+    threads.sort((a,b)=> {
+        if(a.last_message.created > b.last_message.created) return -1
+        if(b.last_message.created > a.last_message.created) return 1
+    })
     threads.forEach(function(thread){
         const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
 
@@ -149,7 +153,6 @@ function populateUserThreads(threads){
  * @param thread the thread object to be appended
 */
 function appendUserThread(thread){
-    console.log(thread.date)
     const htmel = `
         <div class="chat-item" id="thread-el-${thread.userId}" data-userid="${thread.userId}">
         <div class="con">
