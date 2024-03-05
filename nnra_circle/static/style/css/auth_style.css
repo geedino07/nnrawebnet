@@ -519,54 +519,11 @@ form input[type=submit] {
 footer {
   margin-top: 100px;
   width: 100%;
-  min-height: 50vh;
-  padding: 30px;
   display: flex;
   flex-direction: column;
 }
-footer .logo-img {
-  width: 80px;
-}
-footer .logo-text {
-  font-size: 1.3rem;
-  margin-top: 10px;
-}
-footer .motto-text {
-  font-size: 0.9rem;
-  opacity: 0.8;
-}
-footer .addons-container {
-  width: 100%;
-  display: grid;
-  align-items: baseline;
-  justify-items: stretch;
-  grid-column-gap: 0px;
-  margin-top: 10px;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-}
-footer .addons-container .addon {
-  justify-self: stretch;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 15px 0;
-  max-width: 250px;
-}
-footer .addons-container .addon i {
-  font-size: 1.3rem;
-  color: var(--text-dark);
-}
-footer .addons-container .addon .addon-right {
-  margin-left: 10px;
-}
-footer .addons-container .addon .addon-right p {
-  font-size: 0.8rem;
-}
-footer .addons-container .addon .addon-right h4 {
-  font-size: 0.9rem;
-  margin-top: 5px;
-}
 footer .hor-line-divider {
+  display: none;
   width: 100%;
   height: 0.9px;
   background-color: var(--text-dark);
@@ -574,10 +531,13 @@ footer .hor-line-divider {
   margin: 20px 0;
 }
 footer .copyright-message {
-  padding: 10px 0;
+  background-color: var(--main-green);
+  padding: 30px;
+  text-align: center;
 }
 footer .copyright-message p {
   font-size: 0.9rem;
+  color: white;
 }
 
 :root {
