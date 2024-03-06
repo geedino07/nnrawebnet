@@ -25,12 +25,13 @@ class ChatMessage{
 }
 
 class Thread{
-    constructor(username, profileImg, lastMessage, userId, date){
+    constructor({username, profileImg, lastMessage, userId, date, unreadCount=0}){
         this.username = username
         this.profileImg = profileImg
         this.lastMessage = lastMessage
         this.userId = userId
         this.date = date
+        this.unreadCount = unreadCount
     }
 }
 
@@ -182,7 +183,15 @@ function populateUserThreads(threads){
         const username = loaduser.username
         const lastmessage = thread.last_message.message
 
-        const userThread = new Thread(username, profileimg, lastmessage, loaduser.id, thread.last_message.created)
+        // const userThread = new Thread(username, profileimg, lastmessage, loaduser.id, thread.last_message.created)
+        const userThread = new Thread({
+            username: username,
+            profileImg: profileimg,
+            lastMessage: lastmessage,
+            userId: loaduser.id,
+            date: thread.last_message.created,
+            unreadCount: thread.unread_count
+        })
         appendUserThread(userThread)
     })
 }
@@ -210,9 +219,9 @@ function appendUserThread(thread){
 
         <div class="time-num">
           <p class="time">${getFormattedDate(new Date(thread.date))}</p>
-          <div class="num-container">
-            <p class="num">3</p>
-          </div>
+            ${thread.unreadCount < 1? '': `<div class="num-container">
+            <p class="num">${thread.unreadCount}</p>
+          </div>`}
         </div>
       </div>
         `
