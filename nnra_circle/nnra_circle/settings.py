@@ -159,6 +159,14 @@ if DEBUG:
     EMAIL_HOST_PASSWORD = 'b7b9bff8b5ffb2'
     EMAIL_FROM_USER = 'e1c66396671ac5'
     DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+else:
+    EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+    EMAIL_HOST = 'smtp.zoho.com'
+    EMAIL_PORT = 465
+    EMAIL_USE_TLS= True
+    EMAIL_HOST_USER_DEBUG = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD_DEBUG = os.environ.get('EMAIL_HOST_PASSWORD')
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER_DEBUG
 
     
 

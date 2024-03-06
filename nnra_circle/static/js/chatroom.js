@@ -305,7 +305,7 @@ function UnseenChanged(senderId, operation){
     if(threadEl){
         const numEl = threadEl.querySelector('.num')
         let num = Number(numEl.textContent)
-        num = operation == '+'? num + 1: num - 1 
+        num = operation == '+' ? num + 1 : num - 1 
         if(num < 1){
         //    numEl.parentNode.style.display= 'none'
             numEl.parentNode.classList.remove('visible')
