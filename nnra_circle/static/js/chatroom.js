@@ -25,13 +25,14 @@ class ChatMessage{
 }
 
 class Thread{
-    constructor({username, profileImg, lastMessage, userId, date, unreadCount=0}){
+    constructor({username, profileImg, lastMessage, userId, date, unreadCount=0, lastSender= -1}){
         this.username = username
         this.profileImg = profileImg
         this.lastMessage = lastMessage
         this.userId = userId
         this.date = date
         this.unreadCount = unreadCount
+        this.lastSender= lastSender
     }
 }
 
@@ -68,7 +69,8 @@ function connectWebsocket(){
     socket.addEventListener('message', function(e){
         const received = JSON.parse(e.data)
         if(received.action == 're_message'){//when this user receives a message
-            if (received.sender == focusUser.user.id){
+            
+            if (focusUser && received.sender == focusUser.user.id){
                 const chatmessage = new ChatMessage({
                     message: received.message,
                     timestamp:received.timestamp,
@@ -190,7 +192,8 @@ function populateUserThreads(threads){
             lastMessage: lastmessage,
             userId: loaduser.id,
             date: thread.last_message.created,
-            unreadCount: thread.unread_count
+            unreadCount: thread.unread_count,
+            lastSender: thread.last_message.sender.id
         })
         appendUserThread(userThread)
     })
@@ -200,6 +203,7 @@ function populateUserThreads(threads){
  * @param thread the thread object to be appended
 */
 function appendUserThread(thread){
+    console.log(thread.lastSender)
     const htmel = `
         <div class="chat-item" id="thread-el-${thread.userId}" data-userid="${thread.userId}">
         <div class="con">
@@ -219,7 +223,7 @@ function appendUserThread(thread){
 
         <div class="time-num">
           <p class="time">${getFormattedDate(new Date(thread.date))}</p>
-            ${thread.unreadCount < 1? '': `<div class="num-container">
+            ${thread.lastSender == userId || thread.unreadCount < 1? '': `<div class="num-container">
             <p class="num">${thread.unreadCount}</p>
           </div>`}
         </div>
