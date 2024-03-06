@@ -831,7 +831,11 @@ header {
                 color: var(--main-green);
               }
 
-              .num-container {
+              .num-container{
+                display: none;
+              }
+              .num-container.visible {
+                display: block;
                 background-color: var(--main-green);
                 border-radius: 50%;
                 display: flex;

@@ -1285,6 +1285,10 @@ header .container .el-three.phone {
   color: var(--main-green);
 }
 .chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item .time-num .num-container {
+  display: none;
+}
+.chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item .time-num .num-container.visible {
+  display: block;
   background-color: var(--main-green);
   border-radius: 50%;
   display: flex;
@@ -1295,7 +1299,7 @@ header .container .el-three.phone {
   height: 20px;
   margin-top: 2px;
 }
-.chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item .time-num .num-container .num {
+.chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item .time-num .num-container.visible .num {
   color: white;
   font-size: 0.7rem;
 }

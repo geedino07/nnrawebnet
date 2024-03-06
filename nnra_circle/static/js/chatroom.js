@@ -82,6 +82,7 @@ function connectWebsocket(){
             }
 
             reorderThread(chatmessage)       
+            UnseenChanged(chatmessage.senderId, '+')
         }
 
         if(received.action == 'msg_confirmation'){
@@ -139,8 +140,6 @@ function connectWebsocket(){
 
 function reorderThread(chatmessage){
     const id = chatmessage.senderId == userId? focusUser?.user?.id : chatmessage.senderId
-    console.log(id)
-    console.log(chatmessage.senderId)
     if (id){
         const threadEl = document.getElementById(`thread-el-${id}`)
     
@@ -226,9 +225,9 @@ function appendUserThread(thread){
 
         <div class="time-num">
           <p class="time">${getFormattedDate(new Date(thread.date))}</p>
-            ${thread.lastSender == userId || thread.unreadCount < 1? '': `<div class="num-container">
-            <p class="num">${thread.unreadCount}</p>
-          </div>`}
+          <div class="num-container ${thread.lastSender == userId || thread.unreadCount < 1? '': 'visible'}">
+                <p class="num">${thread.unreadCount}</p>
+            </div>
         </div>
       </div>
         `
@@ -300,15 +299,19 @@ function appendChatMessage(chatmessage){
     scrollToContainerEnd(conversationContainer)
 }
 
-function decreamentUnseen(senderId){
+function UnseenChanged(senderId, operation){
     const threadEl = document.getElementById(`thread-el-${senderId}`)
     
     if(threadEl){
         const numEl = threadEl.querySelector('.num')
-        let num = Number(numEl.textContent) 
-        num --
-        if(num <1){
-           numEl.parentNode.style.display= 'none'
+        let num = Number(numEl.textContent)
+        num = operation == '+'? num + 1: num - 1 
+        if(num < 1){
+        //    numEl.parentNode.style.display= 'none'
+            numEl.parentNode.classList.remove('visible')
+        }
+        else{
+            numEl.parentNode.classList.add('visible')
         }
         numEl.textContent = num + ''
     }
@@ -317,7 +320,6 @@ function decreamentUnseen(senderId){
 
 function markAsSeen(chatmessage){
     if (chatmessage.status !== 'seen' && chatmessage.type === 'receiver'){
-
         //notify the database of message seen
         fetch(`/chat/markasseen/${chatmessage.id}/`, {
             method: 'GET',
@@ -340,7 +342,7 @@ function markAsSeen(chatmessage){
             console.error('Error:', error)
         })
 
-        decreamentUnseen(chatmessage.senderId)
+        UnseenChanged(chatmessage.senderId, '-')
     }
 }
 
