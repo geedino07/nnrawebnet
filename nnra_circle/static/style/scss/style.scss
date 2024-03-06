@@ -826,7 +826,8 @@ header {
               align-items: center;
 
               .time {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
+                opacity: 0.7;
               }
 
               .num-container {
@@ -838,6 +839,7 @@ header {
                 justify-content: center;
                 width: 20px;
                 height: 20px;
+                margin-top: 2px;
 
                 .num {
                   color: white;

@@ -113,6 +113,7 @@ function connectWebsocket(){
                 senderId: Number(userId)
             })
             appendChatMessage(chatmessage)
+            reorderThrad(chatmessage)
             chatMessageInput.value = ''
         }
 
@@ -128,6 +129,20 @@ function connectWebsocket(){
     })
 
     return socket
+}
+
+
+function reorderThrad(chatmessage){
+    if (focusUser){
+        const threadEl = document.getElementById(`thread-el-${focusUser.user.id}`)
+        const txtLastMessage = threadEl.querySelector('.l-message')
+        const time = threadEl.querySelector('.time')
+
+        if(threadEl){
+            threadEl.style.order = -1
+            txtLastMessage.textContent = chatmessage.message
+        }
+    }
 }
 
 function generateRandomString(){
@@ -158,6 +173,7 @@ function populateUserThreads(threads){
         if(b.last_message.created > a.last_message.created) return 1
     })
     threads.forEach(function(thread){
+        console.log(thread)
         const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
 
         const profileimg = loaduser.profile.profileImg
@@ -191,7 +207,7 @@ function appendUserThread(thread){
         </div>
 
         <div class="time-num">
-          <p class="time">1 min</p>
+          <p class="time">${getFormattedDate(new Date(thread.date))}</p>
           <div class="num-container">
             <p class="num">3</p>
           </div>
@@ -200,6 +216,7 @@ function appendUserThread(thread){
         `
         chatTilesContainer.insertAdjacentHTML('beforeend', htmel)
 }
+
 
 /** Changes the fouced user, i.e the user we are currently chatting with 
  * also fetches all the messages between the logged in user and the focused user
@@ -261,6 +278,11 @@ function appendChatMessage(chatmessage){
     `
     conversationContainer.insertAdjacentHTML('beforeend', htmlel)
 
+    markAsSeen(chatmessage)
+    scrollToContainerEnd(conversationContainer)
+}
+
+function markAsSeen(chatmessage){
     if (chatmessage.status !== 'seen' && chatmessage.type === 'receiver'){
         //notify the database of message seen
         fetch(`/chat/markasseen/${chatmessage.id}/`, {
@@ -284,7 +306,6 @@ function appendChatMessage(chatmessage){
             console.error('Error:', error)
         })
     }
-    scrollToContainerEnd(conversationContainer)
 }
 
 /** Forces a scrollable container to scroll to end
@@ -294,8 +315,19 @@ function scrollToContainerEnd(container){
     container.scrollTop = container.scrollHeight
 }
 
-function getFormattedDate(date){
 
+function getFormattedDate(date){
+    const now = new Date()
+    const dayDiff = now.getDay() - date.getDay()
+    if(dayDiff === 1){
+        return "Yesterday"
+    }
+    else if (dayDiff > 1){
+        return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
+    }
+    else{
+        return getFormattedTime(date)
+    }
 }
 
 /** Returns a formatted time in form of (11:00pm)
