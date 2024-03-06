@@ -135,12 +135,14 @@ function connectWebsocket(){
 function reorderThrad(chatmessage){
     if (focusUser){
         const threadEl = document.getElementById(`thread-el-${focusUser.user.id}`)
-        const txtLastMessage = threadEl.querySelector('.l-message')
-        const time = threadEl.querySelector('.time')
-
+    
         if(threadEl){
+            const txtLastMessage = threadEl.querySelector('.l-message')
+            const time = threadEl.querySelector('.time')
             threadEl.style.order = -1
             txtLastMessage.textContent = chatmessage.message
+
+            time.textContent = `${getFormattedDate(chatmessage.timestamp)}`
         }
     }
 }

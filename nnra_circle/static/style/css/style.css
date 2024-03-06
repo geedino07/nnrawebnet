@@ -1281,7 +1281,8 @@ header .container .el-three.phone {
 }
 .chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item .time-num .time {
   font-size: 0.7rem;
-  opacity: 0.7;
+  opacity: 0.6;
+  color: var(--main-green);
 }
 .chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item .time-num .num-container {
   background-color: var(--main-green);
