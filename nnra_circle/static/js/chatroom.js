@@ -68,18 +68,20 @@ function connectWebsocket(){
 
     socket.addEventListener('message', function(e){
         const received = JSON.parse(e.data)
+
         if(received.action == 're_message'){//when this user receives a message
-            
+            const chatmessage = new ChatMessage({
+                message: received.message,
+                timestamp: new Date(received.timestamp),
+                type: 'receiver', 
+                id: received.id,
+                senderId: received.sender
+            })
             if (focusUser && received.sender == focusUser.user.id){
-                const chatmessage = new ChatMessage({
-                    message: received.message,
-                    timestamp:received.timestamp,
-                    type: 'receiver', 
-                    id: received.id,
-                    senderId: received.sender
-                })
-                appendChatMessage(chatmessage)        
+                appendChatMessage(chatmessage) 
             }
+
+            reorderThread(chatmessage)       
         }
 
         if(received.action == 'msg_confirmation'){
@@ -116,7 +118,7 @@ function connectWebsocket(){
                 senderId: Number(userId)
             })
             appendChatMessage(chatmessage)
-            reorderThrad(chatmessage)
+            reorderThread(chatmessage)
             chatMessageInput.value = ''
         }
 
@@ -135,9 +137,12 @@ function connectWebsocket(){
 }
 
 
-function reorderThrad(chatmessage){
-    if (focusUser){
-        const threadEl = document.getElementById(`thread-el-${focusUser.user.id}`)
+function reorderThread(chatmessage){
+    const id = chatmessage.senderId == userId? focusUser?.user?.id : chatmessage.senderId
+    console.log(id)
+    console.log(chatmessage.senderId)
+    if (id){
+        const threadEl = document.getElementById(`thread-el-${id}`)
     
         if(threadEl){
             const txtLastMessage = threadEl.querySelector('.l-message')
@@ -178,7 +183,6 @@ function populateUserThreads(threads){
         if(b.last_message.created > a.last_message.created) return 1
     })
     threads.forEach(function(thread){
-        console.log(thread)
         const loaduser = thread.user_one.id == userId ? thread.user_two : thread.user_one
 
         const profileimg = loaduser.profile.profileImg
@@ -203,7 +207,6 @@ function populateUserThreads(threads){
  * @param thread the thread object to be appended
 */
 function appendUserThread(thread){
-    console.log(thread.lastSender)
     const htmel = `
         <div class="chat-item" id="thread-el-${thread.userId}" data-userid="${thread.userId}">
         <div class="con">
