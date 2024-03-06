@@ -185,7 +185,6 @@ function populateUserThreads(threads){
         const username = loaduser.username
         const lastmessage = thread.last_message.message
 
-        // const userThread = new Thread(username, profileimg, lastmessage, loaduser.id, thread.last_message.created)
         const userThread = new Thread({
             username: username,
             profileImg: profileimg,
@@ -197,6 +196,7 @@ function populateUserThreads(threads){
         })
         appendUserThread(userThread)
     })
+
 }
 
 /** appends a new thread to the ui  
@@ -297,8 +297,24 @@ function appendChatMessage(chatmessage){
     scrollToContainerEnd(conversationContainer)
 }
 
+function decreamentUnseen(senderId){
+    const threadEl = document.getElementById(`thread-el-${senderId}`)
+    
+    if(threadEl){
+        const numEl = threadEl.querySelector('.num')
+        let num = Number(numEl.textContent) 
+        num --
+        if(num <1){
+           numEl.parentNode.style.display= 'none'
+        }
+        numEl.textContent = num + ''
+    }
+    
+}
+
 function markAsSeen(chatmessage){
     if (chatmessage.status !== 'seen' && chatmessage.type === 'receiver'){
+
         //notify the database of message seen
         fetch(`/chat/markasseen/${chatmessage.id}/`, {
             method: 'GET',
@@ -320,6 +336,8 @@ function markAsSeen(chatmessage){
         .catch(error => {
             console.error('Error:', error)
         })
+
+        decreamentUnseen(chatmessage.senderId)
     }
 }
 
