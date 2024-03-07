@@ -54,6 +54,11 @@ offices_dict ={
 
 
 def seed_departments(request):
+    departments = Department.objects.all()
+    if departments:
+        return JsonResponse({
+            'message': 'Please delete all departments before seeding'
+        })
     for department in department_list:
         dept = Department.objects.create(dept_name=department)
         print(f"created {dept.dept_name}")
@@ -64,6 +69,11 @@ def seed_departments(request):
 
 
 def seed_offices(request):
+    offices = Office.objects.all()
+    if offices:
+        return JsonResponse({
+            'message': 'Please delete all offices before seeding'
+        })
     for office_name, dept_name in offices_dict.items():
         if dept_name != None:
             try:
