@@ -13,10 +13,10 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 from pathlib import Path
 import os
 from dotenv import load_dotenv
-load_dotenv()
 # from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv()
 
 
 # Quick-start development settings - unsuitable for production
@@ -151,13 +151,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-    EMAIL_HOST = 'sandbox.smtp.mailtrap.io'
-    EMAIL_PORT = '2525'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
     EMAIL_USE_TLS = True
-    EMAIL_HOST_USER = 'e1c66396671ac5'
-    EMAIL_HOST_PASSWORD = 'b7b9bff8b5ffb2'
-    EMAIL_FROM_USER = 'e1c66396671ac5'
-    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER_DEBUG')
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD_DEBUG')
+    EMAIL_FROM_USER = os.environ.get('EMAIL_HOST_USER_DEBUG')
+    DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER_DEBUG')
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
     EMAIL_HOST = 'smtp.gmail.com'
@@ -168,7 +168,6 @@ else:
     EMAIL_FROM_USER = os.environ.get('EMAIL_HOST_USER_DEBUG')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER_DEBUG')
 
-    
 
 CHANNEL_LAYERS = {
     "default": {
