@@ -16,7 +16,7 @@ urlpatterns = [
     path('list/', views.list_items, name='listitems'),
     path('getprofile/<int:profile_id>/', views.get_user_profile, name='getuserprofile' ),
     path('networkprompt/', views.network_prompt, name='networkprompt'),
-    path('logout/', views.log_out, name='logout')
-    # path('seed/department/', seed_departments, name='seeddartments'),
-    # path('seed/offices/', seed_offices, name='seedoffices')
+    path('logout/', views.log_out, name='logout'),
+    path('seed/department/', seed_departments, name='seeddartments'),
+    path('seed/offices/', seed_offices, name='seedoffices')
 ]
