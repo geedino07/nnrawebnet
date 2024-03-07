@@ -62,7 +62,7 @@ chatTilesContainer.addEventListener('click', function(e){
 /**Establishes a websocket connection to the chat message consumer and returns the websocket instance */
 function connectWebsocket(){
     loc = window.location
-    wsprotocol = loc === "https" ? "wss://" : "ws://";//setting the websocket protocol for the connection
+    wsprotocol = loc.protocol === "https:" ? "wss://" : "ws://";//setting the websocket protocol for the connection
     const endpoint = wsprotocol + loc.host + loc.pathname
     const socket  = new WebSocket(endpoint)
 
