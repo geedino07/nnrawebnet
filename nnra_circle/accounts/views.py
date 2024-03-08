@@ -129,6 +129,7 @@ def edit_profile(request):
         firstname= request.POST.get('firstname')
         lastname = request.POST.get('lastname')
         department = request.POST.get('department')
+        username = request.POST.get('username')
         about = request.POST.get('about')
         phone = request.POST.get('phone')
         if firstname == '' or lastname == '':#ensure that user has provided a first ane last name
@@ -156,6 +157,10 @@ def edit_profile(request):
         
         if profile.phone != phone:
             profile.phone = phone
+        
+        if user.username != username:
+            user.username = username
+
         
         if profile.office.id != department:
             try:
