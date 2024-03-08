@@ -20,13 +20,18 @@
             <p class="txt-edit">Edit your profile information</p>
         </div>
         <div class="bottom">
-            <form class="b-left">
+            <form class="b-left" method="post">
+                {% csrf_token %}
                 <p class="pic-intro">Your profile Picture</p>
                 <div class="edit-picture-container">
-                    <img src="{% static 'img/samples/s8.jpg' %}" alt="" class="profile-img">
+                    <img src="{{profile.profileImg.url}}" alt="" class="profile-img">
+                    <input type="file" name="new-photo" id="file-new-photo" style="display: none;" accept=".png, .jpg, .jpeg">
+
                     <div class="right-con">
                         <button class="btn-change-photo" type="button">Change photo</button>
+                        {% if profile.profileImg != 'def-user-img.png' %}
                         <button class="btn-remove-photo" type="button"><i class="ri-delete-bin-line"></i> Remove Photo</button>
+                        {% endif %}
                     </div>
                 </div>
     
@@ -94,6 +99,8 @@
       </div>
     </div>
 
+
+    <script src="//cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
     <script src="{% static 'js/components.js' %}"></script>
     <script src="{% static 'js/editprofile.js' %}"></script>
 

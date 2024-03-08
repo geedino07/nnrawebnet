@@ -96,12 +96,83 @@ def list_items(request):
         'fd': fd, 
         'user_profile': user_profile})
 
-def edit_profile(request, uid):
+@login_required
+def edit_profile(request):
     offices = Office.objects.all()
+    user = request.user
+    try:
+        profile = Profile.objects.prefetch_related('user', 'office').get(user=user)
+    except Profile.DoesNotExist:
+        profile = None
+
     return render(request, 'accounts/editprofile.html', {
-        'offices': offices
+        'offices': offices,
+        'profile': profile
     })
 
+@login_required
+def update_user_profile_photo(request, action):
+    if request.method == 'POST':
+        user= request.user
+        try:
+            user_profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            return JsonResponse({
+                'message': "Profile not found",
+                'status': 404,
+                'data': {}
+            }, status=404)
+            
+        if action == 'remove':
+            if user_profile.profileImg == 'def-user-img.png':
+                return JsonResponse({
+                    'message': 'Cannot remove default profile photo',
+                    'status': 400,
+                    'data': {}
+                }, status=400)
+            
+            user_profile.profileImg.delete(save=False)
+            user_profile.profileImg = 'def-user-img.png'
+            user_profile.save()
+            return JsonResponse({
+                'message': 'Image removed successfully',
+                'status': 200,
+                'data': {}
+            }, status=200)
+        
+        elif action == 'change':
+            new_photo = request.FILES.get('new-photo')
+            if new_photo:
+                if user_profile.profileImg != 'def-user-img.png':
+                    user_profile.profileImg.delete()
+                
+                user_profile.profileImg = new_photo
+                user_profile.save()
+                return JsonResponse({
+                    'message': 'Photo updated successfully', 
+                    'status': 200,
+                    'data': {}
+                }, status=200)
+            else:
+                return JsonResponse({
+                    'message': 'Please choose a document',
+                    'status': 400,
+                    'data': {}
+                }, status=400)
+            
+        else:
+            return JsonResponse({
+                'message': "Action not available, choices are 'remove' and 'change'",
+                'status': 405,
+                'data': {}
+            }, status=405)
+    
+    else: 
+        return JsonResponse({
+            'message': 'Method not allowed',
+            'status': 405,
+            'data' : {}
+        }, status=405)
 
 def welcome_user(request, uid):
     try:

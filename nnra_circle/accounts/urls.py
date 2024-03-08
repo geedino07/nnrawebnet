@@ -12,11 +12,12 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('selectdept/<int:uid>/', views.select_dept, name='selectdept'),
     path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser'),
-    path('profile/<int:uid>/edit/', views.edit_profile, name='editprofile'),
+    path('profile/edit/', views.edit_profile, name='editprofile'),
     path('list/', views.list_items, name='listitems'),
     path('getprofile/<int:profile_id>/', views.get_user_profile, name='getuserprofile' ),
     path('networkprompt/', views.network_prompt, name='networkprompt'),
     path('logout/', views.log_out, name='logout'),
     path('seed/department/', seed_departments, name='seeddartments'),
-    path('seed/offices/', seed_offices, name='seedoffices')
+    path('seed/offices/', seed_offices, name='seedoffices'),
+    path('updatephoto/<str:action>/', views.update_user_profile_photo, name='updatephoto')
 ]
