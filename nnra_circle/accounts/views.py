@@ -4,7 +4,7 @@ from .forms import UserRegistrationForm, LoginForm, OtpForm
 from django.contrib.auth.models import User
 from .utils import generate_send_otp_code
 from .models import Otpcode, Profile, Office
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.contrib.auth import authenticate, login, logout
 from .serializers import ProfileSerializer
 from django.db.models import Q
@@ -98,17 +98,86 @@ def list_items(request):
 
 @login_required
 def edit_profile(request):
-    offices = Office.objects.all()
-    user = request.user
-    try:
-        profile = Profile.objects.prefetch_related('user', 'office').get(user=user)
-    except Profile.DoesNotExist:
-        profile = None
+    if request.method == 'POST':
+        try:
+           profile = Profile.objects.prefetch_related('office').get(user=request.user)
+           user = User.objects.get(id=request.user.id)
+        except Profile.DoesNotExist:
+           return JsonResponse({
+               'message': 'Profile not found', 
+               'status': 404,
+               'data': {}
+           }, status=404)
+        except User.DoesNotExist:
+            return JsonResponse({
+               'message': 'user not found', 
+               'status': 404,
+               'data': {}
+           }, status=404)
+        
+        firstname= request.POST.get('firstname')
+        lastname = request.POST.get('lastname')
+        department = request.POST.get('department')
+        about = request.POST.get('about')
+        phone = request.POST.get('phone')
+        if firstname == '' or lastname == '':#ensure that user has provided a first ane last name
+           return JsonResponse({
+               'message': 'Firstname and Lastname cannot be left blank, please provide a value',
+               'status': 400, 
+               'data': {}
+           }, status=400)
 
-    return render(request, 'accounts/editprofile.html', {
-        'offices': offices,
-        'profile': profile
-    })
+        if len(phone) >11:
+            return JsonResponse({
+               'message': 'Phone number cannot be greater than 11 digits',
+               'status': 400, 
+               'data': {}
+           }, status=400)
+
+        if user.first_name != firstname:
+            user.first_name = firstname
+        
+        if user.last_name != lastname:
+            user.last_name = lastname
+
+        if profile.about != about:
+            profile.about = about
+        
+        if profile.phone != phone:
+            profile.phone = phone
+        
+        if profile.office.id != department:
+            try:
+                office = Office.objects.get(id=department)
+            except Office.DoesNotExist:
+                return JsonResponse({
+                    'message': 'Invalid department',
+                    'status': 400,
+                    'data': {}
+                }, status=400)
+            
+            profile.office = office
+
+        user.save()
+        profile.save()
+        return JsonResponse({
+           'message': 'Profile Updated successfully',
+           'status': 200, 
+           'data': {}
+       }, status=200)
+    
+    elif request.method == 'GET':
+        offices = Office.objects.all()
+        user = request.user
+        try:
+            profile = Profile.objects.prefetch_related('user', 'office').get(user=user)
+        except Profile.DoesNotExist:
+            profile = None
+
+        return render(request, 'accounts/editprofile.html', {
+            'offices': offices,
+            'profile': profile
+        })
 
 @login_required
 def update_user_profile_photo(request, action):

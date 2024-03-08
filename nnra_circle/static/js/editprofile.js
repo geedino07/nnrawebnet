@@ -1,5 +1,6 @@
 const fileInput = document.getElementById('file-new-photo')
 const btnRemovePhoto = document.querySelector('.btn-remove-photo')
+const btnSubmit = document.querySelector('.btn-submit')
 
 if(btnRemovePhoto){
     btnRemovePhoto.addEventListener('click', function(){
@@ -35,9 +36,6 @@ if(btnRemovePhoto){
     })
 }
 
-
-
-
 document.querySelector('.btn-change-photo').addEventListener('click', function(){
     fileInput.click()
 })
@@ -69,6 +67,36 @@ fileInput.addEventListener('change', function(){
             })
         })
     }
+})
+
+document.getElementById('edit-profile-form').addEventListener('submit', function(e){
+    e.preventDefault()
+    btnSubmit.disabled =true
+    const csrftoken = Cookies.get('csrftoken')
+
+    const formData = new FormData(this)
+
+    fetch('', {
+        method: 'POST',
+        headers: {
+            'X-CSRFToken': csrftoken
+        },
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data=> {
+        showToast({
+            message: data.message,
+            style: data.status === 200? 'success': 'error',
+            duration: 3000,
+            onfinshed: data.status === 200? function(){
+                window.location.reload()
+            }: function(){}
+        })
+    })
+    .finally(()=> {
+        btnSubmit.disabled= false
+    })
 })
 
 

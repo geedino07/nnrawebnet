@@ -16,15 +16,19 @@
 <body>
     <section class="edit-profile-section">
         <div class="top">
-            <p class="txt-welcome">Welcome, Onuh Udochukwu</p>
-            <p class="txt-edit">Edit your profile information</p>
+            <p class="txt-welcome">Welcome, {{profile.user.get_full_name}}</p>
+            <!-- <p class="txt-edit">Edit your profile information</p> -->
+            <p class="txt-edit">{{profile.user.email}}</p>
+
         </div>
         <div class="bottom">
-            <form class="b-left" method="post">
+            <form class="b-left" method="post" id="edit-profile-form">
                 {% csrf_token %}
                 <p class="pic-intro">Your profile Picture</p>
                 <div class="edit-picture-container">
-                    <img src="{{profile.profileImg.url}}" alt="" class="profile-img">
+                    <a href="{{profile.profileImg.url}}" target="_blank">
+                        <img src="{{profile.profileImg.url}}" alt="" class="profile-img">
+                    </a>
                     <input type="file" name="new-photo" id="file-new-photo" style="display: none;" accept=".png, .jpg, .jpeg">
 
                     <div class="right-con">
@@ -39,28 +43,30 @@
                     <p class="ac-heading">Account Information</p>
     
                     <label for="firstname">Firstname</label>
-                    <input type="text" name="firstname" value="Udochukwu" class="text-input width-controller">
+                    <input type="text" name="firstname" value="{{profile.user.first_name}}" class="text-input width-controller" >
     
                     
                     <label for="lastname">Lastname</label>
-                    <input type="text" name="lastname" value="Onuh" class="text-input width-controller">
+                    <input type="text" name="lastname" value="{{profile.user.last_name}}" class="text-input width-controller">
     
                     
                     <label for="phone">Phone number</label>
-                    <input type="text" name="phone" value="09083928284" class="text-input width-controller">
+                    <input type="text" name="phone" value="{% if profile.phone %}{{profile.phone}}{% endif %}" class="text-input width-controller">
     
                       
                     <label for="about">About</label>
-                    <textarea name="about" id="" cols="30" rows="7" class="text-input width-controller" placeholder="Tell us more about yourself"></textarea>
+                    <textarea name="about" id="" cols="30" rows="7"  class="text-input width-controller">{% if profile.about %}{{profile.about}}{% endif %}</textarea>
     
                     <label for="department">Department</label>
                     <select name="department" id="input-select" class="dept-select width-controller text-input">
                         {% for office in offices %}
-                        <option value="{{office.id}}">{{office.office_name}}</option>
+                        <option value="{{office.id}}" {% if office.id == profile.office.id %} selected {% endif %}>{{office.office_name}}</option>
                         {% endfor %}
                     </select>
     
-                    <button class="toggler-btn width-controller" type="submit">Save profile</button>
+                    <button class="toggler-btn width-controller btn-submit" type="submit">
+                        <img src="{% static 'img/spinner.gif' %}" alt="">
+                        Save profile</button>
                 </div>
             </form>
         

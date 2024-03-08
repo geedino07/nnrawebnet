@@ -115,6 +115,7 @@ function showToast({
   
     toastDiv.innerHTML = toastContent;
     document.body.appendChild(toastDiv);
+    
   
     document.getElementById(`remove-${toastDiv.id}`).onclick = function () {
       removeToast(toastDiv.id);
