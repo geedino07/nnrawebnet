@@ -56,7 +56,7 @@
       .el-three.desktop {
         display: none;
       }
-      .el-three.phone{
+      .el-three.phone {
         display: block;
       }
     }
@@ -178,18 +178,17 @@
       width: 90%;
       max-width: 300px;
       box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
-    border-right: none;
+      border-right: none;
 
-    .logo-showcase{
-        .mobile-close-left-most{
-            display: block;
+      .logo-showcase {
+        .mobile-close-left-most {
+          display: block;
         }
-    }
-       
+      }
     }
 
-    .left-most-tile.visible{
-        left: 0;
+    .left-most-tile.visible {
+      left: 0;
     }
 
     .center-tile {
@@ -241,62 +240,59 @@
   }
 }
 
-
 //============================= CONFIRM OTP MEDIA QUERIES ==============================
-@media screen and (max-width: 700px){
-  .confirmotp-section{
+@media screen and (max-width: 700px) {
+  .confirmotp-section {
     flex-direction: column;
 
-    img{
+    img {
       max-width: 300px;
     }
   }
 }
 
-
 //============================ PEOPLE LIST MEDIA QUERY ================================
 
-@media  screen and (max-width: 865px) {
-  .profile-tile{
-    .top-info{
-      i{
+@media screen and (max-width: 865px) {
+  .profile-tile {
+    .top-info {
+      i {
         display: block;
       }
     }
   }
 
-  .list-all-section{
-    .middle-content{
+  .list-all-section {
+    .middle-content {
       width: 90%;
     }
 
-    .right-profile-content{
+    .right-profile-content {
       display: none;
     }
-    .right-profile-content.visible{
+    .right-profile-content.visible {
       z-index: 10;
       display: flex;
       width: 100%;
       min-height: 100vh;
       position: absolute;
 
-      .placeholder{
+      .placeholder {
         display: none;
       }
 
-      .loading-container{
+      .loading-container {
         display: none;
       }
-
     }
   }
 }
 
-@media screen and (max-width: 700px){
-  .list-all-section{
-    .left-nav{
-      .user-image-container{
-        img{
+@media screen and (max-width: 700px) {
+  .list-all-section {
+    .left-nav {
+      .user-image-container {
+        img {
           width: 40px;
           height: 40px;
         }
@@ -305,11 +301,11 @@
   }
 }
 
-@media screen and (max-width: 500px){
-  .list-all-section{
+@media screen and (max-width: 500px) {
+  .list-all-section {
     flex-direction: column-reverse;
 
-    .left-nav{
+    .left-nav {
       width: 100%;
       min-height: auto;
       position: fixed;
@@ -319,12 +315,12 @@
       z-index: 9;
       background-color: white;
 
-      .logo-img{
+      .logo-img {
         display: none;
         margin-top: 0;
       }
 
-      .options-select-container{
+      .options-select-container {
         margin-left: 5px;
         margin-top: 0;
         width: 100%;
@@ -332,21 +328,21 @@
         justify-content: space-around;
         align-items: center;
       }
-      .user-image-container{
+      .user-image-container {
         position: relative;
         margin-bottom: 0;
       }
     }
 
-    .middle-content{
+    .middle-content {
       width: 100%;
       padding: 20px 10px;
 
-      .user-cards-container{
+      .user-cards-container {
         justify-items: center;
         margin-bottom: 50px;
 
-        .user-card{
+        .user-card {
           max-width: 300px;
         }
       }
@@ -355,32 +351,109 @@
 }
 
 //====================== NETWORK PROMPT MEDIA QUERY ==========================
-@media screen and (max-width: 700px){
-  .people-you-may-know-section{
-      flex-direction: column;
-      .left-content{
-        width: 100%;
-        height: 0;
-        min-height: 70vh;
-      }
+@media screen and (max-width: 700px) {
+  .people-you-may-know-section {
+    flex-direction: column;
+    .left-content {
+      width: 100%;
+      height: 0;
+      min-height: 70vh;
+    }
 
-      .right-content{
-        width: 100%;
-      }
+    .right-content {
+      width: 100%;
+    }
   }
 }
 
-@media screen and (max-width: 400px){
-  .user-item{
-    .con{
-      .username-msg{
-        h5{
+@media screen and (max-width: 400px) {
+  .user-item {
+    .con {
+      .username-msg {
+        h5 {
           max-width: 190px;
         }
-        .l-message{
+        .l-message {
           max-width: 190px;
         }
       }
     }
   }
 }
+
+//=========================== EDIT PROFILE MEDIA QUERY ====================
+@media screen and (max-width: 1240px) {
+  .edit-profile-section {
+    padding: 50px 150px;
+  }
+}
+
+@media screen and (max-width: 1111px) {
+  .edit-profile-section {
+    padding: 50px 100px;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .edit-profile-section {
+    padding: 50px;
+  }
+}
+
+@media screen and (max-width: 890px) {
+  .edit-profile-section {
+    padding: 50px 20px;
+    align-items: center;
+    justify-content: center;
+    .bottom {
+      flex-direction: column;
+
+      .b-right {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .edit-profile-section {
+    .bottom {
+
+      .b-left {
+        width: 100%;
+
+        .account-information-container {
+          width: 100%;
+
+          form {
+            width: 100%;
+          }
+        }
+      }
+
+      .b-right {
+        .why-container {
+          .why-background {
+            height: 300px;
+          }
+          .why-text-image {
+            img {
+              width: 120px;
+            }
+
+            .why-text {
+              .txt-desc {
+                line-height: 1.4;
+              }
+            }
+          }
+        }
+      }
+
+      .width-controller {
+        width: 98%;
+      }
+    }
+  }
+}
+
