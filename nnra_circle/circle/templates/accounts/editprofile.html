@@ -25,8 +25,8 @@
                 <div class="edit-picture-container">
                     <img src="{% static 'img/samples/s8.jpg' %}" alt="" class="profile-img">
                     <div class="right-con">
-                        <button class="btn-change-photo">Change photo</button>
-                        <button class="btn-remove-photo"><i class="ri-delete-bin-line"></i> Remove Photo</button>
+                        <button class="btn-change-photo" type="button">Change photo</button>
+                        <button class="btn-remove-photo" type="button"><i class="ri-delete-bin-line"></i> Remove Photo</button>
                     </div>
                 </div>
     
@@ -57,8 +57,6 @@
     
                     <button class="toggler-btn width-controller" type="submit">Save profile</button>
                 </div>
-    
-    
             </form>
         
             <div class="b-right">
@@ -84,5 +82,20 @@
         </div>
        
     </section>
+
+    <div class="modal-section" >
+        <div class="modal-content confirmation-modal-one" >
+          <p class="modal-message"> Are you sure you want to delete your profile photo?</p>
+          <div class="bottom-actions">
+                <p class="p-cancel">CANCEL</p>
+                <p class="p-continue">CONTINUE</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="{% static 'js/components.js' %}"></script>
+    <script src="{% static 'js/editprofile.js' %}"></script>
+
 </body>
 </html>

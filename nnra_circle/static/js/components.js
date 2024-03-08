@@ -40,9 +40,39 @@ function showAlert(containerId, message, tag='success', append=false){
       `
       if(!append) container.innerHTML = ''
       container.insertAdjacentHTML('beforeend', alertHtml)
-  }
+}
 
-  
+
+
+function showConfirmationModalOne({
+  message, 
+  onModalCancel= function(){}, 
+  onModalContinue=function(){},
+  pCancelText = 'CANCEL', 
+  pContinueText = 'CONTINUE', 
+  safe=false
+}) {
+  transitionModal('none')
+  const modalSection = document.createElement('div')
+  modalSection.classList.add('visible')
+  modalSection.classList.add('modal-section')
+  const htmmlEl = `
+  <div class="modal-content confirmation-modal-one" >
+    <p class="modal-message"> ${message}</p>
+    <div class="bottom-actions">
+          <p class="p-cancel">${pCancelText}</p>
+          <p class="p-continue ${safe?'safe': ''}">${pContinueText}</p>
+    </div>
+  </div>
+  </div>
+  `
+
+  modalSection.innerHTML = htmmlEl
+  modalSection.querySelector('.p-cancel').onclick = onModalCancel
+  modalSection.querySelector('.p-continue').onclick= onModalContinue
+  document.body.appendChild(modalSection)
+  return modalSection
+} 
 
 function showToast({
     message,
@@ -105,12 +135,12 @@ function showToast({
       }, increamentTimePercent);
     }, 10);
     return toastDiv;
-  }
+}
 
-  function removeToast(toastId) {
+function removeToast(toastId) {
     const toast = document.getElementById(toastId);
     toast.style.transform = "translateY(-150%)";
-  }
+}
 
 function disableToggler(button){
   button.disabled=true

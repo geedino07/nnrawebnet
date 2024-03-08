@@ -54,6 +54,40 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.confirmation-modal-one {
+  display: flex;
+  flex-direction: column;
+  padding: 25px !important;
+}
+.confirmation-modal-one .modal-message {
+  color: var(--text-dark);
+  text-align: center;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+.confirmation-modal-one .bottom-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.confirmation-modal-one .bottom-actions p {
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.confirmation-modal-one .bottom-actions .p-cancel {
+  color: black;
+}
+.confirmation-modal-one .bottom-actions .p-continue {
+  color: red;
+}
+.confirmation-modal-one .bottom-actions .p-continue.safe {
+  color: green;
+}
+
 .user-item {
   display: flex;
   flex-direction: row;
@@ -675,6 +709,7 @@ footer .copyright-message p {
 .edit-profile-section .bottom .b-left .account-information-container select {
   padding: 10px 5px;
   outline: none;
+  background-color: white;
 }
 .edit-profile-section .bottom .b-left .account-information-container textarea {
   outline: none;
