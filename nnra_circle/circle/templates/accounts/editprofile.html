@@ -5,86 +5,73 @@
 
 {% block content %}
 <section class="edit-profile-section">
-    <div class="left-content">
-        <div class="top-logo">
-            <img src="{% static 'img/transp-logo.png' %}" alt="Nigerian Nuclear Regulatory Authority">
-            <p class="logo-text">NNRA Digital Network</p>
-        </div>
+    <div class="top">
+        <p class="txt-welcome">Welcome, Onuh Udochukwu</p>
+        <p class="txt-edit">Edit your profile information</p>
+    </div>
+    <div class="bottom">
+        <form class="b-left">
+            <p class="pic-intro">Your profile Picture</p>
+            <div class="edit-picture-container">
+                <img src="{% static 'img/samples/s8.jpg' %}" alt="" class="profile-img">
+                <div class="right-con">
+                    <button class="btn-change-photo">Change photo</button>
+                    <button class="btn-remove-photo"><i class="ri-delete-bin-line"></i> Remove Photo</button>
+                </div>
+            </div>
 
-        <div class="dashboard-con selected">
-            <i class="ri-dashboard-fill"></i>
-            <p>Dashboard</p>
-        </div>
+            <div class="account-information-container">
+                <p class="ac-heading">Account Information</p>
 
-        <div class="bottom-content">
-            <div class="logout-con">
-                <i class="ri-logout-box-r-line"></i>
-                <p>Logout</p>
+                <label for="firstname">Firstname</label>
+                <input type="text" name="firstname" value="Udochukwu" class="text-input">
+
+                
+                <label for="lastname">Lastname</label>
+                <input type="text" name="lastname" value="Onuh" class="text-input width-controller">
+
+                
+                <label for="phone">Phone number</label>
+                <input type="text" name="phone" value="09083928284" class="text-input width-controller">
+
+                  
+                <label for="about">About</label>
+                <textarea name="about" id="" cols="30" rows="7" class="text-input width-controller" placeholder="Tell us more about yourself"></textarea>
+
+                <label for="department">Department</label>
+                <select name="department" id="input-select" class="dept-select width-controller text-input">
+                    {% for office in offices %}
+                    <option value="{{office.id}}">{{office.office_name}}</option>
+                    {% endfor %}
+                </select>
+
+                <button class="toggler-btn width-controller" type="submit">Save profile</button>
+            </div>
+
+
+        </form>
+    
+        <div class="b-right">
+            <div class="why-container">
+                <div class="why-background">
+
+                </div>
+
+                <div class="why-text-image">
+                    <div class="why-text">
+                        <p class="txt-foster">Foster a trusting environment</p>
+                        <p class="txt-desc">complete your profile with key details. 
+                            Your information helps create stronger 
+                            connections and fosters a more vibrant 
+                            network. 
+                            Thank you for contributing to our 
+                            thriving community!</p>
+                    </div>
+                    <img src="{% static 'img/user-why.png' %}" alt="">
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="right-content">
-        <div class="welcome-container">
-            <p class="welcome-text">Welcome, Onuh Udochukwu</p>
-            <p class="join-date">Joined Wed 12 June 2022</p>
-        </div>
-
-        <div class="txt-acct-info-container">
-            <p class="main-txt">Account Information</p>
-            <p class="sub-text">Update your account Information</p>
-        </div>
-
-        <div class="p-info-con">
-            <p class="txt-p-info">Personal Information</p>
-
-            <form action="">
-                <div class="grid-con">
-                    
-                    <div class="input-con">
-                        <label for="firstname">First Name</label>
-                        <input type="text" name="firstname" value="Kyrian">
-                    </div>
-                    
-                    <div class="input-con">
-                        <label for="lastname">Last Name</label>
-                        <input type="text" name="lastname" value="Onuh">
-                    </div>
-                    
-                </div>
-
-                <div class="grid-con">   
-                    <div class="input-con">
-                        <label for="phone">Mobile Phone</label>
-                        <input type="text" name="phone" value="+2348143015512">
-                    </div>
-                    
-                    <div class="input-con">
-                        <label for="department">Department</label>
-                        <select name="department" id="input-select" class="dept-select">
-                            {% for office in offices %}
-                            <option value="{{office.id}}">{{office.office_name}}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    
-                </div>
-                
-
-                <div class="grid-con">
-                    
-                    <div class="input-con">
-                        <label for="description">About</label>
-                        <textarea name="" id="" cols="30" rows="3"></textarea>
-                    </div>
-                    
-                    
-                    
-                </div>
-
-                <input type="submit" value="Update" style="margin-top: 20px; width: 90%; max-width: 300px; align-self: flex-start; border-radius: 5px;">
-            </form>
-        </div>
-    </div>
+   
 </section>
 {% endblock %}
