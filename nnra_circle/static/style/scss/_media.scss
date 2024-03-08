@@ -457,3 +457,14 @@
   }
 }
 
+////============================= VIEW PROFILE QUERIES ==============================
+
+@media screen and (max-width: 500px){
+  .view-profile-section{
+    .container{
+      flex-direction: column;
+      padding: 20px;
+      margin-top: 20px;
+    }
+  }
+}

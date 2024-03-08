@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit your profile | NNRA digital network</title>
+    <link rel="stylesheet" href="{% static 'style/css/profile.css' %}" type="text/css">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+
+    
+      <!--=============== REMIX ICONS ===============-->
+      <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+   
+    <section class="view-profile-section">
+        <div class="container">
+            <img src="{{profile.profileImg.url}}" alt="{{profile.username}}'s profile image" class="profile-img">
+
+            <div class="right-con">
+                <p class="p-fullname">
+                    {{profile.user.get_full_name}}
+                </p>
+                <p class="p-username">{{profile.user.username}}</p>
+
+                <p class="p-about">{{profile.about}}</p>
+
+                <div class="extras-container">
+                    <div class="extra">
+                        <i class="ri-mail-fill"></i>
+                        <div class="extra-info">
+                          <p class="extra-description">Email Address</p>
+                          <p class="extra-content">{{profile.user.email}}</p>
+                        </div>
+                    </div>
+
+                    {% if profile.phone %}
+                    <div class="extra">
+                        <i class="ri-phone-fill"></i>
+                        <div class="extra-info">
+                          <p class="extra-description">Phone</p>
+                          <p class="extra-content">{{profile.phone}} </p>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <div class="extra">
+                        <i class="ri-home-2-line"></i>
+                        <div class="extra-info">
+                          <p class="extra-description">Department</p>
+                          <p class="extra-content">{{profile.office.office_name}} </p>
+                        </div>
+                    </div>
+
+                </div>
+
+                {% if user.id == profile.user.id %}
+                <div class="actions-container">
+                    <a href="{% url 'accounts:editprofile' %}" class="btn-arr-txt">
+                        <i class="ri-edit-box-line"></i>
+                        <p>
+                            Edit your profile
+                        </p>
+                    </a>
+
+                    <a href="{% url 'accounts:logout' %}" class="btn-arr-txt" style="border: none; margin-top: 20px;">
+                        <i class="ri-logout-box-r-line" style="color: var(--soft-red2);"></i>
+                        <p style="color: var(--soft-red2);">
+                            Log out
+                        </p>
+                    </a>
+
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </section>
+</body>
+</html>

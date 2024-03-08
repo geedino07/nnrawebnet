@@ -13,6 +13,17 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+def view_profile(request, uid):
+    try:
+        profile = Profile.objects.prefetch_related('office','user').get(user__id =uid)
+    except Profile.DoesNotExist:
+        profile = None
+        #TODO: create a 404 page and redirect there
+
+
+    return render(request, 'accounts/profile.html', {
+            'profile': profile
+        })
 @login_required
 def log_out(request):
     logout(request)
@@ -253,7 +264,6 @@ def welcome_user(request, uid):
     return render(request, 'registration/regcomplete.html', {
         'user': user
     })
-
 
 def select_dept(request, uid):
     offices = Office.objects.all()

@@ -54,6 +54,90 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.btn-arr-txt {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  align-items: center;
+  margin-top: 5px;
+  border: 0.5px solid var(--text-dark);
+  padding: 10px 20px;
+  border-radius: 50px;
+  width: -moz-max-content;
+  width: max-content;
+}
+.btn-arr-txt i {
+  color: var(--text-dark);
+  font-size: 1rem;
+}
+.btn-arr-txt p {
+  font-weight: 500;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  margin-left: 10px;
+}
+
+.extra {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.extra i {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+.extra .extra-info {
+  margin-left: 10px;
+  width: 100%;
+}
+.extra .extra-info .extra-description {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.extra .extra-info .extra-content {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.confirmation-modal-one {
+  display: flex;
+  flex-direction: column;
+  padding: 25px !important;
+}
+.confirmation-modal-one .modal-message {
+  color: var(--text-dark);
+  text-align: center;
+  font-size: 0.9rem;
+  margin: 10px 0;
+}
+.confirmation-modal-one .bottom-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+.confirmation-modal-one .bottom-actions p {
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+.confirmation-modal-one .bottom-actions .p-cancel {
+  color: black;
+}
+.confirmation-modal-one .bottom-actions .p-continue {
+  color: red;
+}
+.confirmation-modal-one .bottom-actions .p-continue.safe {
+  color: green;
+}
+
 .user-item {
   display: flex;
   flex-direction: row;
@@ -377,7 +461,7 @@ form input[type=submit] {
 
 .toast {
   background-color: white;
-  position: absolute;
+  position: fixed;
   top: 0;
   right: 0;
   width: 80%;
@@ -643,37 +727,6 @@ footer .copyright-message p {
   align-items: flex-start;
   justify-content: flex-start;
   padding-left: 23px;
-  max-width: 350px;
-  text-align: start;
-}
-.container .form-holder form .errorlist li {
-  color: var(--soft-red);
-}
-.container .form-holder form label {
-  display: none;
-}
-.container .form-holder form input {
-  width: 100%;
-  margin: 10px 5px;
-  max-width: 350px;
-  background-color: transparent;
-  padding: 0.9rem;
-  border: none;
-  border-bottom: 0.5px solid rgb(126, 123, 123);
-  outline: none;
-}
-.container .form-holder form input[type=submit] {
-  background-color: var(--main-green);
-  color: white;
-  cursor: pointer;
-}
-.container .form-holder .login-option {
-  text-align: center;
-  margin-top: 10px;
-}
-.container .form-holder .login-option p {
-  margin-top: 10px;
-}/*# sourceMappingURL=auth_style.css.map */left: 23px;
   max-width: 350px;
   text-align: start;
 }

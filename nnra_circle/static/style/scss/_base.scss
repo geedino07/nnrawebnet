@@ -38,6 +38,61 @@ html::-webkit-scrollbar-thumb {
 ///// =================== OTHER STYLES ========================
 
 
+.btn-arr-txt {
+  display: flex;
+  flex-direction: row;
+  text-decoration: none;
+  align-items: center;
+  margin-top: 5px;
+  border: 0.5px solid var(--text-dark);
+  padding: 10px 20px;
+  border-radius: 50px;
+  width: max-content;
+
+  i {
+    color: var(--text-dark);
+    font-size: 1rem;
+  }
+
+  p {
+    font-weight: 500;
+    color: var(--text-dark);
+    font-size: 0.9rem;
+    margin-left: 10px;
+  }
+}
+
+.extra {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+
+  i {
+    font-size: 1.2rem;
+    color: var(--text-dark);
+  }
+
+  .extra-info {
+    margin-left: 10px;
+    width: 100%;
+
+    .extra-description {
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .extra-content {
+      font-size: 0.8rem;
+      opacity: 0.8;
+      max-width: 90%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}
+
 .confirmation-modal-one{
   display: flex;
   flex-direction: column;

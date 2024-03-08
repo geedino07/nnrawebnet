@@ -13,6 +13,7 @@ urlpatterns = [
     path('selectdept/<int:uid>/', views.select_dept, name='selectdept'),
     path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser'),
     path('profile/edit/', views.edit_profile, name='editprofile'),
+    path('profile/view/<int:uid>/', views.view_profile, name='viewprofile'),
     path('list/', views.list_items, name='listitems'),
     path('getprofile/<int:profile_id>/', views.get_user_profile, name='getuserprofile' ),
     path('networkprompt/', views.network_prompt, name='networkprompt'),
