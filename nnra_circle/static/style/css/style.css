@@ -1273,6 +1273,10 @@ header .container .el-three.phone {
   top: 0;
   right: 0;
   border: 1px solid white;
+  display: none;
+}
+.chat-section .center-tile .center-item-top .notification-con .noti-alert.visible {
+  display: block;
 }
 .chat-section .center-tile .center-item-top .user-container {
   display: flex;

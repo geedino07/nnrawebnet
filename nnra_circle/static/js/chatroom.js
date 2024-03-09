@@ -10,11 +10,12 @@ const miniUserInfo = document.querySelector('.logged-in-user-info')
 
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
 const userId = document.getElementById('inputuserid').value
+const unseenThreadList = []//a list of threads where at least one message is not seen
 let focusUser = null
 let lastMsgDate = null
 
 class ChatMessage{
-    constructor({message, timestamp, type, statusid=null, status='sent', id=null, senderId=null}){
+    constructor({message, timestamp, type, statusid=null, status='sent', id=null, senderId=null, receiverId=null}){
         this.message = message
         this.timestamp= timestamp
         this.type=type
@@ -22,6 +23,18 @@ class ChatMessage{
         this.status = status
         this.id=id
         this.senderId = senderId
+        this.receiverId = receiverId
+    }
+
+    getThreadSuffix(uid){
+        return this.receiverId == uid? this.senderId : this.receiverId
+    }
+
+    /**returns a version of the chat message that is fit to render in ui
+     * This treats new lines in the chat message as html line breaks
+     */
+    get newLineChatMessage(){
+        return this.message.replace(/\n/g, '<br>')
     }
 }
 
@@ -85,7 +98,8 @@ function connectWebsocket(){
                 timestamp: new Date(received.timestamp),
                 type: 'receiver', 
                 id: received.id,
-                senderId: received.sender
+                senderId: received.sender,
+                receiverId: userId
             })
             if (focusUser && received.sender == focusUser.user.id){
                 appendChatMessage(chatmessage) 
@@ -126,7 +140,8 @@ function connectWebsocket(){
                 type: 'sender',
                 statusid: uid,
                 status: 'pending',
-                senderId: Number(userId)
+                senderId: Number(userId),
+                receiverId: focusUser?.id
             })
             appendChatMessage(chatmessage)
             reorderThread(chatmessage)
@@ -290,7 +305,8 @@ function populateChatMessages(chatmessages){
             statusid: `status-${msg.id}`,
             status: status,
             id: msg.id,
-            senderId: msg.sender.id
+            senderId: msg.sender.id,
+            receiverId: msg.receiver.id
         }))
     })
 }
@@ -305,7 +321,7 @@ function appendChatMessage(chatmessage){
     <div class="conversation ${convClass}">
     <div class="conv-holder">
       <p class="message">
-        ${newLineChatMessage(chatmessage.message)}
+        ${chatmessage.newLineChatMessage}
       </p>
 
       <p class="date-time">${getFormattedTime(timestamp)} ${msgStatus}</p>
@@ -323,6 +339,7 @@ function appendChatMessage(chatmessage){
         `
         conversationContainer.insertAdjacentHTML('beforeend', dayCon)
     }
+
     conversationContainer.insertAdjacentHTML('beforeend', htmlel)
 
     markAsSeen(chatmessage)

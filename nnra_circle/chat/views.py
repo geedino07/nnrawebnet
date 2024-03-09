@@ -45,15 +45,17 @@ def chatroom(request):
     user = request.user
     user_threads = Thread.threadm.by_user(user=user)
 
+    user_unseen_thread_ids = ChatMessage.objects.filter(receiver=user, seen=False).values_list('thread__id', flat=True)
+    user_unseen_thread_count = Thread.objects.filter(id__in= user_unseen_thread_ids).count()
     if not user_threads and not chat_user_id:
         return redirect('accounts:networkprompt')
     
 
     profile = Profile.objects.filter(user=user).select_related('user', 'office').first()
 
-
     return render(request, 'chat/room.html', {
         'profile': profile,
+        'unseen_thread_count': user_unseen_thread_count
         # 'chat_user': chat_user,
     })
     

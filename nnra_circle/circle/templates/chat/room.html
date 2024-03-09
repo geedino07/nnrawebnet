@@ -24,7 +24,7 @@
           <p>All chats</p>
         </div>
 
-        <p class="num-all-chats">30</p>
+        <p class="num-all-chats">{{unseen_thread_count}}</p>
       </div>
 
       <!-- <div class="all-groups">
@@ -122,7 +122,7 @@
 
         <div class="notification-con">
           <i class="ri-notification-3-line"></i>
-          <div class="noti-alert"></div>
+          <div class="noti-alert {% if unseen_thread_count >= 1 %}visible{% endif %}"></div>
         </div>
 
         <div class="user-container">
