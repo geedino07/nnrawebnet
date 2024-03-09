@@ -922,6 +922,7 @@ header {
             width: 100%;
             gap: 10px;
             margin: auto;
+            
 
             .day-con {
               display: flex;
@@ -934,12 +935,13 @@ header {
               margin: auto;
               .hor-line {
                 width: 60px;
-                height: 1px;
+                height: 0.8px;
                 background-color: var(--soft-grey);
-                opacity: 0.6;
+                opacity: 0.4;
+
               }
               .day {
-                font-size: 0.8rem;
+                font-size: 0.7rem;
                 opacity: 0.8;
               }
             }

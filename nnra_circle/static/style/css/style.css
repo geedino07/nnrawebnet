@@ -1494,12 +1494,12 @@ header .container .el-three.phone {
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .day-con .hor-line {
   width: 60px;
-  height: 1px;
+  height: 0.8px;
   background-color: var(--soft-grey);
-  opacity: 0.6;
+  opacity: 0.4;
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .day-con .day {
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   opacity: 0.8;
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conv-left {

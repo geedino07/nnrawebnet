@@ -8,10 +8,10 @@ const conversationContainer = document.querySelector('.conversation-container')
 const chatTilesContainer = document.querySelector('.chat-tiles-container')
 const miniUserInfo = document.querySelector('.logged-in-user-info')
 
-
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
 const userId = document.getElementById('inputuserid').value
 let focusUser = null
+let lastMsgDate = null
 
 class ChatMessage{
     constructor({message, timestamp, type, statusid=null, status='sent', id=null, senderId=null}){
@@ -68,95 +68,6 @@ miniUserInfo.addEventListener('click', function(){
 
 //========= FUNCTIONS =========================
 
-function getUser(userId){
-    toggleContainerState('right-profile-tile', 'loading')
-    const csrftoken = Cookies.get('csrftoken')
-
-    fetch(`/accounts/getprofile/${userId}/`, {
-        method: 'POST',
-        headers: {'X-CSRFToken': csrftoken},
-    })
-    .then(response => response.json())
-    .then(data => {
-        if(data.status == 200){
-            showProfile(data.profile)
-        }
-    })
-    .catch(error => {
-        if(window.innerWidth > 865){
-          toggleContainerState('right-profile-tile', 'idle')
-        }
-        showToast({
-            'message': "Error: Couldn't load profile",
-            'style': 'error'
-        })
-    })
-}
-
-function showProfile(profile){
-    const profileTile = makeProfileTile(profile)
-    const profileTileContainer = document.querySelector('.profile-container')
-    profileTileContainer.innerHTML = ''
-    profileTileContainer.insertAdjacentHTML('afterbegin', profileTile)
-    toggleContainerState('right-profile-tile', 'profile')
-}
-
-function makeProfileTile(profile){
-    const profileTile = `
-    <div class="profile-tile profile">
-    <div class="top-info">
-      <div class="left-con">
-        <h4 class="profile-username">${profile.user.username}</h4>
-        <p class="profile-fullname">${profile.user.first_name} ${profile.user.last_name}</p>
-      </div>
-
-      <i class="ri-close-line" onclick="closeRightProfileContent()"></i>
-    </div>
-
-    <div class="profile-img-status-con">
-      <div class="con">
-        <img
-          src="${profile.profileImg}"
-          alt=""
-          style="background-color: #acacad"
-        />
-        <div class="status">
-          <div class="circle"></div>
-          <p>Active</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="profile-information">
-      <p class="username">${profile.user.username}</p>
-      ${profile.about == "" || !profile.about? '': `
-      <p class="about">
-        ${profile.about}
-    </p>
-      ` }
-
-      <div class="extras-container">
-        <div class="extra">
-          <i class="ri-mail-fill"></i>
-          <div class="extra-info">
-            <p class="extra-description">Email Address</p>
-            <p class="extra-content">${profile.user.email}</p>
-          </div>
-        </div>
-
-        ${profile.phone? `  <div class="extra">
-        <i class="ri-phone-fill"></i>
-        <div class="extra-info">
-          <p class="extra-description">Phone</p>
-          <p class="extra-content">${profile.phone}</p>
-        </div>
-      </div>`: ''}
-      </div>
-    </div>
-  </div>
-    `
-    return profileTile
-}
 
 /**Establishes a websocket connection to the chat message consumer and returns the websocket instance */
 function connectWebsocket(){
@@ -359,6 +270,7 @@ function setFocusUser(userid){
 //clears the chate messages container and repopulates it 
 function populateChatMessages(chatmessages){
     conversationContainer.innerHTML = ''
+    lastMsgDate = null
     chatmessages.forEach(function(msg){
         const type = msg.sender.id == focusUser.user.id? 'receiver' : 'sender'
         const status = msg.seen? 'seen': 'sent'
@@ -392,6 +304,17 @@ function appendChatMessage(chatmessage){
     </div>
   </div>
     `
+    if(lastMsgDate == null || timestamp.getDay() - lastMsgDate.getDay() > 1){
+        lastMsgDate = timestamp
+        const dayCon= `
+        <div class="day-con">
+              <span class="hor-line"></span>
+              <p class="day">${getFormattedDate(timestamp, astime=false)}</p>
+              <span class="hor-line"></span>
+        </div>
+        `
+        conversationContainer.insertAdjacentHTML('beforeend', dayCon)
+    }
     conversationContainer.insertAdjacentHTML('beforeend', htmlel)
 
     markAsSeen(chatmessage)
@@ -453,7 +376,7 @@ function scrollToContainerEnd(container){
 }
 
 
-function getFormattedDate(date){
+function getFormattedDate(date, astime=true){
     const now = new Date()
     const dayDiff = now.getDay() - date.getDay()
     if(dayDiff === 1){
@@ -463,8 +386,99 @@ function getFormattedDate(date){
         return date.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' });
     }
     else{
-        return getFormattedTime(date)
+        if (astime) return getFormattedTime(date)
+        return 'Today'
     }
+}
+
+function getUser(userId){
+    toggleContainerState('right-profile-tile', 'loading')
+    const csrftoken = Cookies.get('csrftoken')
+
+    fetch(`/accounts/getprofile/${userId}/`, {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status == 200){
+            showProfile(data.profile)
+        }
+    })
+    .catch(error => {
+        if(window.innerWidth > 865){
+          toggleContainerState('right-profile-tile', 'idle')
+        }
+        showToast({
+            'message': "Error: Couldn't load profile",
+            'style': 'error'
+        })
+    })
+}
+
+function showProfile(profile){
+    const profileTile = makeProfileTile(profile)
+    const profileTileContainer = document.querySelector('.profile-container')
+    profileTileContainer.innerHTML = ''
+    profileTileContainer.insertAdjacentHTML('afterbegin', profileTile)
+    toggleContainerState('right-profile-tile', 'profile')
+}
+
+function makeProfileTile(profile){
+    const profileTile = `
+    <div class="profile-tile profile">
+    <div class="top-info">
+      <div class="left-con">
+        <h4 class="profile-username">${profile.user.username}</h4>
+        <p class="profile-fullname">${profile.user.first_name} ${profile.user.last_name}</p>
+      </div>
+
+      <i class="ri-close-line" onclick="closeRightProfileContent()"></i>
+    </div>
+
+    <div class="profile-img-status-con">
+      <div class="con">
+        <img
+          src="${profile.profileImg}"
+          alt=""
+          style="background-color: #acacad"
+        />
+        <div class="status">
+          <div class="circle"></div>
+          <p>Active</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-information">
+      <p class="username">${profile.user.username}</p>
+      ${profile.about == "" || !profile.about? '': `
+      <p class="about">
+        ${profile.about}
+    </p>
+      ` }
+
+      <div class="extras-container">
+        <div class="extra">
+          <i class="ri-mail-fill"></i>
+          <div class="extra-info">
+            <p class="extra-description">Email Address</p>
+            <p class="extra-content">${profile.user.email}</p>
+          </div>
+        </div>
+
+        ${profile.phone? `  <div class="extra">
+        <i class="ri-phone-fill"></i>
+        <div class="extra-info">
+          <p class="extra-description">Phone</p>
+          <p class="extra-content">${profile.phone}</p>
+        </div>
+      </div>`: ''}
+      </div>
+    </div>
+  </div>
+    `
+    return profileTile
 }
 
 /** Returns a formatted time in form of (11:00pm)
