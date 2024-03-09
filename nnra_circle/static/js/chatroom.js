@@ -148,6 +148,15 @@ function connectWebsocket(){
 }
 
 
+function newLineChatMessage(messageStr){
+    return messageStr.replace(/\n/g, '<br>')
+}
+
+function escapeNewLine(messageStr){
+    return messageStr.replace(/<br>/g, ' ')
+}
+
+//takes the thread of the chatmessage passed in to the top of the thread container
 function reorderThread(chatmessage){
     const id = chatmessage.senderId == userId? focusUser?.user?.id : chatmessage.senderId
     if (id){
@@ -286,18 +295,17 @@ function populateChatMessages(chatmessages){
     })
 }
 
-//apends a new chat message to the messages container
+//apends a new chat message to the conversations container container
 function appendChatMessage(chatmessage){
     const convClass = chatmessage.type === 'sender'? 'conv-right': 'conv-left'
     const msgStatus = chatmessage.type === 'sender'? `<span class="msg-status status-${chatmessage.statusid}">~ ${chatmessage.status}</span>` : ''
     // const imgSrc = chatmessage.type === 'sender'? profileImg: focusUser.profileImg
     const timestamp = new Date(chatmessage.timestamp)
-
     const htmlel = `
     <div class="conversation ${convClass}">
     <div class="conv-holder">
       <p class="message">
-        ${chatmessage.message}
+        ${newLineChatMessage(chatmessage.message)}
       </p>
 
       <p class="date-time">${getFormattedTime(timestamp)} ${msgStatus}</p>
@@ -340,6 +348,9 @@ function UnseenChanged(senderId, operation){
     
 }
 
+/**sends a reqeust to the server to indicate the message is seen
+ * also updates the websocket about the seen message
+ */
 function markAsSeen(chatmessage){
     if (chatmessage.status !== 'seen' && chatmessage.type === 'receiver'){
         //notify the database of message seen
