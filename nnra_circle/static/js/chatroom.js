@@ -6,6 +6,7 @@ const chatMessageInput = document.getElementById("chat-message-input")
 const chatForm = document.getElementById('chat-form')
 const conversationContainer = document.querySelector('.conversation-container')
 const chatTilesContainer = document.querySelector('.chat-tiles-container')
+const miniUserInfo = document.querySelector('.logged-in-user-info')
 
 
 const profileImg = document.getElementById('profileimginput').value//the profile image of the currently logged in user
@@ -58,6 +59,104 @@ chatTilesContainer.addEventListener('click', function(e){
     setFocusUser(userId)
 })
 
+miniUserInfo.addEventListener('click', function(){
+    if (focusUser?.id){
+        getUser(focusUser.id)
+    }
+})
+
+
+//========= FUNCTIONS =========================
+
+function getUser(userId){
+    toggleContainerState('right-profile-tile', 'loading')
+    const csrftoken = Cookies.get('csrftoken')
+
+    fetch(`/accounts/getprofile/${userId}/`, {
+        method: 'POST',
+        headers: {'X-CSRFToken': csrftoken},
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.status == 200){
+            showProfile(data.profile)
+        }
+    })
+    .catch(error => {
+        if(window.innerWidth > 865){
+          toggleContainerState('right-profile-tile', 'idle')
+        }
+        showToast({
+            'message': "Error: Couldn't load profile",
+            'style': 'error'
+        })
+    })
+}
+
+function showProfile(profile){
+    const profileTile = makeProfileTile(profile)
+    const profileTileContainer = document.querySelector('.profile-container')
+    profileTileContainer.innerHTML = ''
+    profileTileContainer.insertAdjacentHTML('afterbegin', profileTile)
+    toggleContainerState('right-profile-tile', 'profile')
+}
+
+function makeProfileTile(profile){
+    const profileTile = `
+    <div class="profile-tile profile">
+    <div class="top-info">
+      <div class="left-con">
+        <h4 class="profile-username">${profile.user.username}</h4>
+        <p class="profile-fullname">${profile.user.first_name} ${profile.user.last_name}</p>
+      </div>
+
+      <i class="ri-close-line" onclick="closeRightProfileContent()"></i>
+    </div>
+
+    <div class="profile-img-status-con">
+      <div class="con">
+        <img
+          src="${profile.profileImg}"
+          alt=""
+          style="background-color: #acacad"
+        />
+        <div class="status">
+          <div class="circle"></div>
+          <p>Active</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-information">
+      <p class="username">${profile.user.username}</p>
+      ${profile.about == "" || !profile.about? '': `
+      <p class="about">
+        ${profile.about}
+    </p>
+      ` }
+
+      <div class="extras-container">
+        <div class="extra">
+          <i class="ri-mail-fill"></i>
+          <div class="extra-info">
+            <p class="extra-description">Email Address</p>
+            <p class="extra-content">${profile.user.email}</p>
+          </div>
+        </div>
+
+        ${profile.phone? `  <div class="extra">
+        <i class="ri-phone-fill"></i>
+        <div class="extra-info">
+          <p class="extra-description">Phone</p>
+          <p class="extra-content">${profile.phone}</p>
+        </div>
+      </div>`: ''}
+      </div>
+    </div>
+  </div>
+    `
+    return profileTile
+}
 
 /**Establishes a websocket connection to the chat message consumer and returns the websocket instance */
 function connectWebsocket(){

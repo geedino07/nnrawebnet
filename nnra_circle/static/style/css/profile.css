@@ -54,6 +54,37 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loading-container img {
+  width: 25px;
+  opacity: 0.6;
+  height: 25px;
+}
+.loading-container p {
+  font-size: 0.9rem;
+  opacity: 0.6;
+  margin-top: 10px;
+}
+
+.placeholder {
+  opacity: 0.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.placeholder img {
+  width: 70px;
+  height: 70px;
+}
+.placeholder p {
+  font-size: 0.9rem;
+}
+
 .btn-arr-txt {
   display: flex;
   flex-direction: row;

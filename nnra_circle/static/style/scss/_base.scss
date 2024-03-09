@@ -38,6 +38,40 @@ html::-webkit-scrollbar-thumb {
 ///// =================== OTHER STYLES ========================
 
 
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+  img {
+    width: 25px;
+    opacity: 0.6;
+    height: 25px;
+  }
+
+  p {
+    font-size: 0.9rem;
+    opacity: 0.6;
+    margin-top: 10px;
+  }
+}
+
+.placeholder {
+  opacity: 0.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: 70px;
+    height: 70px;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
 .btn-arr-txt {
   display: flex;
   flex-direction: row;

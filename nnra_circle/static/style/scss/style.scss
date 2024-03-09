@@ -880,7 +880,7 @@ header {
             display: flex;
             flex-direction: row;
             align-items: center;
-
+            cursor: pointer;
             .user-info {
               margin-left: 15px;
               .username {
@@ -1131,151 +1131,169 @@ header {
     background-color: var(--chat-background);
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    .top-info {
-      padding: 20px;
+    .profile-container{
+      height: 100vh;
+      position: relative;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
-      .left-con {
-        .profile-username {
-          font-size: 1rem;
-        }
-
-        .profile-fullname {
-          font-size: 0.8rem;
-          opacity: 0.7;
-        }
-      }
-
-      i {
-        font-size: 1.3rem;
-        cursor: pointer;
-      }
-    }
-
-    .profile-img-status-con {
+      flex-direction: column;
       width: 100%;
-      margin-top: 20px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
 
-      .con {
-        position: relative;
-
-        img {
-          width: 80%;
-          max-width: 200px;
-          border-radius: 8px;
-        }
-
-        .status {
-          position: absolute;
-          background-color: var(--main-green);
-          width: max-content;
-          padding: 0.3rem;
-          border-radius: 50px;
-          bottom: 0;
-          right: 10;
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-
-          .circle {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background-color: white;
-          }
-
-          p {
-            color: white;
-            font-size: 0.6rem;
-            margin-left: 0.3rem;
-          }
-        }
-      }
-    }
-
-    .profile-information {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-
-      .username {
-        font-size: 1.3rem;
-        font-weight: 600;
+      .profile-tile{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
       }
 
-      .about {
-        font-size: 0.8rem;
-        opacity: 0.8;
-      }
-
-      .extras-container {
-        margin-top: 10px;
-      }
-
-      .extra {
-        margin-top: 10px;
+      .top-info {
+        padding: 20px;
         display: flex;
         flex-direction: row;
         align-items: center;
+        justify-content: space-between;
+  
+        .left-con {
+          .profile-username {
+            font-size: 1rem;
+          }
+  
+          .profile-fullname {
+            font-size: 0.8rem;
+            opacity: 0.7;
+          }
+        }
+  
+        i {
+          font-size: 1.3rem;
+          cursor: pointer;
+        }
+      }
+  
+      .profile-img-status-con {
         width: 100%;
-
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+  
+        .con {
+          position: relative;
+  
+          img {
+            width: 80%;
+            max-width: 200px;
+            border-radius: 8px;
+          }
+  
+          .status {
+            position: absolute;
+            background-color: var(--main-green);
+            width: max-content;
+            padding: 0.3rem;
+            border-radius: 50px;
+            bottom: 0;
+            right: 10;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+  
+            .circle {
+              width: 7px;
+              height: 7px;
+              border-radius: 50%;
+              background-color: white;
+            }
+  
+            p {
+              color: white;
+              font-size: 0.6rem;
+              margin-left: 0.3rem;
+            }
+          }
+        }
+      }
+  
+      .profile-information {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+  
+        .username {
+          font-size: 1.3rem;
+          font-weight: 600;
+        }
+  
+        .about {
+          font-size: 0.8rem;
+          opacity: 0.8;
+        }
+  
+        .extras-container {
+          margin-top: 10px;
+        }
+  
+        .extra {
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          width: 100%;
+  
+          i {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+          }
+  
+          .extra-info {
+            margin-left: 10px;
+            width: 100%;
+  
+            .extra-description {
+              font-size: 0.7rem;
+              font-weight: 600;
+            }
+  
+            .extra-content {
+              font-size: 0.8rem;
+              opacity: 0.8;
+              max-width: 90%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+          }
+        }
+      }
+  
+      .chat-with-person {
+        width: 80%;
+        max-width: 600px;
+        align-self: center;
+        background-color: var(--main-green);
+        display: flex;
+        flex-direction: row;
+        padding: 15px;
+        border: none;
+        outline: none;
+        align-items: center;
+        border-radius: 8px;
+        cursor: pointer;
+        position: absolute;
+        bottom: 30px;
         i {
           font-size: 1.2rem;
-          color: var(--text-dark);
+          color: white;
         }
-
-        .extra-info {
+        p {
+          color: white;
           margin-left: 10px;
-          width: 100%;
-
-          .extra-description {
-            font-size: 0.7rem;
-            font-weight: 600;
-          }
-
-          .extra-content {
-            font-size: 0.8rem;
-            opacity: 0.8;
-            max-width: 90%;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
+          font-weight: 500;
         }
       }
     }
 
-    .chat-with-person {
-      width: 80%;
-      max-width: 600px;
-      align-self: center;
-      background-color: var(--main-green);
-      display: flex;
-      flex-direction: row;
-      padding: 15px;
-      border: none;
-      outline: none;
-      align-items: center;
-      border-radius: 8px;
-      cursor: pointer;
-      position: absolute;
-      bottom: 30px;
-      i {
-        font-size: 1.2rem;
-        color: white;
-      }
-      p {
-        color: white;
-        margin-left: 10px;
-        font-weight: 500;
-      }
-    }
+   
   }
 }
 
