@@ -3,6 +3,7 @@ import json
 from channels.db import database_sync_to_async
 from django.utils import timezone
 from .models import ChatMessage, Thread
+from accounts.models import Profile
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -14,11 +15,45 @@ class ChatConsumer(AsyncWebsocketConsumer):
             self.user_group_name,
             self.channel_name
         )
-      
+
+        await self.channel_layer.group_add(
+            'presence_channel',
+            self.channel_name
+        )
+        presence_payload = {
+            'action': 'presence',
+            'status': 'online',
+            'user_id': me.id,
+            'username': me.username
+        }
+        await self.update_user_presence(True)
+        await self.channel_layer.group_send(
+            'presence_channel',
+            {
+                'type': 'chat.message',
+                'text': presence_payload
+            }
+        )
         print('ws connected')
         await self.accept()
 
     async def disconnect(self, code):
+        user = self.scope['user']#currently logged in user
+
+        presence_payload = {
+            'action': 'presence',
+            'status': 'offline',
+            'user_id': user.id,
+            'username': user.username
+        }
+        await self.update_user_presence(False)
+        await self.channel_layer.group_send(
+            'presence_channel',
+            {
+                'type': 'chat.message',
+                'text': presence_payload
+            }
+        )
         print('ws disconnected')
         return super().disconnect(code)
 
@@ -90,6 +125,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def msg_confirmation(self, event):
         await self.send(text_data=json.dumps(event['text']))
 
+    @database_sync_to_async
+    def update_user_presence(self, is_online):
+        user = self.scope['user']
+        profile = Profile.objects.filter(user__id=user.id).first()
+
+        if profile:
+            profile.is_online = is_online
+            profile.save()
+            return True
+        return False
+    
     @database_sync_to_async
     def create_chat_message(self, receiver, msg):
         sender= self.scope['user']
