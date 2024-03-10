@@ -15,6 +15,15 @@ class ThreadManager(models.Manager):
         qs = self.get_queryset().filter(lookup_one).exclude(lookup_two).distinct()
         print(qs)
         return qs
+    
+    def get_thread(self, user_one_id, user_two_id):
+        if user_one_id == user_two_id:
+            return None
+        
+        qlookup_one = Q(user_one__id=user_one_id) & Q(user_two__id=user_two_id)
+        qlookup_two = Q(user_one__id=user_two_id) & Q(user_two__id=user_two_id)
+        query_set = self.get_queryset().filter(qlookup_one | qlookup_two).first()
+        return query_set
   
     def get_or_new(self, user, other_userId):
         """

@@ -14,6 +14,7 @@ class Office {
   }
 }
 
+
 const officeList = [];
 const departmentItems = document.querySelectorAll(".department-item");
 

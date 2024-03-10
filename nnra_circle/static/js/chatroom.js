@@ -173,7 +173,7 @@ function connectWebsocket() {
         statusid: uid,
         status: "pending",
         senderId: Number(userId),
-        receiverId: focusUser?.id,
+        receiverId: focusUser?.user.id,
       });
       appendChatMessage(chatmessage);
       reorderThread(chatmessage);
@@ -221,6 +221,30 @@ function reorderThread(chatmessage) {
 
       time.textContent = `${getFormattedDate(chatmessage.timestamp)}`;
     }
+    else{        
+        fetch(`/chat/getthread/${chatmessage.senderId}/${chatmessage.receiverId}`,{
+            'method': 'GET',
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.status === 200){
+                userThread = cleanseCreateThread(data.data.thread)
+                appendUserThread(userThread);
+                const threadElement = document.getElementById(`thread-el-${id}`);
+                if (threadElement){
+                    const txtLastMessage = threadElement.querySelector(".l-message");
+                    const time = threadElement.querySelector(".time");
+                    threadElement.style.order = -1;
+                    txtLastMessage.textContent = chatmessage.message;
+                    time.textContent = `${getFormattedDate(chatmessage.timestamp)}`;
+                }
+
+            }
+        })
+        .catch(error => {
+            console.error('error', error)
+        })
+    }
   }
 }
 
@@ -252,24 +276,29 @@ function populateUserThreads(threads) {
     if (b.last_message.created > a.last_message.created) return 1;
   });
   threads.forEach(function (thread) {
+    userThread = cleanseCreateThread(thread)
+    appendUserThread(userThread);
+  });
+}
+
+function cleanseCreateThread(thread){
     const loaduser =
-      thread.user_one.id == userId ? thread.user_two : thread.user_one;
+    thread.user_one.id == userId ? thread.user_two : thread.user_one;
 
     const profileimg = loaduser.profile.profileImg;
     const username = loaduser.username;
     const lastmessage = thread.last_message.message;
 
     const userThread = new Thread({
-      username: username,
-      profileImg: profileimg,
-      lastMessage: lastmessage,
-      userId: loaduser.id,
-      date: thread.last_message.created,
-      unreadCount: thread.unread_count,
-      lastSender: thread.last_message.sender.id,
+        username: username,
+        profileImg: profileimg,
+        lastMessage: lastmessage,
+        userId: loaduser.id,
+        date: thread.last_message.created,
+        unreadCount: thread.unread_count,
+        lastSender: thread.last_message.sender.id,
     });
-    appendUserThread(userThread);
-  });
+    return userThread
 }
 
 /** appends a new thread to the ui

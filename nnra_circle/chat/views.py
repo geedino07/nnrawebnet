@@ -11,6 +11,8 @@ from django.db import models
 
 # Create your views here.
 
+
+
 @login_required
 def mark_as_seen(request, mid):
     try:
@@ -59,6 +61,27 @@ def chatroom(request):
         # 'chat_user': chat_user,
     })
     
+@login_required
+def get_thread(request, uidone, uidtwo):
+    """
+    Gets a thread instance associated with the two specified users
+    """
+    thread = Thread.threadm.get_thread(uidone, uidtwo)
+    if thread:
+        thread_data = ThreadSerializer(thread).data
+        return JsonResponse({
+            'message': 'success',
+            'status': 200,
+            'data': {
+                'thread': thread_data
+            }
+        }, status=200)
+    else:
+        return JsonResponse({
+            'message': 'thread not found',
+            'status': 404,
+            'data': {}
+        }, status=404)
 
 def getUserThreads(request):
     """
