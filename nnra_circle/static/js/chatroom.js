@@ -328,7 +328,7 @@ function appendChatMessage(chatmessage){
     </div>
   </div>
     `
-    if(lastMsgDate == null || timestamp.getDay() - lastMsgDate.getDay() > 1){
+    if(lastMsgDate == null || (timestamp.getDate() - lastMsgDate.getDate()) > 1){
         lastMsgDate = timestamp
         const dayCon= `
         <div class="day-con">
@@ -406,7 +406,8 @@ function scrollToContainerEnd(container){
 
 function getFormattedDate(date, astime=true){
     const now = new Date()
-    const dayDiff = now.getDay() - date.getDay()
+    const dayDiff = now.getDate() - date.getDate()
+    
     if(dayDiff === 1){
         return "Yesterday"
     }
