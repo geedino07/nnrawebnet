@@ -147,10 +147,10 @@ function makeProfileTile(profile){
           alt=""
           style="background-color: #acacad"
         />
-        <div class="status">
-          <div class="circle"></div>
-          <p>Active</p>
-        </div>
+        <div class="status ${profile.is_online?'online':'offline'}">
+        <div class="circle"></div>
+        <p>${profile.is_online?'Online':'Offline'}</p>
+      </div>
       </div>
     </div>
 
@@ -170,6 +170,14 @@ function makeProfileTile(profile){
             <p class="extra-content">${profile.user.email}</p>
           </div>
         </div>
+
+        <div class="extra">
+          <i class="ri-home-2-fill"></i>
+          <div class="extra-info">
+              <p class="extra-description">Department</p>
+              <p class="extra-content">${profile.office.office_name} </p>
+          </div>
+      </div>
 
         ${profile.phone? `  <div class="extra">
         <i class="ri-phone-fill"></i>

@@ -59,7 +59,6 @@
 
       .status {
         position: absolute;
-        background-color: var(--main-green);
         width: max-content;
         padding: 0.3rem;
         border-radius: 50px;
@@ -68,18 +67,41 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+        background-color: var(--faint-soft-green);
+
 
         .circle {
           width: 7px;
           height: 7px;
           border-radius: 50%;
-          background-color: white;
+          background-color: var(--hard-light-green);
+          opacity: 0.7;
         }
 
         p {
           color: white;
           font-size: 0.6rem;
           margin-left: 0.3rem;
+          color: var(--hard-light-green);
+
+        }
+      }
+      .status.offline {
+        background-color: #f3f3f3;
+        p {
+          opacity: 0.7;
+          color: var(--text-dark);
+        }
+
+        .circle{
+          background-color: var(--text-dark);
+        }
+      }
+      .status.online {
+        background-color: var(--faint-soft-green);
+
+        p {
+          color: var(--hard-light-green);
         }
       }
     }
@@ -897,6 +919,7 @@ header {
                 font-size: 0.8rem;
                 opacity: 0.8;
               }
+            
             }
             img {
               width: 65px;
@@ -1179,50 +1202,7 @@ header {
         }
       }
   
-      .profile-img-status-con {
-        width: 100%;
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-  
-        .con {
-          position: relative;
-  
-          img {
-            width: 80%;
-            max-width: 200px;
-            border-radius: 8px;
-          }
-  
-          .status {
-            position: absolute;
-            background-color: var(--main-green);
-            width: max-content;
-            padding: 0.3rem;
-            border-radius: 50px;
-            bottom: 0;
-            right: 10;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-  
-            .circle {
-              width: 7px;
-              height: 7px;
-              border-radius: 50%;
-              background-color: white;
-            }
-  
-            p {
-              color: white;
-              font-size: 0.6rem;
-              margin-left: 0.3rem;
-            }
-          }
-        }
-      }
-  
+     
       .profile-information {
         padding: 20px;
         display: flex;

@@ -85,8 +85,8 @@
             <p class="sub-text">{{profile.phone}}</p>
             {% endif %}
     
-            <div class="status online">
-              <p>Online</p>
+            <div class="status {% if profile.is_online %}online{% else %}offline{% endif %}">
+              <p>{% if profile.is_online %}online{% else %}offline{% endif %}</p>
             </div>
     
             <div class="department">

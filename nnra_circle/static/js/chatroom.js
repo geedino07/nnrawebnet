@@ -14,6 +14,7 @@ const userId = document.getElementById("inputuserid").value;
 const unseenThreadList = []; //a list of threads where at least one message is not seen
 let focusUser = null;
 let lastMsgDate = null;
+let displayingUserId = null; //the id of the user currently displayed in the right profile tile if any
 
 class ChatMessage {
   constructor({
@@ -141,6 +142,14 @@ function connectWebsocket() {
       if (focusUser?.user.id == received.user_id) {
         console.log("focus user came online");
         updateFocusUserPresence(received.status)
+      }
+
+      if(displayingUserId && displayingUserId == received.user_id){
+        const displayingStatus= document.querySelector(".displaying-status")
+        displayingStatus.classList.remove('online')
+        displayingStatus.classList.remove('offline')
+        displayingStatus.classList.add(received.status)
+        document.querySelector('.txt-displaying-status').textContent = received.status
       }
     }
   });
@@ -490,6 +499,7 @@ function showProfile(profile) {
   profileTileContainer.innerHTML = "";
   profileTileContainer.insertAdjacentHTML("afterbegin", profileTile);
   toggleContainerState("right-profile-tile", "profile");
+  displayingUserId = profile.user.id
 }
 
 function makeProfileTile(profile) {
@@ -513,9 +523,9 @@ function makeProfileTile(profile) {
           alt=""
           style="background-color: #acacad"
         />
-        <div class="status">
+        <div class="status ${profile.is_online?'online':'offline'} displaying-status">
           <div class="circle"></div>
-          <p>Active</p>
+          <p class="txt-displaying-status">${profile.is_online?'Online':'Offline'}</p>
         </div>
       </div>
     </div>
@@ -540,6 +550,14 @@ function makeProfileTile(profile) {
             <p class="extra-content">${profile.user.email}</p>
           </div>
         </div>
+
+        <div class="extra">
+            <i class="ri-home-2-fill"></i>
+            <div class="extra-info">
+                <p class="extra-description">Department</p>
+                <p class="extra-content">${profile.office.office_name} </p>
+            </div>
+         </div>
 
         ${
           profile.phone
