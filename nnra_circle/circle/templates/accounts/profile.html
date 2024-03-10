@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit your profile | NNRA digital network</title>
+    <title>{{profile.user.get_full_name}} - {{profile.office.office_name}} | NNRA digital network</title>
     <link rel="stylesheet" href="{% static 'style/css/profile.css' %}" type="text/css">
 
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
@@ -47,7 +47,7 @@
                     {% endif %}
 
                     <div class="extra">
-                        <i class="ri-home-2-line"></i>
+                        <i class="ri-home-3-line"></i>
                         <div class="extra-info">
                           <p class="extra-description">Department</p>
                           <p class="extra-content">{{profile.office.office_name}} </p>
@@ -71,6 +71,18 @@
                             Log out
                         </p>
                     </a>
+
+                </div>
+                {% else %}
+                <div class="actions-container">
+                    <a href="/chat/room/?chat={{profile.user.id}}" class="btn-arr-txt">
+                        <i class="ri-message-2-line"></i>
+                        <p>
+                            Start a conversation
+                        </p>
+                    </a>
+
+              
 
                 </div>
 

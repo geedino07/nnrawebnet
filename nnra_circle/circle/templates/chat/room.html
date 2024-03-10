@@ -47,26 +47,19 @@
       </div>
       <div class="image-caret-container">
         <div class="people-images-container">
-          <img
-            src="{% static 'img/samples/s1.jpg' %}"
+          {% for person in people_may_know %}
+          <a href="{% url 'accounts:viewprofile' uid=person.user.id %}" style="text-decoration: none;" target="_blank">
+            <img
+            src="{{person.profileImg.url}}"
             alt=""
             style="background-color: #acacad"
+            title="{{person.user.username}}"
           />
-          <img
-            src="{% static 'img/samples/s3.jpg' %}"
-            alt=""
-            style="background-color: #d4dee6"
-          />
-          <img
-            src="{% static 'img/samples/s5.jpg' %}"
-            alt=""
-            style="background-color: #e0dcd1"
-          />
-          <img
-            src="{% static 'img/samples/s4.jpg' %}"
-            alt=""
-            style="background-color: #e0dcd1"
-          />
+          </a>
+         
+          {% endfor %}
+         
+         
         </div>
 
         <!-- <i class="ri-arrow-right-s-line"></i> -->

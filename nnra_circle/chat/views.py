@@ -8,6 +8,7 @@ from accounts.serializers import ProfileSerializer
 from .serializers import ChatMessageSerializer, ThreadSerializer
 from django.db.models import Q, OuterRef, Subquery, Max, F
 from django.db import models
+from accounts.views import get_people_may_know
 
 # Create your views here.
 
@@ -54,10 +55,12 @@ def chatroom(request):
     
 
     profile = Profile.objects.filter(user=user).select_related('user', 'office').first()
+    people_may_know = get_people_may_know(profile, required_number=4)
 
     return render(request, 'chat/room.html', {
         'profile': profile,
-        'unseen_thread_count': user_unseen_thread_count
+        'unseen_thread_count': user_unseen_thread_count,
+        'people_may_know': people_may_know
         # 'chat_user': chat_user,
     })
     

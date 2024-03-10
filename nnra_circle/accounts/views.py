@@ -47,8 +47,7 @@ def network_prompt(request):
     })
 
 
-def get_people_may_know(user_profile):
-    required_number = 5
+def get_people_may_know(user_profile, required_number=5):
     users = Profile.objects.exclude(user=user_profile.user).filter(office =user_profile.office)
     number_of_users = users.count()
     remainder = required_number - number_of_users
@@ -85,7 +84,7 @@ def list_items(request):
     user= request.user
     user_profile = Profile.objects.filter(user=user).select_related('user').first()#getting the profile for the currently logged in user
 
-    profiles = Profile.objects.all().select_related('user', 'office')
+    profiles = Profile.objects.all().exclude(user=user).select_related('user', 'office')
     offices = Office.objects.all()
 
     if search is not None:
