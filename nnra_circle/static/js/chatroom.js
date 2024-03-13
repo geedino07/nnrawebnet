@@ -157,26 +157,36 @@ function connectWebsocket() {
     chatForm.onsubmit = function (e) {
       e.preventDefault();
       const messagebody = chatMessageInput.value;
-      const uid = generateRandomString();
-      const messageStr = JSON.stringify({
-        action: "chat_message",
-        receiver: focusUser.user.id,
-        message_body: messagebody,
-        statusid: uid,
-      });
-      socket.send(messageStr); //send a message
-      const chatmessage = new ChatMessage({
-        message: messagebody,
-        timestamp: new Date(),
-        type: "sender",
-        statusid: uid,
-        status: "pending",
-        senderId: Number(userId),
-        receiverId: focusUser?.user.id,
-      });
-      appendChatMessage(chatmessage);
-      reorderThread(chatmessage);
-      chatMessageInput.value = "";
+      if (messagebody !== ''){
+        const uid = generateRandomString();
+        const messageStr = JSON.stringify({
+          action: "chat_message",
+          receiver: focusUser.user.id,
+          message_body: messagebody,
+          statusid: uid,
+        });
+        socket.send(messageStr); //send a message
+        const chatmessage = new ChatMessage({
+          message: messagebody,
+          timestamp: new Date(),
+          type: "sender",
+          statusid: uid,
+          status: "pending",
+          senderId: Number(userId),
+          receiverId: focusUser?.user.id,
+        });
+        appendChatMessage(chatmessage);
+        reorderThread(chatmessage);
+        chatMessageInput.value = "";
+      }
+      else{
+        showToast({
+          message: 'Message cannot be null', 
+          style: 'error',
+          duration: 2000
+        })
+      }
+    
     };
 
     console.log("ws opened");

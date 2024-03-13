@@ -78,7 +78,7 @@ def get_user_profile(request, profile_id):
         }, status=200)
 
 @login_required
-def list_items(request):
+def list_people(request):
     search= request.GET.get('search')
     fd = request.GET.get('fd')
     user= request.user
@@ -100,11 +100,18 @@ def list_items(request):
         profiles = profiles.filter(office_lookup)
 
     return render(request, 'accounts/listitems.html', {
+        'page': 'people',
         'profiles': profiles,
         'search_term': search, 
         'offices': offices,
         'fd': fd, 
         'user_profile': user_profile})
+
+@login_required
+def list_department(request):
+    return render(request, 'accounts/listitems.html', {
+        'page': 'department'
+    })
 
 @login_required
 def edit_profile(request):

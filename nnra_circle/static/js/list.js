@@ -173,7 +173,7 @@ function makeProfileTile(profile){
         </div>
 
         <div class="extra">
-          <i class="ri-home-2-fill"></i>
+        <i class="ri-home-3-fill"></i>
           <div class="extra-info">
               <p class="extra-description">Department</p>
               <p class="extra-content">${profile.office.office_name} </p>
