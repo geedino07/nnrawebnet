@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>View all users | NNRA digital network</title>
+  <title>View all {{page}} | NNRA digital network</title>
 
   <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
   <link rel="stylesheet" href="{% static 'style/css/listitems.css' %}" type="text/css">    
@@ -26,13 +26,15 @@
           <i class="ri-user-3-line"></i>
         </div>
   
-        <div class="option-item {% if page == 'department' %}selected{%endif%}">
+        <div class="option-item {% if page == 'departments' %}selected{%endif%}">
           <i class="ri-home-3-line"></i>
         </div>
-  
+        
+        {% if page == 'people' %}
         <div class="user-image-container">
           <img src="{{user_profile.profileImg.url}}" alt="" />
         </div>
+        {% endif %}
       </div>
     </div>
   
@@ -131,9 +133,7 @@
             <p>Nuclear security and something something</p>
           </div>
         </div> -->
-  
-       
-        
+ 
       </div>
     </div>
     <div class="right-profile-content" id="profile-section">
@@ -208,9 +208,43 @@
         <p>Fetching profile..</p>
       </div>
     </div>
-    {% elif page == 'department' %}
-      <div class="middle-content">
-  
+    {% elif page == 'departments' %}
+      <div class="middle-content department">
+        <div class="top-middle">
+          <p class="top-heading-text">NNRA Departments</p>
+        </div>
+
+        <div class="search-filter-container">
+          <form class="search-input-container" id="search-form">
+            {% csrf_token %}
+            {% if search_term %}
+            <input type="text" class="search-input" placeholder="Search" value="{{search_term}}" />
+            {% else %}
+            <input type="text" class="search-input" placeholder="Search"/>
+            {% endif %}
+    
+            <i class="ri-search-line"></i>
+          </form>
+        </div>
+
+        <div class="department-cards-container">
+          {% for office in offices%}
+            <div class="department-card">
+              <p class="department-name">{{office.office_name}}</p>
+
+              <div class="user-num">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z"></path></svg>
+                
+                <div class="num-emp">
+                  <p class="num">{{office.employee_count}}</p>
+                  <p class="emp">Employee{{office.employee_count|pluralize}}</p>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          
+
       </div>
     {% endif %}
   </section>

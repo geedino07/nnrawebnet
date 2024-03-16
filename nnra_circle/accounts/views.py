@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from .serializers import ProfileSerializer
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 
 # Create your views here.
@@ -109,8 +110,10 @@ def list_people(request):
 
 @login_required
 def list_department(request):
+    offices = Office.objects.annotate(employee_count=Count('profile')).order_by('-employee_count')
     return render(request, 'accounts/listitems.html', {
-        'page': 'department'
+        'page': 'departments',
+        'offices': offices
     })
 
 @login_required

@@ -54,6 +54,172 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.profile-tile {
+  width: 100%;
+  position: relative;
+  height: 100vh;
+  background-color: var(--chat-background);
+  display: flex;
+  flex-direction: column;
+}
+.profile-tile .top-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.profile-tile .top-info .left-con .profile-username {
+  font-size: 1rem;
+}
+.profile-tile .top-info .left-con .profile-fullname {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.profile-tile .top-info i {
+  display: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.profile-tile .profile-img-status-con {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-tile .profile-img-status-con .con {
+  width: 90%;
+  max-width: 200px;
+  position: relative;
+  height: -moz-max-content;
+  height: max-content;
+}
+.profile-tile .profile-img-status-con .con img {
+  width: 100%;
+  height: 150px;
+  max-width: 200px;
+  border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  margin: auto;
+}
+.profile-tile .profile-img-status-con .con .status {
+  position: absolute;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.3rem;
+  border-radius: 50px;
+  bottom: 0;
+  right: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--faint-soft-green);
+}
+.profile-tile .profile-img-status-con .con .status .circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--hard-light-green);
+  opacity: 0.7;
+}
+.profile-tile .profile-img-status-con .con .status p {
+  color: white;
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+  color: var(--hard-light-green);
+}
+.profile-tile .profile-img-status-con .con .status.offline {
+  background-color: #f3f3f3;
+}
+.profile-tile .profile-img-status-con .con .status.offline p {
+  opacity: 0.7;
+  color: var(--text-dark);
+}
+.profile-tile .profile-img-status-con .con .status.offline .circle {
+  background-color: var(--text-dark);
+}
+.profile-tile .profile-img-status-con .con .status.online {
+  background-color: var(--faint-soft-green);
+}
+.profile-tile .profile-img-status-con .con .status.online p {
+  color: var(--hard-light-green);
+}
+.profile-tile .profile-information {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-tile .profile-information .username {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.profile-tile .profile-information .about {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.profile-tile .profile-information .extras-container {
+  margin-top: 10px;
+}
+.profile-tile .profile-information .extra {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.profile-tile .profile-information .extra i {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+.profile-tile .profile-information .extra .extra-info {
+  margin-left: 10px;
+  width: 100%;
+}
+.profile-tile .profile-information .extra .extra-info .extra-description {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.profile-tile .profile-information .extra .extra-info .extra-content {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-tile .chat-link {
+  align-self: center;
+  position: absolute;
+  bottom: 30px;
+  width: 80%;
+  text-decoration: none;
+}
+.profile-tile .chat-link .chat-with-person {
+  max-width: 600px;
+  width: 100%;
+  background-color: var(--main-green);
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  border: none;
+  outline: none;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.profile-tile .chat-link .chat-with-person i {
+  font-size: 1.2rem;
+  color: white;
+}
+.profile-tile .chat-link .chat-with-person p {
+  color: white;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -673,6 +839,172 @@ footer .copyright-message p {
   --menu-size: 1.7rem;
 }
 
+.profile-tile {
+  width: 100%;
+  position: relative;
+  height: 100vh;
+  background-color: var(--chat-background);
+  display: flex;
+  flex-direction: column;
+}
+.profile-tile .top-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.profile-tile .top-info .left-con .profile-username {
+  font-size: 1rem;
+}
+.profile-tile .top-info .left-con .profile-fullname {
+  font-size: 0.8rem;
+  opacity: 0.7;
+}
+.profile-tile .top-info i {
+  display: none;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.profile-tile .profile-img-status-con {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-tile .profile-img-status-con .con {
+  width: 90%;
+  max-width: 200px;
+  position: relative;
+  height: -moz-max-content;
+  height: max-content;
+}
+.profile-tile .profile-img-status-con .con img {
+  width: 100%;
+  height: 150px;
+  max-width: 200px;
+  border-radius: 8px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  margin: auto;
+}
+.profile-tile .profile-img-status-con .con .status {
+  position: absolute;
+  width: -moz-max-content;
+  width: max-content;
+  padding: 0.3rem;
+  border-radius: 50px;
+  bottom: 0;
+  right: 10;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: var(--faint-soft-green);
+}
+.profile-tile .profile-img-status-con .con .status .circle {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--hard-light-green);
+  opacity: 0.7;
+}
+.profile-tile .profile-img-status-con .con .status p {
+  color: white;
+  font-size: 0.6rem;
+  margin-left: 0.3rem;
+  color: var(--hard-light-green);
+}
+.profile-tile .profile-img-status-con .con .status.offline {
+  background-color: #f3f3f3;
+}
+.profile-tile .profile-img-status-con .con .status.offline p {
+  opacity: 0.7;
+  color: var(--text-dark);
+}
+.profile-tile .profile-img-status-con .con .status.offline .circle {
+  background-color: var(--text-dark);
+}
+.profile-tile .profile-img-status-con .con .status.online {
+  background-color: var(--faint-soft-green);
+}
+.profile-tile .profile-img-status-con .con .status.online p {
+  color: var(--hard-light-green);
+}
+.profile-tile .profile-information {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-tile .profile-information .username {
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+.profile-tile .profile-information .about {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.profile-tile .profile-information .extras-container {
+  margin-top: 10px;
+}
+.profile-tile .profile-information .extra {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+.profile-tile .profile-information .extra i {
+  font-size: 1.2rem;
+  color: var(--text-dark);
+}
+.profile-tile .profile-information .extra .extra-info {
+  margin-left: 10px;
+  width: 100%;
+}
+.profile-tile .profile-information .extra .extra-info .extra-description {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+.profile-tile .profile-information .extra .extra-info .extra-content {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.profile-tile .chat-link {
+  align-self: center;
+  position: absolute;
+  bottom: 30px;
+  width: 80%;
+  text-decoration: none;
+}
+.profile-tile .chat-link .chat-with-person {
+  max-width: 600px;
+  width: 100%;
+  background-color: var(--main-green);
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
+  border: none;
+  outline: none;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.profile-tile .chat-link .chat-with-person i {
+  font-size: 1.2rem;
+  color: white;
+}
+.profile-tile .chat-link .chat-with-person p {
+  color: white;
+  margin-left: 10px;
+  font-weight: 500;
+}
+
 .list-all-section {
   display: flex;
   flex-direction: row;
@@ -954,6 +1286,65 @@ footer .copyright-message p {
   margin-left: 4px;
   opacity: 0.5;
 }
+.list-all-section .middle-content .department-cards-container::-webkit-scrollbar {
+  width: 0.3rem;
+  background-color: var(--chat-background);
+}
+.list-all-section .middle-content .department-cards-container::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: rgba(241, 242, 242, 0.7058823529);
+}
+.list-all-section .middle-content .department-cards-container {
+  width: 100%;
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  align-items: center;
+  overflow-y: scroll;
+  justify-items: center;
+}
+.list-all-section .middle-content .department-cards-container .department-card {
+  display: flex;
+  flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: white;
+  width: 90%;
+  max-width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.list-all-section .middle-content .department-cards-container .department-card .department-name {
+  font-weight: 500;
+}
+.list-all-section .middle-content .department-cards-container .department-card .user-num {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+}
+.list-all-section .middle-content .department-cards-container .department-card .user-num svg {
+  width: 30px;
+  height: 30px;
+  fill: var(--hard-light-green);
+}
+.list-all-section .middle-content .department-cards-container .department-card .user-num .num-emp {
+  margin-left: 20px;
+}
+.list-all-section .middle-content .department-cards-container .department-card .user-num .num-emp .num {
+  font-weight: 500;
+  font-size: 1.7rem;
+}
+.list-all-section .middle-content .department-cards-container .department-card .user-num .num-emp .emp {
+  opacity: 0.6;
+  font-size: 0.9rem;
+}
+.list-all-section .middle-content.department {
+  width: 90%;
+}
 .list-all-section .right-profile-content {
   width: 25%;
   min-height: 100vh;
@@ -1229,6 +1620,9 @@ footer .copyright-message p {
   }
   .list-all-section .middle-content .user-cards-container .user-card {
     max-width: 300px;
+  }
+  .list-all-section .middle-content.department {
+    width: 100%;
   }
 }
 @media screen and (max-width: 700px) {
