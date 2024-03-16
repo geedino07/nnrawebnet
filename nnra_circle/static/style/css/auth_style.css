@@ -673,7 +673,13 @@ footer .copyright-message p {
 }
 .container .form-holder .login-option p {
   margin-top: 10px;
-}/*# sourceMappingURL=auth_style.css.map */ absolute;
+}/*# sourceMappingURL=auth_style.css.map */
+  color: white;
+  cursor: pointer;
+}
+
+.graphic-top-left {
+  position: absolute;
   top: 0;
   left: 0;
   width: 80%;

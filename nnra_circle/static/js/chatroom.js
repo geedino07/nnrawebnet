@@ -11,6 +11,7 @@ const threadsContainer = document.querySelector('.threads-container')
 const miniUserInfo = document.querySelector(".logged-in-user-info");
 const networkDepartmentsContainer = document.querySelector('.all-departments')
 const allChatsButton = document.querySelector('.all-chats')
+const allDeptTopHolder= document.querySelector('.all-dept-top-holder')
 
 const profileImg = document.getElementById("profileimginput").value; //the profile image of the currently logged in user
 const userId = document.getElementById("inputuserid").value;
@@ -19,8 +20,6 @@ let focusUser = null;
 let lastMsgDate = null;
 let displayingUserId = null; //the id of the user currently displayed in the right profile tile if any
 const deptNetwork = []//a list of office ids this user has interacted with
-
-
 
 class Office{
   constructor(officeName, officeId){
@@ -115,6 +114,10 @@ networkDepartmentsContainer.addEventListener('click', function(e){
   toggleLeftTogglers(clicked.id)
 })
 
+
+allDeptTopHolder.addEventListener('click', function(){
+  document.querySelector('.departments-container').classList.toggle('closed')
+})
 
 miniUserInfo.addEventListener("click", function () {
   if (focusUser?.id) {

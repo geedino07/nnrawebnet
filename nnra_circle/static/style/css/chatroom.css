@@ -66,6 +66,12 @@ html::-webkit-scrollbar-thumb {
   fill: var(--text-dark);
 }
 
+.svg-10 {
+  width: 10px;
+  height: 10px;
+  fill: var(--text-dark);
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 0.3rem;
   background-color: var(--chat-background);
@@ -980,6 +986,8 @@ footer .copyright-message p {
   max-height: 150px;
   overflow-y: scroll;
   width: 100%;
+  transition: all 0.2s linear;
+  height: 300px;
 }
 .chat-section .left-most-tile .departments-container .all-departments .department {
   display: flex;
@@ -994,7 +1002,7 @@ footer .copyright-message p {
 .chat-section .left-most-tile .departments-container .all-departments .department p {
   font-size: 0.8rem;
   color: var(--text-dark);
-  max-width: 90%;
+  max-width: 80%;
   text-overflow: ellipsis;
   overflow: hidden;
   text-wrap: nowrap;
@@ -1023,6 +1031,24 @@ footer .copyright-message p {
 }
 .chat-section .left-most-tile .departments-container .browse-all-depts .search-con i {
   color: var(--text-dark);
+}
+.chat-section .left-most-tile .departments-container .up {
+  display: none;
+}
+.chat-section .left-most-tile .departments-container .down {
+  display: block;
+}
+.chat-section .left-most-tile .departments-container .all-departments {
+  height: 150px;
+}
+.chat-section .left-most-tile .departments-container.closed .up {
+  display: block;
+}
+.chat-section .left-most-tile .departments-container.closed .down {
+  display: none;
+}
+.chat-section .left-most-tile .departments-container.closed .all-departments {
+  height: 0px;
 }
 .chat-section .center-tile {
   width: 50%;

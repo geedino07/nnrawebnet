@@ -50,6 +50,12 @@ html::-webkit-scrollbar-thumb {
   fill: var(--text-dark);
 }
 
+.svg-10{
+  width: 10px;
+  height: 10px;
+  fill: var(--text-dark);
+}
+
 .custom-scrollbar::-webkit-scrollbar {
   width: 0.3rem;
   background-color: var(--chat-background);
