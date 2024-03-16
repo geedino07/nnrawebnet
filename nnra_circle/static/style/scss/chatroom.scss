@@ -136,7 +136,10 @@
         .all-departments {
           display: flex;
           flex-direction: column;
-          margin-top: 20px;
+          margin-top: 1px;
+          max-height: 150px;
+          overflow-y: scroll;
+          width: 100%;
   
           .department {
             display: flex;
@@ -147,10 +150,13 @@
             border-radius: 5px;
             margin-top: 5px;
             cursor: pointer;
-            p,
-            i {
+            p{
               font-size: 0.8rem;
               color: var(--text-dark);
+              max-width: 95%;
+              text-overflow: ellipsis;
+              overflow: hidden;
+              text-wrap: nowrap;
             }
           }
   
@@ -342,9 +348,16 @@
             flex-direction: column;
             margin-top: 20px;
             width: 100%;
-            gap: 10px;
             overflow-y: scroll;
-  
+            
+            .threads-container{
+                gap: 10px;
+
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+                overflow-y: scroll;
+            }
             .chat-item {
               cursor: pointer;
               display: flex;
@@ -438,8 +451,6 @@
           .chat-tiles-container::-webkit-scrollbar-thumb {
             border-radius: 2rem;
             background: #f1f2f2b4;
-            // min-height: 40px;
-            // max-height: 100px;
           }
         }
   

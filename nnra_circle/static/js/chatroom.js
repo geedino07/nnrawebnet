@@ -7,7 +7,9 @@ const chatMessageInput = document.getElementById("chat-message-input");
 const chatForm = document.getElementById("chat-form");
 const conversationContainer = document.querySelector(".conversation-container");
 const chatTilesContainer = document.querySelector(".chat-tiles-container");
+const threadsContainer = document.querySelector('.threads-container')
 const miniUserInfo = document.querySelector(".logged-in-user-info");
+const networkDepartmentsContainer = document.querySelector('.all-departments')
 
 const profileImg = document.getElementById("profileimginput").value; //the profile image of the currently logged in user
 const userId = document.getElementById("inputuserid").value;
@@ -15,7 +17,14 @@ const unseenThreadList = []; //a list of threads where at least one message is n
 let focusUser = null;
 let lastMsgDate = null;
 let displayingUserId = null; //the id of the user currently displayed in the right profile tile if any
+const deptNetwork = []//a list of office ids this user has interacted with
 
+class Office{
+  constructor(officeName, officeId){
+    this.officeName = officeName, 
+    this.officeId = officeId
+  }
+}
 class ChatMessage {
   constructor({
     message,
@@ -81,7 +90,7 @@ getUserThreads();
 
 const socket = connectWebsocket();
 
-chatTilesContainer.addEventListener("click", function (e) {
+threadsContainer.addEventListener("click", function (e) {
   const clickedTile = e.target.closest(".chat-item");
 
   const userId = clickedTile.getAttribute("data-userid");
@@ -278,7 +287,7 @@ function getUserThreads() {
 
 /** Populates the ui with threads */
 function populateUserThreads(threads) {
-  chatTilesContainer.innerHTML = "";
+  threadsContainer.innerHTML = "";
   threads.sort((a, b) => {
     //sorting the threads in descending order by the created attribute of the last messages
     if (a.last_message.created > b.last_message.created) return -1;
@@ -288,6 +297,22 @@ function populateUserThreads(threads) {
     userThread = cleanseCreateThread(thread)
     appendUserThread(userThread);
   });
+}
+
+function addDepartmentNetwork(officeId, officeName){
+  const office = deptNetwork.find(office=> office.officeId == officeId)
+  if (office) return
+
+  const newOffice = new Office(officeName, officeId)
+  deptNetwork.push(newOffice)
+
+  const htmlel = `
+  <div class="department">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-15"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19Z"></path></svg>            
+    <p class="department-name">${newOffice.officeName}</p>
+  </div>
+  `
+  networkDepartmentsContainer.insertAdjacentHTML("beforeend", htmlel)
 }
 
 function cleanseCreateThread(thread){
@@ -307,6 +332,11 @@ function cleanseCreateThread(thread){
         unreadCount: thread.unread_count,
         lastSender: thread.last_message.sender.id,
     });
+
+    user_one_officeId= thread.user_one.profile.office.id
+    user_two_officeId = thread.user_two.profile.office.id
+    addDepartmentNetwork(user_one_officeId, thread.user_one.profile.office.office_name)
+    if (user_one_officeId !== user_two_officeId) addDepartmentNetwork(user_two_officeId, thread.user_two.profile.office.office_name)
     return userThread
 }
 
@@ -345,7 +375,7 @@ function appendUserThread(thread) {
         </div>
       </div>
         `;
-  chatTilesContainer.insertAdjacentHTML("beforeend", htmel);
+  threadsContainer.insertAdjacentHTML("beforeend", htmel);
 }
 
 /** Changes the fouced user, i.e the user we are currently chatting with

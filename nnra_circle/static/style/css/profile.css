@@ -54,6 +54,28 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.svg-20 {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-dark);
+}
+
+.svg-15 {
+  width: 15px;
+  height: 15px;
+  fill: var(--text-dark);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.3rem;
+  background-color: var(--chat-background);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: rgba(241, 242, 242, 0.7058823529);
+}
+
 .profile-tile {
   width: 100%;
   position: relative;

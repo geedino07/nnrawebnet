@@ -54,6 +54,28 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.svg-20 {
+  width: 20px;
+  height: 20px;
+  fill: var(--text-dark);
+}
+
+.svg-15 {
+  width: 15px;
+  height: 15px;
+  fill: var(--text-dark);
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 0.3rem;
+  background-color: var(--chat-background);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  border-radius: 2rem;
+  background: rgba(241, 242, 242, 0.7058823529);
+}
+
 .profile-tile {
   width: 100%;
   position: relative;
@@ -950,7 +972,10 @@ footer .copyright-message p {
 .chat-section .left-most-tile .departments-container .all-departments {
   display: flex;
   flex-direction: column;
-  margin-top: 20px;
+  margin-top: 1px;
+  max-height: 150px;
+  overflow-y: scroll;
+  width: 100%;
 }
 .chat-section .left-most-tile .departments-container .all-departments .department {
   display: flex;
@@ -962,10 +987,13 @@ footer .copyright-message p {
   margin-top: 5px;
   cursor: pointer;
 }
-.chat-section .left-most-tile .departments-container .all-departments .department p,
-.chat-section .left-most-tile .departments-container .all-departments .department i {
+.chat-section .left-most-tile .departments-container .all-departments .department p {
   font-size: 0.8rem;
   color: var(--text-dark);
+  max-width: 95%;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-wrap: nowrap;
 }
 .chat-section .left-most-tile .departments-container .all-departments .department.selected {
   background-color: var(--soft-light-green);
@@ -1131,7 +1159,13 @@ footer .copyright-message p {
   flex-direction: column;
   margin-top: 20px;
   width: 100%;
+  overflow-y: scroll;
+}
+.chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .threads-container {
   gap: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   overflow-y: scroll;
 }
 .chat-section .center-tile .center-item-bottom .center-left .chat-tiles-container .chat-item {

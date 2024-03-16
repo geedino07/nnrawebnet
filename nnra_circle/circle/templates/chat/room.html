@@ -84,24 +84,16 @@
       <div class="departments-container" style="align-items: flex-start;">
         <div class="top-holder">
           <i class="ri-arrow-down-s-line"></i>
-          <h4>Your network</h4>
+          <p style="font-weight: 500;">Your network</p>
         </div>
   
-        <div class="all-departments">
-          <div class="department selected">
-            <i class="ri-home-2-line"></i>
+        <div class="all-departments custom-scrollbar">
+          <!-- <div class="department selected">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-15"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19Z"></path></svg>            
             <p class="department-name">ICT</p>
-          </div>
-  
-          <div class="department">
-            <i class="ri-home-2-line"></i>
-            <p class="department-name">Enforcement</p>
-          </div>
-  
-          <div class="department">
-            <i class="ri-home-2-line"></i>
-            <p class="department-name">licensing</p>
-          </div>
+          </div> -->
+
+      
         </div>
   
         <div class="browse-all-depts">
@@ -158,7 +150,7 @@
           </div>
   
           <div class="chat-tiles-container">
-            <div class="chat-item selected">
+            <!-- <div class="chat-item selected">
   
               <div class="con">
                 <div class="image-container">
@@ -181,39 +173,17 @@
                   <p class="num">3</p>
                 </div>
               </div>
+            </div> -->
+
+            <div class="threads-container custom-scrollbar threads">
+             
             </div>
-  
-            
-  
-            {% for thread in threads %}
-            <div class="chat-item">
-  
-              <div class="con">
-                <div class="image-container">
-                  <img
-                    src="{% static 'img/samples/s2.jpg' %}"
-                    alt=""
-                    style="background-color: #acacad"
-                  />
-                </div>
-  
-                <div class="username-msg">
-                  <h5>{{thread.user_one.username}}</h5>
-                  <p class="l-message">{{thread.last_message.message}}</p>
-                </div>
-              </div>
-  
-              <div class="time-num">
-                <p class="time">1 min</p>
-                <div class="num-container">
-                  <p class="num">3</p>
-                </div>
-              </div>
+         
+            <div class="loading-container loading" style="margin-top: 40px; display: none;">
+              <img src="{% static 'img/spinner.gif' %}" alt="" />
+              <p>Loading threads..</p>
             </div>
-            {% endfor %}
-  
-           
-  
+
           </div>
         </div>
   
