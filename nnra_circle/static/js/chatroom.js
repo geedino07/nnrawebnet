@@ -10,6 +10,7 @@ const chatTilesContainer = document.querySelector(".chat-tiles-container");
 const threadsContainer = document.querySelector('.threads-container')
 const miniUserInfo = document.querySelector(".logged-in-user-info");
 const networkDepartmentsContainer = document.querySelector('.all-departments')
+const allChatsButton = document.querySelector('.all-chats')
 
 const profileImg = document.getElementById("profileimginput").value; //the profile image of the currently logged in user
 const userId = document.getElementById("inputuserid").value;
@@ -18,6 +19,8 @@ let focusUser = null;
 let lastMsgDate = null;
 let displayingUserId = null; //the id of the user currently displayed in the right profile tile if any
 const deptNetwork = []//a list of office ids this user has interacted with
+
+
 
 class Office{
   constructor(officeName, officeId){
@@ -88,14 +91,30 @@ if (chatParam) {
 
 getUserThreads();
 
+allChatsButton.addEventListener('click', function(e){
+  getUserThreads()
+  
+  toggleLeftTogglers(e.target.closest('.all-chats').id)
+})
+
 const socket = connectWebsocket();
 
 threadsContainer.addEventListener("click", function (e) {
   const clickedTile = e.target.closest(".chat-item");
+  if(!clickedTile) return
 
   const userId = clickedTile.getAttribute("data-userid");
   setFocusUser(userId);
 });
+
+networkDepartmentsContainer.addEventListener('click', function(e){
+  const clicked = e.target.closest('.department')
+  if(!clicked) return
+  
+  getNetworkDepartmentThreads(clicked.getAttribute('data-officeid'))
+  toggleLeftTogglers(clicked.id)
+})
+
 
 miniUserInfo.addEventListener("click", function () {
   if (focusUser?.id) {
@@ -270,11 +289,33 @@ function generateRandomString() {
   return Math.random().toString(36).slice(2);
 }
 
+function getNetworkDepartmentThreads(officeId){
+  toggleContainerState('chat-tiles-container', 'loading')
+
+  fetch(`/chat/getnetworkdeptthread/${officeId}/`, {
+    method: "POST",
+    headers: { "X-CSRFToken": getcsrfToken() },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status == 200) populateUserThreads(data.data.user_threads);
+    }).catch(error => {
+      showToast({
+        message: 'Error fetching your chats',
+        style: 'error'
+      })
+    })
+    .finally(()=>{
+      toggleContainerState('chat-tiles-container', 'threads')
+    })
+}
+
 /**Makes a fetch request to get all the threads associated with a user
  * if request is successfull, the ui is populated using the fetched threads
  */
 function getUserThreads() {
-  const csrftoken = Cookies.get("csrftoken");
+  toggleContainerState('chat-tiles-container', 'loading')
+  const csrftoken = getcsrfToken()
   fetch("/chat/getuserthreads/", {
     method: "POST",
     headers: { "X-CSRFToken": csrftoken },
@@ -282,8 +323,38 @@ function getUserThreads() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status == 200) populateUserThreads(data.data.user_threads);
-    });
+    }).catch(error => {
+      showToast({
+        message: 'Error fetching your chats',
+        style: 'error'
+      })
+    })
+    .finally(()=>{
+      toggleContainerState('chat-tiles-container', 'threads')
+    })
 }
+
+function getcsrfToken(){
+  return getCookie('csrftoken');
+}
+
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+      var cookies = document.cookie.split(';');
+      for (var i = 0; i < cookies.length; i++) {
+          var cookie = cookies[i].trim();
+          // Does this cookie string begin with the name we want?
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+          }
+      }
+  }
+  return cookieValue;
+}
+
+
 
 /** Populates the ui with threads */
 function populateUserThreads(threads) {
@@ -297,6 +368,20 @@ function populateUserThreads(threads) {
     userThread = cleanseCreateThread(thread)
     appendUserThread(userThread);
   });
+  toggleContainerState('chat-tiles-container', 'threads')
+}
+
+function toggleLeftTogglers(selectId){
+
+  document.querySelectorAll('.left-panel-toggler').forEach(function(toggler){
+    id = toggler.id
+    if(id == selectId){
+      toggler.classList.add('selected')
+    }
+    else{
+      toggler.classList.remove('selected')
+    }
+  })
 }
 
 function addDepartmentNetwork(officeId, officeName){
@@ -307,7 +392,7 @@ function addDepartmentNetwork(officeId, officeName){
   deptNetwork.push(newOffice)
 
   const htmlel = `
-  <div class="department">
+  <div class="department left-panel-toggler" data-officeid=${officeId} id="tog-${officeId}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-15"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19Z"></path></svg>            
     <p class="department-name">${newOffice.officeName}</p>
   </div>
@@ -333,10 +418,10 @@ function cleanseCreateThread(thread){
         lastSender: thread.last_message.sender.id,
     });
 
-    user_one_officeId= thread.user_one.profile.office.id
-    user_two_officeId = thread.user_two.profile.office.id
-    addDepartmentNetwork(user_one_officeId, thread.user_one.profile.office.office_name)
-    if (user_one_officeId !== user_two_officeId) addDepartmentNetwork(user_two_officeId, thread.user_two.profile.office.office_name)
+    // user_one_officeId= thread.user_one.profile.office.id
+    // user_two_officeId = thread.user_two.profile.office.id
+    addDepartmentNetwork(loaduser.profile.office.id, loaduser.profile.office.office_name)
+    // if (user_one_officeId !== user_two_officeId) addDepartmentNetwork(user_two_officeId, thread.user_two.profile.office.office_name)
     return userThread
 }
 
@@ -383,7 +468,7 @@ function appendUserThread(thread) {
  * @param userid: the id of the user to be put in focus
  */
 function setFocusUser(userid) {
-  const csrftoken = Cookies.get("csrftoken");
+  const csrftoken = getcsrfToken()
   fetch(`/chat/getchatmessages/${userid}/`, {
     method: "POST",
     headers: { "X-CSRFToken": csrftoken },
@@ -424,6 +509,8 @@ function populateChatMessages(chatmessages) {
 
 //apends a new chat message to the conversations container container
 function appendChatMessage(chatmessage) {
+  if (chatmessage.message == '') return
+
   const convClass = chatmessage.type === "sender" ? "conv-right" : "conv-left";
   const msgStatus =
     chatmessage.type === "sender"
@@ -538,7 +625,7 @@ function getFormattedDate(date, astime = true) {
 
 function getUser(userId) {
   toggleContainerState("right-profile-tile", "loading");
-  const csrftoken = Cookies.get("csrftoken");
+  const csrftoken = getcsrfToken()
 
   fetch(`/accounts/getprofile/${userId}/`, {
     method: "POST",

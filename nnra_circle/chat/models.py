@@ -24,6 +24,7 @@ class ThreadManager(models.Manager):
         qlookup_two = Q(user_one__id=user_two_id) & Q(user_two__id=user_two_id)
         query_set = self.get_queryset().filter(qlookup_one | qlookup_two).first()
         return query_set
+    
   
     def get_or_new(self, user, other_userId):
         """

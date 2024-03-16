@@ -911,8 +911,11 @@ footer .copyright-message p {
 .chat-section .left-most-tile .all-chats-groups {
   margin-top: 30px;
 }
-.chat-section .left-most-tile .all-chats-groups .all-chats, .chat-section .left-most-tile .all-chats-groups .all-groups {
+.chat-section .left-most-tile .all-chats-groups .all-chats.selected, .chat-section .left-most-tile .all-chats-groups .selected.all-groups {
   background-color: #e6eee1;
+  border: none;
+}
+.chat-section .left-most-tile .all-chats-groups .all-chats, .chat-section .left-most-tile .all-chats-groups .all-groups {
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -921,6 +924,7 @@ footer .copyright-message p {
   border-radius: 5px;
   cursor: pointer;
   margin-top: 10px;
+  border: 0.5px solid var(--text-dark);
 }
 .chat-section .left-most-tile .all-chats-groups .all-chats .left-all, .chat-section .left-most-tile .all-chats-groups .all-groups .left-all {
   display: flex;
@@ -990,7 +994,7 @@ footer .copyright-message p {
 .chat-section .left-most-tile .departments-container .all-departments .department p {
   font-size: 0.8rem;
   color: var(--text-dark);
-  max-width: 95%;
+  max-width: 90%;
   text-overflow: ellipsis;
   overflow: hidden;
   text-wrap: nowrap;

@@ -6,9 +6,10 @@ from .models import Thread, ChatMessage
 from django.contrib.auth.models import User
 from accounts.serializers import ProfileSerializer
 from .serializers import ChatMessageSerializer, ThreadSerializer
-from django.db.models import Q, OuterRef, Subquery, Max, F
-from django.db import models
+from django.db.models import Q
 from accounts.views import get_people_may_know
+from django.views.decorators.http import require_POST
+
 
 # Create your views here.
 
@@ -47,7 +48,7 @@ def chatroom(request):
     chat_user_id = request.GET.get('chat')
     user = request.user
     user_threads = Thread.threadm.by_user(user=user)
-    
+
     user_unseen_thread_ids = ChatMessage.objects.filter(receiver=user, seen=False).values_list('thread__id', flat=True)
     user_unseen_thread_count = Thread.objects.filter(id__in= user_unseen_thread_ids).count()
 
@@ -86,6 +87,23 @@ def get_thread(request, uidone, uidtwo):
             'status': 404,
             'data': {}
         }, status=404)
+
+@require_POST
+def get_department_network_thread(request, officeid):
+    user = request.user
+    subone = Q(user_one__id = user.id) & Q(user_one__profile__office__id=officeid)
+    subtwo = Q(user_two__id = user.id) & Q(user_two__profile__office__id=officeid)
+
+    lookup_two = Q(user_one__profile__office__id=officeid) |  Q(user_two__profile__office__id=officeid)
+    user_threads = ThreadSerializer(Thread.threadm.by_user(user=user).filter(lookup_two).exclude(subone | subtwo), many=True)
+    return JsonResponse({
+        'status': 200, 
+        'message': 'success',
+        'data': {
+            'user_threads': user_threads.data
+        }
+    })
+    
 
 def getUserThreads(request):
     """
