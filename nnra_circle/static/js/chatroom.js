@@ -1,17 +1,17 @@
 const leftmost = document.querySelector(".left-most-tile");
 const modalOverlay = document.querySelector(".modal-overlay");
 const focusUsername = document.querySelector(".focus-username");
-const focusPresence = document.querySelector('.focus-presence')
+const focusPresence = document.querySelector(".focus-presence");
 const focusUserImg = document.querySelector(".focus-user-img");
 const chatMessageInput = document.getElementById("chat-message-input");
 const chatForm = document.getElementById("chat-form");
 const conversationContainer = document.querySelector(".conversation-container");
 const chatTilesContainer = document.querySelector(".chat-tiles-container");
-const threadsContainer = document.querySelector('.threads-container')
+const threadsContainer = document.querySelector(".threads-container");
 const miniUserInfo = document.querySelector(".logged-in-user-info");
-const networkDepartmentsContainer = document.querySelector('.all-departments')
-const allChatsButton = document.querySelector('.all-chats')
-const allDeptTopHolder= document.querySelector('.all-dept-top-holder')
+const networkDepartmentsContainer = document.querySelector(".all-departments");
+const allChatsButton = document.querySelector(".all-chats");
+const allDeptTopHolder = document.querySelector(".all-dept-top-holder");
 
 const profileImg = document.getElementById("profileimginput").value; //the profile image of the currently logged in user
 const userId = document.getElementById("inputuserid").value;
@@ -19,12 +19,11 @@ const unseenThreadList = []; //a list of threads where at least one message is n
 let focusUser = null;
 let lastMsgDate = null;
 let displayingUserId = null; //the id of the user currently displayed in the right profile tile if any
-const deptNetwork = []//a list of office ids this user has interacted with
+const deptNetwork = []; //a list of office ids this user has interacted with
 
-class Office{
-  constructor(officeName, officeId){
-    this.officeName = officeName, 
-    this.officeId = officeId
+class Office {
+  constructor(officeName, officeId) {
+    (this.officeName = officeName), (this.officeId = officeId);
   }
 }
 class ChatMessage {
@@ -90,34 +89,33 @@ if (chatParam) {
 
 getUserThreads();
 
-allChatsButton.addEventListener('click', function(e){
-  getUserThreads()
-  
-  toggleLeftTogglers(e.target.closest('.all-chats').id)
-})
+allChatsButton.addEventListener("click", function (e) {
+  getUserThreads();
+
+  toggleLeftTogglers(e.target.closest(".all-chats").id);
+});
 
 const socket = connectWebsocket();
 
 threadsContainer.addEventListener("click", function (e) {
   const clickedTile = e.target.closest(".chat-item");
-  if(!clickedTile) return
+  if (!clickedTile) return;
 
   const userId = clickedTile.getAttribute("data-userid");
   setFocusUser(userId);
 });
 
-networkDepartmentsContainer.addEventListener('click', function(e){
-  const clicked = e.target.closest('.department')
-  if(!clicked) return
-  
-  getNetworkDepartmentThreads(clicked.getAttribute('data-officeid'))
-  toggleLeftTogglers(clicked.id)
-})
+networkDepartmentsContainer.addEventListener("click", function (e) {
+  const clicked = e.target.closest(".department");
+  if (!clicked) return;
 
+  getNetworkDepartmentThreads(clicked.getAttribute("data-officeid"));
+  toggleLeftTogglers(clicked.id);
+});
 
-allDeptTopHolder.addEventListener('click', function(){
-  document.querySelector('.departments-container').classList.toggle('closed')
-})
+allDeptTopHolder.addEventListener("click", function () {
+  document.querySelector(".departments-container").classList.toggle("closed");
+});
 
 miniUserInfo.addEventListener("click", function () {
   if (focusUser?.id) {
@@ -171,15 +169,16 @@ function connectWebsocket() {
 
     if (received.action == "presence") {
       if (focusUser?.user.id == received.user_id) {
-        updateFocusUserPresence(received.status)
+        updateFocusUserPresence(received.status);
       }
 
-      if(displayingUserId && displayingUserId == received.user_id){
-        const displayingStatus= document.querySelector(".displaying-status")
-        displayingStatus.classList.remove('online')
-        displayingStatus.classList.remove('offline')
-        displayingStatus.classList.add(received.status)
-        document.querySelector('.txt-displaying-status').textContent = received.status
+      if (displayingUserId && displayingUserId == received.user_id) {
+        const displayingStatus = document.querySelector(".displaying-status");
+        displayingStatus.classList.remove("online");
+        displayingStatus.classList.remove("offline");
+        displayingStatus.classList.add(received.status);
+        document.querySelector(".txt-displaying-status").textContent =
+          received.status;
       }
     }
   });
@@ -188,7 +187,7 @@ function connectWebsocket() {
     chatForm.onsubmit = function (e) {
       e.preventDefault();
       const messagebody = chatMessageInput.value;
-      if (messagebody !== ''){
+      if (messagebody !== "") {
         const uid = generateRandomString();
         const messageStr = JSON.stringify({
           action: "chat_message",
@@ -209,15 +208,13 @@ function connectWebsocket() {
         appendChatMessage(chatmessage);
         reorderThread(chatmessage);
         chatMessageInput.value = "";
-      }
-      else{
+      } else {
         showToast({
-          message: 'Message cannot be null', 
-          style: 'error',
-          duration: 2000
-        })
+          message: "Message cannot be null",
+          style: "error",
+          duration: 2000,
+        });
       }
-    
     };
 
     console.log("ws opened");
@@ -234,8 +231,8 @@ function connectWebsocket() {
   return socket;
 }
 
-function updateFocusUserPresence(presence){
-    focusPresence.textContent = presence
+function updateFocusUserPresence(presence) {
+  focusPresence.textContent = presence;
 }
 
 function newLineChatMessage(messageStr) {
@@ -260,30 +257,31 @@ function reorderThread(chatmessage) {
       txtLastMessage.textContent = chatmessage.message;
 
       time.textContent = `${getFormattedDate(chatmessage.timestamp)}`;
-    }
-    else{        
-        fetch(`/chat/getthread/${chatmessage.senderId}/${chatmessage.receiverId}`,{
-            'method': 'GET',
-        })
-        .then(response => response.json())
-        .then(data => {
-            if(data.status === 200){
-                userThread = cleanseCreateThread(data.data.thread)
-                appendUserThread(userThread);
-                const threadElement = document.getElementById(`thread-el-${id}`);
-                if (threadElement){
-                    const txtLastMessage = threadElement.querySelector(".l-message");
-                    const time = threadElement.querySelector(".time");
-                    threadElement.style.order = -1;
-                    txtLastMessage.textContent = chatmessage.message;
-                    time.textContent = `${getFormattedDate(chatmessage.timestamp)}`;
-                }
-
+    } else {
+      fetch(
+        `/chat/getthread/${chatmessage.senderId}/${chatmessage.receiverId}`,
+        {
+          method: "GET",
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === 200) {
+            userThread = cleanseCreateThread(data.data.thread);
+            appendUserThread(userThread);
+            const threadElement = document.getElementById(`thread-el-${id}`);
+            if (threadElement) {
+              const txtLastMessage = threadElement.querySelector(".l-message");
+              const time = threadElement.querySelector(".time");
+              threadElement.style.order = -1;
+              txtLastMessage.textContent = chatmessage.message;
+              time.textContent = `${getFormattedDate(chatmessage.timestamp)}`;
             }
+          }
         })
-        .catch(error => {
-            console.error('error', error)
-        })
+        .catch((error) => {
+          console.error("error", error);
+        });
     }
   }
 }
@@ -292,8 +290,8 @@ function generateRandomString() {
   return Math.random().toString(36).slice(2);
 }
 
-function getNetworkDepartmentThreads(officeId){
-  toggleContainerState('chat-tiles-container', 'loading')
+function getNetworkDepartmentThreads(officeId) {
+  toggleContainerState("chat-tiles-container", "loading");
 
   fetch(`/chat/getnetworkdeptthread/${officeId}/`, {
     method: "POST",
@@ -302,23 +300,24 @@ function getNetworkDepartmentThreads(officeId){
     .then((response) => response.json())
     .then((data) => {
       if (data.status == 200) populateUserThreads(data.data.user_threads);
-    }).catch(error => {
+    })
+    .catch((error) => {
       showToast({
-        message: 'Error fetching your chats',
-        style: 'error'
-      })
+        message: "Error fetching your chats",
+        style: "error",
+      });
     })
-    .finally(()=>{
-      toggleContainerState('chat-tiles-container', 'threads')
-    })
+    .finally(() => {
+      toggleContainerState("chat-tiles-container", "threads");
+    });
 }
 
 /**Makes a fetch request to get all the threads associated with a user
  * if request is successfull, the ui is populated using the fetched threads
  */
 function getUserThreads() {
-  toggleContainerState('chat-tiles-container', 'loading')
-  const csrftoken = getcsrfToken()
+  toggleContainerState("chat-tiles-container", "loading");
+  const csrftoken = getcsrfToken();
   fetch("/chat/getuserthreads/", {
     method: "POST",
     headers: { "X-CSRFToken": csrftoken },
@@ -326,38 +325,37 @@ function getUserThreads() {
     .then((response) => response.json())
     .then((data) => {
       if (data.status == 200) populateUserThreads(data.data.user_threads);
-    }).catch(error => {
+    })
+    .catch((error) => {
       showToast({
-        message: 'Error fetching your chats',
-        style: 'error'
-      })
+        message: "Error fetching your chats",
+        style: "error",
+      });
     })
-    .finally(()=>{
-      toggleContainerState('chat-tiles-container', 'threads')
-    })
+    .finally(() => {
+      toggleContainerState("chat-tiles-container", "threads");
+    });
 }
 
-function getcsrfToken(){
-  return getCookie('csrftoken');
+function getcsrfToken() {
+  return getCookie("csrftoken");
 }
 
 function getCookie(name) {
   var cookieValue = null;
-  if (document.cookie && document.cookie !== '') {
-      var cookies = document.cookie.split(';');
-      for (var i = 0; i < cookies.length; i++) {
-          var cookie = cookies[i].trim();
-          // Does this cookie string begin with the name we want?
-          if (cookie.substring(0, name.length + 1) === (name + '=')) {
-              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-              break;
-          }
+  if (document.cookie && document.cookie !== "") {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
       }
+    }
   }
   return cookieValue;
 }
-
-
 
 /** Populates the ui with threads */
 function populateUserThreads(threads) {
@@ -368,64 +366,65 @@ function populateUserThreads(threads) {
     if (b.last_message.created > a.last_message.created) return 1;
   });
   threads.forEach(function (thread) {
-    userThread = cleanseCreateThread(thread)
+    userThread = cleanseCreateThread(thread);
     appendUserThread(userThread);
   });
-  toggleContainerState('chat-tiles-container', 'threads')
+  toggleContainerState("chat-tiles-container", "threads");
 }
 
-function toggleLeftTogglers(selectId){
-
-  document.querySelectorAll('.left-panel-toggler').forEach(function(toggler){
-    id = toggler.id
-    if(id == selectId){
-      toggler.classList.add('selected')
+function toggleLeftTogglers(selectId) {
+  document.querySelectorAll(".left-panel-toggler").forEach(function (toggler) {
+    id = toggler.id;
+    if (id == selectId) {
+      toggler.classList.add("selected");
+    } else {
+      toggler.classList.remove("selected");
     }
-    else{
-      toggler.classList.remove('selected')
-    }
-  })
+  });
 }
 
-function addDepartmentNetwork(officeId, officeName){
-  const office = deptNetwork.find(office=> office.officeId == officeId)
-  if (office) return
+function addDepartmentNetwork(officeId, officeName) {
+  const office = deptNetwork.find((office) => office.officeId == officeId);
+  if (office) return;
 
-  const newOffice = new Office(officeName, officeId)
-  deptNetwork.push(newOffice)
+  const newOffice = new Office(officeName, officeId);
+  deptNetwork.push(newOffice);
 
   const htmlel = `
   <div class="department left-panel-toggler" data-officeid=${officeId} id="tog-${officeId}">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="svg-15"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19Z"></path></svg>            
     <p class="department-name">${newOffice.officeName}</p>
   </div>
-  `
-  networkDepartmentsContainer.insertAdjacentHTML("beforeend", htmlel)
+  `;
+  networkDepartmentsContainer.insertAdjacentHTML("beforeend", htmlel);
 }
 
-function cleanseCreateThread(thread){
-    const loaduser =
+function cleanseCreateThread(thread) {
+  const loaduser =
     thread.user_one.id == userId ? thread.user_two : thread.user_one;
 
-    const profileimg = loaduser.profile.profileImg;
-    const username = loaduser.username;
-    const lastmessage = thread.last_message.message;
+  const profileimg = loaduser.profile.profileImg;
+  const username = loaduser.username;
+  const lastmessage = thread.last_message.message;
 
-    const userThread = new Thread({
-        username: username,
-        profileImg: profileimg,
-        lastMessage: lastmessage,
-        userId: loaduser.id,
-        date: thread.last_message.created,
-        unreadCount: thread.unread_count,
-        lastSender: thread.last_message.sender.id,
-    });
+  const userThread = new Thread({
+    username: username,
+    profileImg: profileimg,
+    lastMessage: lastmessage,
+    userId: loaduser.id,
+    date: thread.last_message.created,
+    unreadCount: thread.unread_count,
+    lastSender: thread.last_message.sender.id,
+  });
 
-    // user_one_officeId= thread.user_one.profile.office.id
-    // user_two_officeId = thread.user_two.profile.office.id
-    addDepartmentNetwork(loaduser.profile.office.id, loaduser.profile.office.office_name)
-    // if (user_one_officeId !== user_two_officeId) addDepartmentNetwork(user_two_officeId, thread.user_two.profile.office.office_name)
-    return userThread
+  // user_one_officeId= thread.user_one.profile.office.id
+  // user_two_officeId = thread.user_two.profile.office.id
+  addDepartmentNetwork(
+    loaduser.profile.office.id,
+    loaduser.profile.office.office_name
+  );
+  // if (user_one_officeId !== user_two_officeId) addDepartmentNetwork(user_two_officeId, thread.user_two.profile.office.office_name)
+  return userThread;
 }
 
 /** appends a new thread to the ui
@@ -471,7 +470,7 @@ function appendUserThread(thread) {
  * @param userid: the id of the user to be put in focus
  */
 function setFocusUser(userid) {
-  const csrftoken = getcsrfToken()
+  const csrftoken = getcsrfToken();
   fetch(`/chat/getchatmessages/${userid}/`, {
     method: "POST",
     headers: { "X-CSRFToken": csrftoken },
@@ -479,13 +478,28 @@ function setFocusUser(userid) {
     .then((response) => response.json())
     .then((data) => {
       const chatUserProfile = data.data.chat_user;
-      updateFocusUserPresence(chatUserProfile.is_online? 'online': 'offline')
+      updateFocusUserPresence(chatUserProfile.is_online ? "online" : "offline");
       focusUsername.textContent = chatUserProfile.user.username;
       focusUserImg.src = chatUserProfile.profileImg;
       focusUser = chatUserProfile;
+      selectThread(focusUser.user.id)
+      console.log(focusUser.user.id)
       toggleContainerState("center-right", "focused");
       populateChatMessages(data.data.chat_messages);
     });
+}
+
+function selectThread(userId){
+  console.log('he')
+  document.querySelectorAll('.chat-item').forEach(function(chatItem){
+    if(chatItem.id == `thread-el-${userId}`){
+      chatItem.classList.add('selected')
+      console.log('found')
+    }
+    else{
+      chatItem.classList.remove('selected')
+    }
+  })
 }
 
 //clears the chate messages container and repopulates it
@@ -512,7 +526,7 @@ function populateChatMessages(chatmessages) {
 
 //apends a new chat message to the conversations container container
 function appendChatMessage(chatmessage) {
-  if (chatmessage.message == '') return
+  if (chatmessage.message == "") return;
 
   const convClass = chatmessage.type === "sender" ? "conv-right" : "conv-left";
   const msgStatus =
@@ -628,7 +642,7 @@ function getFormattedDate(date, astime = true) {
 
 function getUser(userId) {
   toggleContainerState("right-profile-tile", "loading");
-  const csrftoken = getcsrfToken()
+  const csrftoken = getcsrfToken();
 
   fetch(`/accounts/getprofile/${userId}/`, {
     method: "POST",
@@ -657,7 +671,7 @@ function showProfile(profile) {
   profileTileContainer.innerHTML = "";
   profileTileContainer.insertAdjacentHTML("afterbegin", profileTile);
   toggleContainerState("right-profile-tile", "profile");
-  displayingUserId = profile.user.id
+  displayingUserId = profile.user.id;
 }
 
 function makeProfileTile(profile) {
@@ -681,9 +695,13 @@ function makeProfileTile(profile) {
           alt=""
           style="background-color: #acacad"
         />
-        <div class="status ${profile.is_online?'online':'offline'} displaying-status">
+        <div class="status ${
+          profile.is_online ? "online" : "offline"
+        } displaying-status">
           <div class="circle"></div>
-          <p class="txt-displaying-status">${profile.is_online?'Online':'Offline'}</p>
+          <p class="txt-displaying-status">${
+            profile.is_online ? "Online" : "Offline"
+          }</p>
         </div>
       </div>
     </div>
