@@ -288,7 +288,13 @@
   
         .notification-con {
           position: relative;
-  
+          height: max-content;
+          padding: 0;
+          display: flex;
+            
+          svg{
+            margin: auto;
+          }
           .noti-alert {
             width: 10px;
             height: 10px;
