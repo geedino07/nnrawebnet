@@ -12,7 +12,7 @@ if(btnRemovePhoto){
             
             pContinueText: 'YES, CONTINUE', 
             onModalContinue: function(){
-                const csrftoken = Cookies.get('csrftoken')
+                const csrftoken = getcsrfToken()
     
                 fetch('/accounts/updatephoto/remove/', {
                     method: 'POST',
@@ -42,7 +42,7 @@ document.querySelector('.btn-change-photo').addEventListener('click', function()
 
 fileInput.addEventListener('change', function(){
     if (fileInput.files && fileInput.files.length>0){
-        const csrftoken = Cookies.get('csrftoken')
+        const csrftoken = getcsrfToken()
         const selectedFile = fileInput.files[0]
 
         const formData = new FormData()
@@ -72,7 +72,7 @@ fileInput.addEventListener('change', function(){
 document.getElementById('edit-profile-form').addEventListener('submit', function(e){
     e.preventDefault()
     btnSubmit.disabled =true
-    const csrftoken = Cookies.get('csrftoken')
+    const csrftoken = getcsrfToken()
 
     const formData = new FormData(this)
 

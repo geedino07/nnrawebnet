@@ -13,6 +13,45 @@ from django.views.decorators.http import require_POST
 
 # Create your views here.
 
+@require_POST 
+def delete_message(request, msgid):
+    try:
+        chat_message = ChatMessage.objects.get(id=msgid)
+    except ChatMessage.DoesNotExist:
+        return JsonResponse({
+            'message': 'Message does not exist',
+            'data': {},
+            'status': 404
+        }, status=404)
+
+    chat_message.delete()
+    return JsonResponse({
+        'message': 'Message deleted successfully', 
+        'data': {},
+        'status': 200
+    }, status=200)
+
+@require_POST
+def edit_message(request, msgid):
+    try:
+        chat_message = ChatMessage.objects.get(id=msgid)
+    except ChatMessage.DoesNotExist:
+        return JsonResponse({
+            'message': 'Message does not exist',
+            'data': {},
+            'status': 404
+        }, status=404)
+
+
+    new_message_body = request.POST.get('message')
+    chat_message.message = new_message_body
+    chat_message.save()
+
+    return JsonResponse({
+        'message': 'Message Edited successfully', 
+        'data': {},
+        'status': 200
+    }, status=200)
 
 
 @login_required

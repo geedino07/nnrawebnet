@@ -673,7 +673,14 @@ footer .copyright-message p {
 }
 .container .form-holder .login-option p {
   margin-top: 10px;
-}/*# sourceMappingURL=auth_style.css.map */
+}/*# sourceMappingURL=auth_style.css.map */sparent;
+  padding: 0.9rem;
+  border: none;
+  border-bottom: 0.5px solid rgb(126, 123, 123);
+  outline: none;
+}
+form input[type=submit] {
+  background-color: var(--main-green);
   color: white;
   cursor: pointer;
 }

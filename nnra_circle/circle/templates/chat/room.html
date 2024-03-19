@@ -121,12 +121,12 @@
           </div> -->
           </div>
 
-          <div class="browse-all-depts">
+          <a class="browse-all-depts" href="{% url "accounts:listdepartment" %}" style="text-decoration: none;">
             <div class="search-con">
               <i class="ri-search-line"></i>
             </div>
             <p>Browse all departments</p>
-          </div>
+          </a>
         </div>
       </div>
 
@@ -409,6 +409,56 @@
     </section>
 
     <div class="modal-overlay"></div>
+
+    <div class="modal-section edit-msg-modal" id="edit-msg-modal">
+      <div class="modal-content" style="padding: 10px; min-height: 300px;">
+
+        <div class="top-modal-content" id="top-edit-modal-content">
+          <p class="p-edt-msg">Edit your message</p>
+          <div class="edit-msg-errors-con" id="edit-msg-errors-con" style="width: 100%;">
+
+          </div>
+        
+        </div>
+
+
+      <div class="hor-line"></div>
+
+      <div class="bottom-edt-modal-content" id="bottom-edit-modal-content">
+        <div class="loading-container loading" style="display: none;">
+          <img src="{% static 'img/spinner.gif' %}" alt="loading">
+          <p>Loading..</p>
+        </div>
+
+        <div class="edit-msg-content">
+          <form action="" id="edit-msg-form">
+            <textarea name="message-body" id="txta-message-body" cols="30" rows="5" placeholder="Message" class="custom-scrollbar"></textarea>
+
+            <div class="hor-line"></div>
+
+            <div class="buttons-container">
+              <div class="left">
+                <button class="delete-btn" type="button" id="delete-msg-btn">
+                  Delete message
+                </button>
+              </div>
+
+                <button class="cancel-btn" onclick="transitionModal('none')" type="button">
+                  Cancel
+                </button>
+
+                <button class="save-btn" type="button" id="save-edited-message-btn">
+                  Save
+                </button>
+            </div>
+          </form>
+        </div>
+      </div>
+      
+    
+      
+    </div>
+    </div>
 
     <script>
       function autoResize(textarea) {

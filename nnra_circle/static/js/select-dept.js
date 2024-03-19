@@ -53,7 +53,7 @@ departmentsContainer.addEventListener("click", function (e) {
 });
 
 function setDepartment(userId, selectedDepartment){
-    const csrftoken = Cookies.get('csrftoken')
+    const csrftoken = getcsrfToken()
 
     const formData = new FormData()
     formData.append('office_name', selectedDepartment.officeName)

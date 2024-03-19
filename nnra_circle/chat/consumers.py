@@ -62,6 +62,16 @@ class ChatConsumer(AsyncWebsocketConsumer):
         rd = json.loads(text_data)
         action = rd.get('action')
 
+        if action == 'edit_message' or action == 'delete_message':
+            receiver = rd.get('receiver')
+            await self.channel_layer.group_send(
+                f'user_group_{receiver}',
+                {
+                    "type": 'chat.message',
+                    'text': rd
+                }
+            )
+
         if action == 'chat_message':
             receiver = rd.get('receiver')
             message = rd.get('message_body')

@@ -225,11 +225,13 @@
           align-items: center;
           justify-content: center;
           cursor: pointer;
+          text-decoration: none;
   
           i {
             color: var(--text-dark);
             font-size: 1.3rem;
           }
+
         }
   
         .option-item.selected {
@@ -237,6 +239,10 @@
   
           i {
             color: var(--hard-light-green);
+          }
+
+          svg{
+            fill: var(--hard-light-green);
           }
         }
       }
@@ -361,7 +367,7 @@
             border-radius: 10px;
           }
   
-          i {
+          i, svg {
             position: absolute;
             right: 10px;
             top: 10px;
@@ -380,6 +386,10 @@
           cursor: pointer;
   
           i {
+            opacity: 0.6;
+          }
+
+          svg{
             opacity: 0.6;
           }
         }
@@ -484,7 +494,7 @@
             max-width: 100%;
             justify-self: baseline;
             margin-top: 20px;
-            i {
+            i, svg {
               font-size: 0.9rem;
               opacity: 0.5;
             }

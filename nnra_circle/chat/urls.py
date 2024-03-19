@@ -9,5 +9,7 @@ urlpatterns = [
     path('getuserthreads/', views.getUserThreads, name='getuserthreads'),
     path('markasseen/<int:mid>/', views.mark_as_seen, name='mark_as_seen'),
     path('getthread/<int:uidone>/<int:uidtwo>/', views.get_thread, name='getthread'),
-    path('getnetworkdeptthread/<int:officeid>/', views.get_department_network_thread, name='getnetworkdeptthread')
+    path('getnetworkdeptthread/<int:officeid>/', views.get_department_network_thread, name='getnetworkdeptthread'),
+    path('editmessage/<int:msgid>/', views.edit_message, name='editmessage'),
+    path('deletemessage/<int:msgid>/', views.delete_message, name='deletemessage')
 ]

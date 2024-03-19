@@ -620,6 +620,21 @@
               .conversation {
                 display: flex;
                 width: 95%;
+                position: relative;
+                
+                .edit-msg-con{
+                  width: 30px;
+                  height: 30px;
+                  border-radius: 50%;
+                  display: flex;
+                  align-items: center;
+                  justify-content: center;
+                  position: absolute;
+                  background-color: var(--chat-background);
+                  cursor: pointer;
+                  transition: all 0.5s ease-in-out;
+                  display: none;
+                }
   
                 .u-profile-photo {
                   width: 30px;
@@ -654,6 +669,16 @@
                   font-size: 0.8rem;
                   opacity: 0.8;
                   line-height: 1.2rem;
+                }
+              }
+
+              .conversation.deleted{
+                opacity:0.5;
+              }
+
+              .conversation:hover{
+                .edit-msg-con{
+                  display: flex;
                 }
               }
             }
@@ -887,5 +912,111 @@
      
     }
   }
+
+.edit-msg-modal{
+  .hor-line{
+    opacity: 0.6;
+  }
+  .top-modal-content{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .p-edt-msg{
+      font-weight: 500;
+      color: black;
+    }
+
+  
+  }
+
+  .bottom-edt-modal-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .edit-msg-content{
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      height: max-content;
+      
+      form{
+        width: 100%;
+        padding: 0;
+        height: max-content;
+        margin: 0;
+      }
+
+      textarea{
+        border: 0.4px solid var(--text-dark);
+        outline: none;
+        padding: 10px;
+        resize: none;
+        width: 100%;
+        height: 100%;
+        border-radius: 7px;
+        font-family: "poppins", sans-serif;
+        border: none;
+        background-color: var(--chat-background);
+        margin: 0;
+      }
+
+      .buttons-container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        width: 100%;
+
+        button{
+          padding: 10px;
+          border-radius: 5px;
+          border: none;
+          outline: none;
+          cursor: pointer;
+          background-color: white;
+          border: 0.8px solid black;
+          color: black;
+          font-weight: 600;
+          
+        }
+
+        
+
+        .save-btn{
+          background-color: black;
+          color: white;
+        }
+
+        .delete-btn{
+          color: red;
+          border: 0.8px solid red;
+
+        }
+      }
+
+
+    }
+
+    .loading-container{
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+  
+      img{
+        width: 20px;
+        height: 20px;
+      }
+  
+      p{
+        margin-left: 0.6rem;
+      }
+    }
+  }
+  
+}
 
   @import "media";

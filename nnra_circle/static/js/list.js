@@ -98,7 +98,7 @@ function addOrUpdateQueryParam(key, value) {
 
 function getUser(userId){
     changeProfileHolderState('profile-section', 'loading')
-    const csrftoken = Cookies.get('csrftoken')
+    const csrftoken = getcsrfToken()
 
     fetch(`/accounts/getprofile/${userId}/`, {
         method: 'POST',

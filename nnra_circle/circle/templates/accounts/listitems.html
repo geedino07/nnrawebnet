@@ -22,13 +22,14 @@
       />
   
       <div class="options-select-container">
-        <div class="option-item {% if page == 'people' %}selected{% endif %}">
-          <i class="ri-user-3-line"></i>
-        </div>
+        <a class="option-item {% if page == 'people' %}selected{% endif %}" href="{% url 'accounts:listitems' %}">
+          <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 22H18V20C18 18.3431 16.6569 17 15 17H9C7.34315 17 6 18.3431 6 20V22H4V20C4 17.2386 6.23858 15 9 15H15C17.7614 15 20 17.2386 20 20V22ZM12 13C8.68629 13 6 10.3137 6 7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7C18 10.3137 15.3137 13 12 13ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path></svg>        
+        </a>
   
-        <div class="option-item {% if page == 'departments' %}selected{%endif%}">
-          <i class="ri-home-3-line"></i>
-        </div>
+        <a class="option-item {% if page == 'departments' %}selected{%endif%}" href="{% url 'accounts:listdepartment' %}">
+          <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19ZM8 15H16V17H8V15Z"></path></svg>
+         
+        </a>
         
         {% if page == 'people' %}
         <div class="user-image-container">
@@ -51,14 +52,20 @@
             {% if search_term %}
             <div class="filter">
               <p>{{ search_term }}</p>
-              <a href="/accounts/list/{% if fd %}?fd={{ fd }} {% endif %}"><i class="ri-close-line"></i></a>
+              <a href="/accounts/list/{% if fd %}?fd={{ fd }} {% endif %}">
+              
+                <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>
+
+              </a>
             </div>
             {% endif %}
   
             {% if fd %}
             <div class="filter">
               <p>{{fd}}</p>
-              <a href="/accounts/list/{% if search_term %}?search={{search_term}} {% endif %}"><i class="ri-close-line"></i></a>
+              <a href="/accounts/list/{% if search_term %}?search={{search_term}} {% endif %}">
+                <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"></path></svg>              
+              </a>
             </div>
             {% endif %}
           </div>
@@ -76,11 +83,16 @@
           <input type="text" class="search-input" placeholder="Search a person"/>
           {% endif %}
   
-          <i class="ri-search-line"></i>
+          <!-- <i class="ri-search-line"></i> -->
+
+          <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2C15.968 2 20 6.032 20 11C20 15.968 15.968 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2ZM11 18C14.8675 18 18 14.8675 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18ZM19.4853 18.0711L22.3137 20.8995L20.8995 22.3137L18.0711 19.4853L19.4853 18.0711Z"></path></svg>
+
         </form>
   
         <div class="filter" id="btn-filter-dept">
-          <i class="ri-filter-2-line"></i>
+
+          <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M14 14V20L10 22V14L4 5V3H20V5L14 14ZM6.4037 5L12 13.3944L17.5963 5H6.4037Z"></path></svg>
+
         </div>
       </div>
   
@@ -103,7 +115,9 @@
               </div>
       
               <div class="department">
-                <i class="ri-home-3-line"></i>
+
+                <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19ZM8 15H16V17H8V15Z"></path></svg>
+
                 <p>{{profile.office.office_name}}</p>
               </div>
             </div>
@@ -229,7 +243,7 @@
 
         <div class="department-cards-container">
           {% for office in offices%}
-            <div class="department-card">
+            <a class="department-card" href="/accounts/list/?fd={{office.office_name}}" style="text-decoration: none;">
               <p class="department-name">{{office.office_name}}</p>
 
               <div class="user-num">
@@ -240,7 +254,7 @@
                   <p class="emp">Employee{{office.employee_count|pluralize}}</p>
                 </div>
               </div>
-            </div>
+            </a>
             {% endfor %}
           </div>
           
