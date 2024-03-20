@@ -24,7 +24,9 @@ def delete_message(request, msgid):
             'status': 404
         }, status=404)
 
-    chat_message.delete()
+    chat_message.deleted = True
+    chat_message.message = ''
+    chat_message.save()
     return JsonResponse({
         'message': 'Message deleted successfully', 
         'data': {},

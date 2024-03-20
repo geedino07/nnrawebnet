@@ -36,6 +36,7 @@ class ChatMessage {
     id = null,
     senderId = null,
     receiverId = null,
+    deleted = false,
   }) {
     this.message = message;
     this.timestamp = timestamp;
@@ -45,6 +46,7 @@ class ChatMessage {
     this.id = id;
     this.senderId = senderId;
     this.receiverId = receiverId;
+    this.deleted = deleted;
   }
 
   getThreadSuffix(uid) {
@@ -127,12 +129,21 @@ conversationContainer.addEventListener("click", function (e) {
   if (e.target.closest(".edit-msg-con")) {
     const editMsgBtn = e.target.closest(".edit-msg-con");
 
-    const msgId = editMsgBtn.getAttribute("data-msgid");
+    // const msgId = editMsgBtn.getAttribute("data-msgid");
     // const messageBody = editMsgBtn.getAttribute('data-messagebody')
-    const messageBody = document.querySelector(`#cmsg-${msgId}`).textContent;
+    const conversation = editMsgBtn.closest('.conversation')
+
+    // const messageBody = document.querySelector(`#cmsg-${msgId}`)?.textContent;
+    const messageBody = conversation.querySelector('.message').textContent
+    const msgId = getDigitsFromText(conversation.id)
+
     showEditModal(msgId, messageBody);
   }
 });
+
+function getDigitsFromText(text){
+  return parseInt(text.match(/\d+/)[0]);
+}
 
 function showEditModal(messageid, messagebody) {
   document.getElementById("edit-msg-errors-con").innerHTML = "";
@@ -152,14 +163,13 @@ function showEditModal(messageid, messagebody) {
       );
       return;
     }
-    updateChatMessage(message, messageid)
+    updateChatMessage(message, messageid);
     toggleContainerState("bottom-edit-modal-content", "loading");
-   
   };
 
   document.getElementById("delete-msg-btn").onclick = function () {
     toggleContainerState("bottom-edit-modal-content", "loading");
-    deleteChatMessage(messageid)
+    deleteChatMessage(messageid);
   };
   transitionModal("edit-msg-modal");
 }
@@ -167,31 +177,33 @@ function showEditModal(messageid, messagebody) {
 //========= FUNCTIONS =========================
 
 /**sends a fetch reqeust to delete the emessage in the database */
-function deleteChatMessage(messageid){
+function deleteChatMessage(messageid) {
   fetch(`/chat/deletemessage/${messageid}/`, {
-    method: 'POST', 
+    method: "POST",
     headers: {
-      'X-CSRFToken': getcsrfToken()
-    }, 
-  }).then(response => response.json())
-  .then(data => {
-    if(data.status == 200){
-      wsEditMessage('', messageid, 'delete_message')
-      deleteMessageUi(messageid)
-    }
-    showToast({
-      message: data.message,
-      style: data.status == 200 ? "success" : "error",
+      "X-CSRFToken": getcsrfToken(),
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status == 200) {
+        wsEditMessage("", messageid, "delete_message");
+        deleteMessageUi(messageid);
+      }
+      showToast({
+        message: data.message,
+        style: data.status == 200 ? "success" : "error",
+      });
+    })
+    .finally(() => {
+      transitionModal("none");
+    })
+    .catch((error) => {
+      console.error(error);
     });
-  }).finally(()=> {
-    transitionModal('none')
-  })
-  .catch(error => {
-    console.error(error)
-  })
 }
 /** sends a fetch reqeust to update the chatmessage in the database */
-function updateChatMessage(message, messageid){
+function updateChatMessage(message, messageid) {
   const formData = new FormData();
   formData.append("message", message);
   formData.append("mmsgId", messageid);
@@ -221,9 +233,8 @@ function updateChatMessage(message, messageid){
     });
 }
 
-
 /** Sends a message through the websocket indicating that a message has been edited */
-function wsEditMessage(messagebody, messageid, action='edit_message') {
+function wsEditMessage(messagebody, messageid, action = "edit_message") {
   const messageStr = JSON.stringify({
     action: action,
     receiver: focusUser.user.id,
@@ -233,16 +244,18 @@ function wsEditMessage(messagebody, messageid, action='edit_message') {
   socket.send(messageStr);
 }
 
-function deleteMessageUi(messageid){
+function deleteMessageUi(messageid) {
   const conversationDiv = document.getElementById(`msg-${messageid}`);
-  if (conversationDiv) conversationDiv.remove()
+  conversationDiv.querySelector('.message').textContent = 'This message was deleted'
+  conversationDiv.classList.add('deleted')
 }
 
 /** updates a message in the ui */
 function updateMessageUi(messagebody, messageid) {
   const conversationDiv = document.getElementById(`msg-${messageid}`);
   if (conversationDiv)
-    conversationDiv.querySelector(".message").innerHTML = newLineChatMessage(messagebody);
+    conversationDiv.querySelector(".message").innerHTML =
+      newLineChatMessage(messagebody);
 }
 
 /**Establishes a websocket connection to the chat message consumer and returns the websocket instance */
@@ -281,6 +294,12 @@ function connectWebsocket() {
         `status-${received.statusid}`,
         `status-${received.id}`
       );
+      
+      const tempConversation = document.querySelector(`.temp-id-${received.statusid}`)
+      tempConversation.querySelector('.edit-msg-con').setAttribute('data-msgid', received.id)
+      tempConversation.id = `msg-${received.id}`
+
+      // document.querySelector(`#edit-msg-con-${received.statusid}`)?.setAttribute('data-msgid', received.id)
     }
 
     if (received.action == "msg_seen") {
@@ -307,8 +326,8 @@ function connectWebsocket() {
       updateMessageUi(received.message_body, received.msgid);
     }
 
-    if(received.action == "delete_message"){
-      deleteMessageUi(received.msgid)
+    if (received.action == "delete_message") {
+      deleteMessageUi(received.msgid);
     }
   });
 
@@ -333,6 +352,7 @@ function connectWebsocket() {
           status: "pending",
           senderId: Number(userId),
           receiverId: focusUser?.user.id,
+          
         });
         appendChatMessage(chatmessage);
         reorderThread(chatmessage);
@@ -435,6 +455,7 @@ function getNetworkDepartmentThreads(officeId) {
         message: "Error fetching your chats",
         style: "error",
       });
+      console.error("Network depts", error);
     })
     .finally(() => {
       toggleContainerState("chat-tiles-container", "threads");
@@ -460,6 +481,8 @@ function getUserThreads() {
         message: "Error fetching your chats",
         style: "error",
       });
+
+      console.error("Error fetching threads", error);
     })
     .finally(() => {
       toggleContainerState("chat-tiles-container", "threads");
@@ -471,8 +494,8 @@ function populateUserThreads(threads) {
   threadsContainer.innerHTML = "";
   threads.sort((a, b) => {
     //sorting the threads in descending order by the created attribute of the last messages
-    if (a.last_message.created > b.last_message.created) return -1;
-    if (b.last_message.created > a.last_message.created) return 1;
+    if (a.last_message?.created > b.last_message?.created) return -1;
+    if (b.last_message?.created > a.last_message?.created) return 1;
   });
   threads.forEach(function (thread) {
     userThread = cleanseCreateThread(thread);
@@ -509,6 +532,7 @@ function addDepartmentNetwork(officeId, officeName) {
 }
 
 function cleanseCreateThread(thread) {
+  if (!thread.last_message) return;
   const loaduser =
     thread.user_one.id == userId ? thread.user_two : thread.user_one;
 
@@ -624,6 +648,7 @@ function populateChatMessages(chatmessages) {
         id: msg.id,
         senderId: msg.sender.id,
         receiverId: msg.receiver.id,
+        deleted: msg.deleted,
       })
     );
   });
@@ -631,7 +656,7 @@ function populateChatMessages(chatmessages) {
 
 //apends a new chat message to the conversations container container
 function appendChatMessage(chatmessage) {
-  if (chatmessage.message == "") return;
+  if (chatmessage.message == "" && !chatmessage.deleted) return;
 
   const convClass = chatmessage.type === "sender" ? "conv-right" : "conv-left";
   const msgStatus =
@@ -641,21 +666,22 @@ function appendChatMessage(chatmessage) {
   // const imgSrc = chatmessage.type === 'sender'? profileImg: focusUser.profileImg
   const timestamp = new Date(chatmessage.timestamp);
   const htmlel = `
-    <div class="conversation ${convClass}" id="msg-${chatmessage.id}">
+    <div class="conversation ${convClass} ${chatmessage.deleted? 'deleted': ''} temp-id-${chatmessage.statusid}" id="msg-${chatmessage.id}">
     ${
       convClass === "conv-right"
-        ? `<div class="edit-msg-con" data-msgid="${chatmessage.id}" data-messagebody="${chatmessage.message}">
+        ? `<div class="edit-msg-con" data-msgid="${chatmessage.id}" data-messagebody="${chatmessage.message}" id="edit-msg-con-${chatmessage.statusid}">
     <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.7574 2.99677L14.7574 4.99677H5V18.9968H19V9.23941L21 7.23941V19.9968C21 20.5491 20.5523 20.9968 20 20.9968H4C3.44772 20.9968 3 20.5491 3 19.9968V3.99677C3 3.44448 3.44772 2.99677 4 2.99677H16.7574ZM20.4853 2.09727L21.8995 3.51149L12.7071 12.7039L11.2954 12.7063L11.2929 11.2897L20.4853 2.09727Z"></path></svg>
   </div>`
         : ""
     }
     <div class="conv-holder">
-      <p class="message" id="cmsg-${chatmessage.id}">${chatmessage.newLineChatMessage}</p>
+      <p class="message" id="cmsg-${chatmessage.id}">${chatmessage.deleted? 'This message was deleted':chatmessage.newLineChatMessage}</p>
 
-      <p class="date-time">${getFormattedTime(timestamp)} ${msgStatus}</p>
+      <p class="date-time">${getFormattedTime(timestamp)} <span class="msg-status">${chatmessage.deleted? '': msgStatus}</span> </p>
     </div>
   </div>
     `;
+
   if (lastMsgDate == null || timestamp.getDate() - lastMsgDate.getDate() >= 1) {
     lastMsgDate = timestamp;
     const dayCon = `

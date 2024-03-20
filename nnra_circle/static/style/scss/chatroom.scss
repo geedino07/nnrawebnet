@@ -673,12 +673,30 @@
               }
 
               .conversation.deleted{
-                opacity:0.5;
+                opacity:0.2;
+                .edit-msg-con{
+                  display: none;
+                }
+
+                .msg-status{
+                  display: none;
+                }
+
+               
+                // .conv-holder{
+                //   background-color: var(--hard-light-green);
+                // }
               }
 
               .conversation:hover{
                 .edit-msg-con{
                   display: flex;
+                }
+              }
+
+              .conversation.deleted:hover{
+                .edit-msg-con{
+                  display: none;
                 }
               }
             }

@@ -1463,10 +1463,19 @@ footer .copyright-message p {
   line-height: 1.2rem;
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation.deleted {
-  opacity: 0.5;
+  opacity: 0.2;
+}
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation.deleted .edit-msg-con {
+  display: none;
+}
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation.deleted .msg-status {
+  display: none;
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation:hover .edit-msg-con {
   display: flex;
+}
+.chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container .conversation.deleted:hover .edit-msg-con {
+  display: none;
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .inputs-container {
   width: 100%;

@@ -100,6 +100,7 @@ class ChatMessage(models.Model):
     updated = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     seen = models.BooleanField(default=False)
+    deleted= models.BooleanField(default=False)
 
     objects = models.Manager()
     chatm = ChatManager()
