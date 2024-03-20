@@ -70,6 +70,7 @@ class Thread {
     date,
     unreadCount = 0,
     lastSender = -1,
+    lastMessageDeleted,
   }) {
     this.username = username;
     this.profileImg = profileImg;
@@ -78,6 +79,7 @@ class Thread {
     this.date = date;
     this.unreadCount = unreadCount;
     this.lastSender = lastSender;
+    this.lastMessageDeleted = lastMessageDeleted
   }
 }
 
@@ -168,8 +170,12 @@ function showEditModal(messageid, messagebody) {
   };
 
   document.getElementById("delete-msg-btn").onclick = function () {
+    let lastMessage = false
+    if(getThreadLastMessage(focusUser.user.id) == messagebody){
+      lastMessage = true
+    }
     toggleContainerState("bottom-edit-modal-content", "loading");
-    deleteChatMessage(messageid);
+    deleteChatMessage(messageid, lastMessage);
   };
   transitionModal("edit-msg-modal");
 }
@@ -177,7 +183,7 @@ function showEditModal(messageid, messagebody) {
 //========= FUNCTIONS =========================
 
 /**sends a fetch reqeust to delete the emessage in the database */
-function deleteChatMessage(messageid) {
+function deleteChatMessage(messageid, lastMessage=false) {
   fetch(`/chat/deletemessage/${messageid}/`, {
     method: "POST",
     headers: {
@@ -188,7 +194,7 @@ function deleteChatMessage(messageid) {
     .then((data) => {
       if (data.status == 200) {
         wsEditMessage("", messageid, "delete_message");
-        deleteMessageUi(messageid);
+        deleteMessageUi(messageid, lastMessage);
       }
       showToast({
         message: data.message,
@@ -240,14 +246,17 @@ function wsEditMessage(messagebody, messageid, action = "edit_message") {
     receiver: focusUser.user.id,
     message_body: messagebody,
     msgid: messageid,
+    senderId: userId
   });
   socket.send(messageStr);
 }
 
-function deleteMessageUi(messageid) {
+function deleteMessageUi(messageid, lastMessage=false) {
   const conversationDiv = document.getElementById(`msg-${messageid}`);
   conversationDiv.querySelector('.message').textContent = 'This message was deleted'
   conversationDiv.classList.add('deleted')
+
+  if(lastMessage)updateThreadLastMessage(focusUser.user.id, '[Deleted message]')
 }
 
 /** updates a message in the ui */
@@ -267,68 +276,7 @@ function connectWebsocket() {
 
   socket.addEventListener("message", function (e) {
     const received = JSON.parse(e.data);
-
-    if (received.action == "re_message") {
-      //when this user receives a message
-      const chatmessage = new ChatMessage({
-        message: received.message,
-        timestamp: new Date(received.timestamp),
-        type: "receiver",
-        id: received.id,
-        senderId: received.sender,
-        receiverId: userId,
-        statusid: received.id,
-      });
-      if (focusUser && received.sender == focusUser.user.id) {
-        appendChatMessage(chatmessage);
-      }
-
-      reorderThread(chatmessage);
-      UnseenChanged(chatmessage.senderId, "+");
-    }
-
-    if (received.action == "msg_confirmation") {
-      const msgStatus = document.querySelector(`.status-${received.statusid}`);
-      msgStatus.textContent = "~ sent";
-      msgStatus.classList.replace(
-        `status-${received.statusid}`,
-        `status-${received.id}`
-      );
-      
-      const tempConversation = document.querySelector(`.temp-id-${received.statusid}`)
-      tempConversation.querySelector('.edit-msg-con').setAttribute('data-msgid', received.id)
-      tempConversation.id = `msg-${received.id}`
-
-      // document.querySelector(`#edit-msg-con-${received.statusid}`)?.setAttribute('data-msgid', received.id)
-    }
-
-    if (received.action == "msg_seen") {
-      const msgStatus = document.querySelector(`.status-${received.msg_id}`);
-      if (msgStatus) msgStatus.textContent = "~ read";
-    }
-
-    if (received.action == "presence") {
-      if (focusUser?.user.id == received.user_id) {
-        updateFocusUserPresence(received.status);
-      }
-
-      if (displayingUserId && displayingUserId == received.user_id) {
-        const displayingStatus = document.querySelector(".displaying-status");
-        displayingStatus.classList.remove("online");
-        displayingStatus.classList.remove("offline");
-        displayingStatus.classList.add(received.status);
-        document.querySelector(".txt-displaying-status").textContent =
-          received.status;
-      }
-    }
-
-    if (received.action == "edit_message") {
-      updateMessageUi(received.message_body, received.msgid);
-    }
-
-    if (received.action == "delete_message") {
-      deleteMessageUi(received.msgid);
-    }
+    websocketMesssageReceived(received)
   });
 
   socket.addEventListener("open", function () {
@@ -378,6 +326,87 @@ function connectWebsocket() {
   });
 
   return socket;
+}
+
+function websocketMesssageReceived(received){
+  if (received.action == "re_message") {
+    //when this user receives a message
+    const chatmessage = new ChatMessage({
+      message: received.message,
+      timestamp: new Date(received.timestamp),
+      type: "receiver",
+      id: received.id,
+      senderId: received.sender,
+      receiverId: userId,
+      statusid: received.id,
+    });
+    if (focusUser && received.sender == focusUser.user.id) {
+      appendChatMessage(chatmessage);
+    }
+
+    reorderThread(chatmessage);
+    UnseenChanged(chatmessage.senderId, "+");
+  }
+
+  if (received.action == "msg_confirmation") {
+    const msgStatus = document.querySelector(`.status-${received.statusid}`);
+    msgStatus.textContent = "~ sent";
+    msgStatus.classList.replace(
+      `status-${received.statusid}`,
+      `status-${received.id}`
+    );
+    
+    const tempConversation = document.querySelector(`.temp-id-${received.statusid}`)
+    tempConversation.querySelector('.edit-msg-con').setAttribute('data-msgid', received.id)
+    tempConversation.id = `msg-${received.id}`
+
+    // document.querySelector(`#edit-msg-con-${received.statusid}`)?.setAttribute('data-msgid', received.id)
+  }
+
+  if (received.action == "msg_seen") {
+    const msgStatus = document.querySelector(`.status-${received.msg_id}`);
+    if (msgStatus) msgStatus.textContent = "~ read";
+  }
+
+  if (received.action == "presence") {
+    if (focusUser?.user.id == received.user_id) {
+      updateFocusUserPresence(received.status);
+    }
+
+    if (displayingUserId && displayingUserId == received.user_id) {
+      const displayingStatus = document.querySelector(".displaying-status");
+      displayingStatus.classList.remove("online");
+      displayingStatus.classList.remove("offline");
+      displayingStatus.classList.add(received.status);
+      document.querySelector(".txt-displaying-status").textContent =
+        received.status;
+    }
+  }
+
+  if (received.action == "edit_message") {
+    updateMessageUi(received.message_body, received.msgid);
+  }
+
+  if (received.action == "delete_message") {
+    deleteMessageUi(received.msgid);
+  }
+}
+
+function getThreadLastMessage(userid){
+  const threadElement = document.getElementById(`thread-el-${userid}`)
+  if (!threadElement) return null
+
+  return threadElement.querySelector('.l-message').textContent
+}
+
+function updateThreadLastMessage(userid, message, deleted=false){
+  const threadElement = document.getElementById(`thread-el-${userid}`)
+  if (!threadElement) return
+
+  threadElement.querySelector('.l-message').textContent = message
+  if (deleted){
+    threadElement.classList.add('deleted')
+  }
 }
 
 function updateFocusUserPresence(presence) {
@@ -544,6 +573,7 @@ function cleanseCreateThread(thread) {
     username: username,
     profileImg: profileimg,
     lastMessage: lastmessage,
+    lastMessageDeleted: thread.last_message.deleted,
     userId: loaduser.id,
     date: thread.last_message.created,
     unreadCount: thread.unread_count,
@@ -564,6 +594,7 @@ function cleanseCreateThread(thread) {
  * @param thread the thread object to be appended
  */
 function appendUserThread(thread) {
+  
   const htmel = `
         <div class="chat-item" id="thread-el-${thread.userId}" data-userid="${
     thread.userId
@@ -579,7 +610,7 @@ function appendUserThread(thread) {
 
           <div class="username-msg">
             <h5>${thread.username}</h5>
-            <p class="l-message">${thread.lastMessage}</p>
+            <p class="l-message">${ thread.lastMessageDeleted? '[Deleted message]': thread.lastMessage}</p>
           </div>
         </div>
 
@@ -675,7 +706,7 @@ function appendChatMessage(chatmessage) {
         : ""
     }
     <div class="conv-holder">
-      <p class="message" id="cmsg-${chatmessage.id}">${chatmessage.deleted? 'This message was deleted':chatmessage.newLineChatMessage}</p>
+      <p class="message">${chatmessage.deleted? 'This message was deleted':chatmessage.newLineChatMessage}</p>
 
       <p class="date-time">${getFormattedTime(timestamp)} <span class="msg-status">${chatmessage.deleted? '': msgStatus}</span> </p>
     </div>
