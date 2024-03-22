@@ -936,531 +936,315 @@ footer .copyright-message p {
   --menu-size: 1.7rem;
 }
 
-.edit-profile-section {
-  background-color: var(--chat-background);
-  width: 100%;
-  min-height: 100vh;
+body {
+  background-color: white;
+}
+
+.memo-section {
+  background-color: white;
+  padding: 10px 200px;
+}
+
+.attach-prompt {
   display: flex;
-  flex-direction: column;
-  padding: 50px 200px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
-.edit-profile-section .top {
-  display: flex;
-  flex-direction: column;
+.attach-prompt p {
+  font-weight: 500;
 }
-.edit-profile-section .top .txt-welcome {
-  font-size: 1.7rem;
-  font-weight: 300;
-}
-.edit-profile-section .top .txt-edit {
+.attach-prompt span {
   font-size: 0.9rem;
-  margin-top: 2px;
-  opacity: 0.6;
+  opacity: 0.5;
 }
-.edit-profile-section .bottom {
-  margin-top: 20px;
+
+.logo-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.logo-title img {
+  width: 50px;
+}
+.logo-title h4 {
+  font-size: 0.9rem;
+}
+
+.top-section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.top-section .logo-acct {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-section .progress-steps-container {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.top-section .progress-steps-container .progress-step {
+  width: 33.33%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+.top-section .progress-steps-container .progress-step .line {
+  width: 100%;
+  height: 3px;
+  background-color: #E2F0DE;
+}
+.top-section .progress-steps-container .progress-step .num-con {
+  background-color: #E2F0DE;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
+  position: absolute;
+  z-index: 99;
+  left: 0;
+}
+.top-section .progress-steps-container .progress-step .num-con p {
+  color: var(--main-green);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.top-section .progress-steps-container .progress-step .num-con.last {
+  background-color: #E2F0DE;
+  right: 0;
+  left: auto;
+}
+.top-section .progress-steps-container .progress-step .num-con.last svg {
+  fill: var(--main-green);
+}
+.top-section .progress-steps-container .progress-step.selected .num-con {
+  background-color: var(--main-green);
+}
+.top-section .progress-steps-container .progress-step.selected .num-con p {
+  color: white;
+}
+.top-section .progress-steps-container .progress-step.selected .num-con.last {
+  background-color: #E2F0DE;
+}
+.top-section .progress-steps-container .progress-step.filled .line {
+  background-color: var(--main-green);
+}
+.top-section .progress-indicator-container {
+  width: 100%;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.top-section .progress-indicator-container .progress-indicator {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+.top-section .progress-indicator-container .progress-indicator .progress-body {
+  width: 100%;
+  height: 4px;
+  background-color: #E2F0DE;
+  border-radius: 20px;
+}
+.top-section .progress-indicator-container .progress-indicator .progress-body.filled {
+  background-color: var(--main-green);
+}
+.top-section .progress-indicator-container .progress-indicator p {
+  font-size: 0.8rem;
+}
+
+.configure-memo-section {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+.configure-memo-section .bottom-form {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  width: 100%;
+  align-items: flex-start;
 }
-.edit-profile-section .bottom .width-controller {
-  width: 400px;
-}
-.edit-profile-section .bottom .b-left {
+.configure-memo-section .bottom-form .account-information-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: flex-start;
+  width: 50%;
 }
-.edit-profile-section .bottom .b-left .pic-intro {
-  width: -moz-max-content;
-  width: max-content;
-  font-weight: 600;
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  width: 100%;
 }
-.edit-profile-section .bottom .b-left .edit-picture-container {
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .attached-files-container {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .attached-files-container .attached-file {
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-top: 20px;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 10px;
+  border: 0.5px solid rgba(0, 0, 0, 0.332);
+  padding: 10px;
 }
-.edit-profile-section .bottom .b-left .edit-picture-container img {
-  width: 140px;
-  height: 140px;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
-  border-radius: 50%;
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .attached-files-container .attached-file p {
+  font-size: 0.9rem;
 }
-.edit-profile-section .bottom .b-left .edit-picture-container .right-con {
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .attached-files-container .attached-file svg {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .file-select-container {
   display: flex;
+  width: 100%;
+  max-width: 400px;
+  border: 0.5px solid rgba(0, 0, 0, 0.332);
+  border-radius: 10px;
+  font-family: "poppins", sans-serif;
+  margin-top: 10px;
   flex-direction: column;
-  margin-left: 25px;
-  gap: 10px;
-}
-.edit-profile-section .bottom .b-left .edit-picture-container .right-con button {
-  padding: 15px 20px;
-  border-radius: 3px;
-  border: none;
-  outline: none;
-  display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  font-size: 0.9rem;
   cursor: pointer;
-  font-weight: 300;
+  padding: 30px 0;
 }
-.edit-profile-section .bottom .b-left .edit-picture-container .right-con .btn-change-photo {
-  background-color: var(--main-green);
-  color: white;
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .file-select-container svg {
+  fill: var(--main-green);
 }
-.edit-profile-section .bottom .b-left .edit-picture-container .right-con .btn-remove-photo {
-  background-color: var(--chat-background);
-  color: var(--text-dark);
-  border: 0.5px solid var(--soft-grey);
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .file-select-container .click-prompt-txt {
+  font-weight: 500;
+  color: var(--txt-darker);
+  margin-top: 10px;
 }
-.edit-profile-section .bottom .b-left .edit-picture-container .right-con .btn-remove-photo i {
-  color: var(--soft-red2);
-  font-size: 1rem;
+.configure-memo-section .bottom-form .account-information-container .supporting-documents-container .file-select-container .accepted-files {
+  font-size: 0.8rem;
+  opacity: 0.7;
 }
-.edit-profile-section .bottom .b-left .account-information-container {
-  margin-top: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.edit-profile-section .bottom .b-left .account-information-container p {
+.configure-memo-section .bottom-form .account-information-container p {
   width: -moz-max-content;
   width: max-content;
 }
-.edit-profile-section .bottom .b-left .account-information-container .ac-heading {
+.configure-memo-section .bottom-form .account-information-container .ac-heading {
   opacity: 0.8;
 }
-.edit-profile-section .bottom .b-left .account-information-container label {
+.configure-memo-section .bottom-form .account-information-container label {
   display: block;
   margin-top: 20px;
   font-weight: 500;
   opacity: 0.5;
   font-size: 0.9rem;
 }
-.edit-profile-section .bottom .b-left .account-information-container .text-input {
+.configure-memo-section .bottom-form .account-information-container .text-input {
+  width: 100%;
+  max-width: 400px;
   border: 0.5px solid rgba(0, 0, 0, 0.332);
-  border-radius: 6px;
+  border-radius: 10px;
   font-family: "poppins", sans-serif;
+  background-color: white;
 }
-.edit-profile-section .bottom .b-left .account-information-container select {
+.configure-memo-section .bottom-form .account-information-container select {
   padding: 10px 5px;
   outline: none;
   background-color: white;
 }
-.edit-profile-section .bottom .b-left .account-information-container textarea {
+.configure-memo-section .bottom-form .account-information-container textarea {
   outline: none;
   padding: 10px;
 }
-.edit-profile-section .bottom .b-left .account-information-container button {
+.configure-memo-section .bottom-form .account-information-container button {
   margin-top: 30px;
 }
-.edit-profile-section .bottom .b-right .why-container {
-  position: relative;
+.configure-memo-section .bottom-form .attach-image-container {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
 }
-.edit-profile-section .bottom .b-right .why-container .why-background {
-  height: 250px;
-  border-radius: 5px;
-  background-color: #f1f1f3;
+.configure-memo-section .bottom-form .attach-image-container .add-image-eplanation_txt {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  max-width: 400px;
+  line-height: 1.7;
 }
-.edit-profile-section .bottom .b-right .why-container .why-text-image {
-  position: absolute;
-  padding: 15px;
-  top: 0;
+.configure-memo-section .bottom-form .attach-image-container .memo-background-img {
+  width: 100%;
+  max-width: 400px;
+  height: 240px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 10px;
+  -o-object-position: center;
+     object-position: center;
+  margin-top: 10px;
+}
+.configure-memo-section .bottom-form .attach-image-container .add-image-btn {
+  background-color: transparent;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  margin-top: 20px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  gap: 10px;
 }
-.edit-profile-section .bottom .b-right .why-container .why-text-image .why-text {
+.configure-memo-section .bottom-form .attach-image-container .add-image-btn .add-icon {
+  background-color: #D0E7CA;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
-  padding-top: 20px;
-}
-.edit-profile-section .bottom .b-right .why-container .why-text-image .why-text .txt-foster {
-  font-size: 0.9rem;
-  font-weight: 500;
-}
-.edit-profile-section .bottom .b-right .why-container .why-text-image .why-text .txt-desc {
-  max-width: 250px;
-  font-size: 0.8rem;
-  opacity: 0.6;
-  margin-top: 5px;
-  line-height: 1.9;
-}
-.edit-profile-section .bottom .b-right .why-container .why-text-image img {
-  width: 150px;
-}
-
-.view-profile-section {
-  background-color: var(--chat-background);
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.view-profile-section .container {
-  display: flex;
-  flex-direction: row;
-  gap: 20px;
-}
-.view-profile-section .container .profile-img {
-  width: 140px;
-  height: 140px;
-  border-radius: 50%;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
-}
-.view-profile-section .container .right-con {
-  margin-left: 10px;
-}
-.view-profile-section .container .right-con .p-fullname {
-  font-size: 2rem;
-  font-weight: 300;
-}
-.view-profile-section .container .right-con .p-username {
-  font-size: 0.9rem;
-  opacity: 0.7;
-}
-.view-profile-section .container .right-con .p-about {
-  font-size: 0.9rem;
-  max-width: 300px;
-  margin-top: 15px;
-  line-height: 1.5rem;
-}
-.view-profile-section .container .right-con .extras-container {
-  margin-top: 25px;
-}
-.view-profile-section .container .right-con .extras-container .extra {
-  margin-top: 20px;
-}
-.view-profile-section .container .right-con .actions-container {
-  margin-top: 40px;
-}
 
-@media screen and (max-width: 1000px) {
-  header .container {
-    padding: 20px 60px;
+@media screen and (max-width: 1330px) {
+  .memo-section {
+    padding: 10px 100px;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .memo-section {
+    padding: 10px 50px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .memo-section {
+    padding: 10px 20px;
   }
 }
 @media screen and (max-width: 900px) {
-  header .container {
-    padding: 20px 30px;
-  }
-  header .container .el-two {
-    top: -300px;
-    left: 0;
-    background-color: white;
-    position: fixed;
-    z-index: 999;
-    max-width: 100%;
-    width: 100%;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
-    transition: all 0.5s ease-in-out;
-  }
-  header .container .el-two ul {
+  .configure-memo-section .bottom-form {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 20px 0;
-    gap: 20px;
-  }
-  header .container .el-two.visible {
-    top: 0;
-  }
-  header .container .el-two.visible .close-nav {
-    display: block;
-  }
-  header .container .mobile {
-    display: block;
-  }
-}
-@media screen and (max-width: 490px) {
-  header .container .el-three.desktop {
-    display: none;
-  }
-  header .container .el-three.phone {
-    display: block;
-  }
-}
-@media screen and (max-width: 1100px) {
-  .hero-section .left-content .main-text {
-    font-size: 2.5rem;
-  }
-}
-@media screen and (max-width: 770px) {
-  .hero-section .container {
-    flex-direction: column-reverse;
-    align-items: center;
-    justify-content: center;
-  }
-  .hero-section .container .left-content {
     width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .configure-memo-section .bottom-form .account-information-container {
+    width: 100%;
+  }
+  .configure-memo-section .bottom-form .attach-image-container {
     margin-top: 30px;
-  }
-  .hero-section .container .right-content {
     width: 100%;
   }
-}
-@media screen and (max-width: 550px) {
-  .hero-section {
-    padding: 0 30px;
-  }
-  .break-section {
-    padding: 0 30px;
-  }
-}
-@media screen and (max-width: 330px) {
-  .hero-section {
-    padding: 0 20px;
-  }
-  .break-section {
-    padding: 0 20px;
-  }
-}
-@media screen and (max-width: 330px) {
-  .hero-section {
-    padding: 0 10px;
-  }
-  .break-section {
-    padding: 0 10px;
-  }
-}
-@media screen and (max-width: 800px) {
-  .why-use-digital-network .container {
-    flex-direction: column;
-  }
-}
-@media screen and (max-width: 460px) {
-  .why-use-digital-network .container .right-content {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-}
-@media screen and (max-width: 1270px) {
-  .chat-section .left-most-tile {
-    width: 20%;
-  }
-  .chat-section .center-tile {
-    width: 60%;
-  }
-  .chat-section .right-most-tile {
-    width: 20%;
-  }
-}
-@media screen and (max-width: 975px) {
-  .chat-section {
-    padding: 10px;
-  }
-  .chat-section .left-most-tile {
-    z-index: 9;
-    position: fixed;
-    left: -400px;
-    width: 90%;
-    max-width: 300px;
-    box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.05);
-    border-right: none;
-  }
-  .chat-section .left-most-tile .logo-showcase .mobile-close-left-most {
-    display: block;
-  }
-  .chat-section .left-most-tile.visible {
-    left: 0;
-  }
-  .chat-section .center-tile {
-    width: 100%;
-  }
-  .chat-section .center-tile .center-item-top {
-    padding: 10px;
-  }
-  .chat-section .center-tile .center-item-top .top-left .leftmost-mobile {
-    display: block;
-  }
-  .chat-section .right-most-tile {
-    display: none;
-    width: 20%;
-  }
-}
-@media screen and (max-width: 590px) {
-  .chat-section .center-tile .center-item-bottom {
-    padding: 0px 0px 10px 10px;
-  }
-  .chat-section .center-tile .center-item-bottom .center-left {
-    display: none;
-  }
-}
-@media screen and (max-width: 470px) {
-  .chat-section .center-tile .center-item-top .user-container .user-info-con {
-    display: none;
-  }
-}
-@media screen and (max-width: 700px) {
-  .confirmotp-section {
-    flex-direction: column;
-  }
-  .confirmotp-section img {
-    max-width: 300px;
-  }
-}
-@media screen and (max-width: 865px) {
-  .profile-tile .top-info i {
-    display: block;
-  }
-  .list-all-section .middle-content {
-    width: 90%;
-  }
-  .list-all-section .right-profile-content {
-    display: none;
-  }
-  .list-all-section .right-profile-content.visible {
-    z-index: 10;
-    display: flex;
-    width: 100%;
-    min-height: 100vh;
-    position: absolute;
-  }
-  .list-all-section .right-profile-content.visible .placeholder {
-    display: none;
-  }
-  .list-all-section .right-profile-content.visible .loading-container {
-    display: none;
-  }
-}
-@media screen and (max-width: 700px) {
-  .list-all-section .left-nav .user-image-container img {
-    width: 40px;
-    height: 40px;
-  }
-}
-@media screen and (max-width: 500px) {
-  .list-all-section {
-    flex-direction: column-reverse;
-  }
-  .list-all-section .left-nav {
-    width: 100%;
-    min-height: auto;
-    position: fixed;
-    bottom: 0;
-    flex-direction: row;
-    padding: 5px 0;
-    z-index: 9;
-    background-color: white;
-  }
-  .list-all-section .left-nav .logo-img {
-    display: none;
-    margin-top: 0;
-  }
-  .list-all-section .left-nav .options-select-container {
-    margin-left: 5px;
-    margin-top: 0;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .list-all-section .left-nav .user-image-container {
-    position: relative;
-    margin-bottom: 0;
-  }
-  .list-all-section .middle-content {
-    width: 100%;
-    padding: 20px 10px;
-  }
-  .list-all-section .middle-content .user-cards-container {
-    justify-items: center;
-    margin-bottom: 50px;
-  }
-  .list-all-section .middle-content .user-cards-container .user-card {
-    max-width: 300px;
-  }
-  .list-all-section .middle-content.department {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 700px) {
-  .people-you-may-know-section {
-    flex-direction: column;
-  }
-  .people-you-may-know-section .left-content {
-    width: 100%;
-    height: 0;
-    min-height: 70vh;
-  }
-  .people-you-may-know-section .right-content {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 400px) {
-  .user-item .con .username-msg h5 {
-    max-width: 190px;
-  }
-  .user-item .con .username-msg .l-message {
-    max-width: 190px;
-  }
-}
-@media screen and (max-width: 1240px) {
-  .edit-profile-section {
-    padding: 50px 150px;
-  }
-}
-@media screen and (max-width: 1111px) {
-  .edit-profile-section {
-    padding: 50px 100px;
-  }
-}
-@media screen and (max-width: 1000px) {
-  .edit-profile-section {
-    padding: 50px;
-  }
-}
-@media screen and (max-width: 890px) {
-  .edit-profile-section {
-    padding: 50px 20px;
-    align-items: center;
-    justify-content: center;
-  }
-  .edit-profile-section .bottom {
-    flex-direction: column;
-  }
-  .edit-profile-section .bottom .b-right {
-    margin-top: 20px;
-  }
-}
-@media screen and (max-width: 430px) {
-  .edit-profile-section .bottom .b-left {
-    width: 100%;
-  }
-  .edit-profile-section .bottom .b-left .account-information-container {
-    width: 100%;
-  }
-  .edit-profile-section .bottom .b-left .account-information-container form {
-    width: 100%;
-  }
-  .edit-profile-section .bottom .b-right .why-container .why-background {
-    height: 300px;
-  }
-  .edit-profile-section .bottom .b-right .why-container .why-text-image img {
-    width: 120px;
-  }
-  .edit-profile-section .bottom .b-right .why-container .why-text-image .why-text .txt-desc {
-    line-height: 1.4;
-  }
-  .edit-profile-section .bottom .width-controller {
-    width: 98%;
-  }
-}
-@media screen and (max-width: 500px) {
-  .view-profile-section .container {
-    flex-direction: column;
-    padding: 20px;
-    margin-top: 20px;
-  }
-}/*# sourceMappingURL=profile.css.map */
+}/*# sourceMappingURL=creatememo.css.map */

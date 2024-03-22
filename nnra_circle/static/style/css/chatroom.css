@@ -16,6 +16,9 @@
   --chat-background:#FBFBFB;
   --faint-soft-green: #EBF5EA;
   --hard-light-green: #6BBC50;
+  --memo-background: #F9F9F9;
+  --progress-empty: #E2F0DE;
+  --txt-darker: #3C3C3C;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }
@@ -52,6 +55,56 @@ html::-webkit-scrollbar {
 html::-webkit-scrollbar-thumb {
   border-radius: 2rem;
   background: #ebf5ea;
+}
+
+.user-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.user-container img {
+  width: 47px;
+  height: 47px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.user-container .user-info-con {
+  margin-left: 0.3rem;
+}
+.user-container .user-info-con .fullname {
+  font-size: 0.65rem;
+  opacity: 0.8;
+}
+
+.logged-in-user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+}
+.logged-in-user-info .user-info {
+  margin-left: 15px;
+}
+.logged-in-user-info .user-info .username {
+  font-family: "inter", sans-serif;
+  font-weight: 600;
+}
+.logged-in-user-info .user-info .status {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+.logged-in-user-info img {
+  width: 65px;
+  height: 65px;
+  background-color: #e5e5e5;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+  border-radius: 50%;
 }
 
 .svg-20 {
@@ -876,6 +929,9 @@ footer .copyright-message p {
   --chat-background:#FBFBFB;
   --faint-soft-green: #EBF5EA;
   --hard-light-green: #6BBC50;
+  --memo-background: #F9F9F9;
+  --progress-empty: #E2F0DE;
+  --txt-darker: #3C3C3C;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }
@@ -1144,18 +1200,6 @@ footer .copyright-message p {
 .chat-section .center-tile .center-item-top .notification-con .noti-alert.visible {
   display: block;
 }
-.chat-section .center-tile .center-item-top .user-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.chat-section .center-tile .center-item-top .user-container .user-info-con {
-  margin-left: 0.3rem;
-}
-.chat-section .center-tile .center-item-top .user-container .user-info-con .fullname {
-  font-size: 0.65rem;
-  opacity: 0.8;
-}
 .chat-section .center-tile .center-item-bottom {
   background-color: var(--chat-background);
   width: 100%;
@@ -1311,33 +1355,6 @@ footer .copyright-message p {
   display: flex;
   flex-direction: column;
   height: 90vh;
-}
-.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-}
-.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info .user-info {
-  margin-left: 15px;
-}
-.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info .user-info .username {
-  font-family: "inter", sans-serif;
-  font-weight: 600;
-}
-.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info .user-info .status {
-  font-size: 0.8rem;
-  opacity: 0.8;
-}
-.chat-section .center-tile .center-item-bottom .center-right .focused .logged-in-user-info img {
-  width: 65px;
-  height: 65px;
-  background-color: #e5e5e5;
-  -o-object-fit: cover;
-     object-fit: cover;
-  -o-object-position: center;
-     object-position: center;
-  border-radius: 50%;
 }
 .chat-section .center-tile .center-item-bottom .center-right .focused .conversation-container::-webkit-scrollbar {
   width: 0.3rem;

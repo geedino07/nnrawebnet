@@ -1,0 +1,221 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Craete memo | NNRA Digital Network</title>
+
+    <link rel="stylesheet" href="{% static 'style/css/creatememo.css' %}" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'img/logo.png' %}"
+    />
+  </head>
+  <body>
+    <section class="memo-section top-section">
+      <div class="logo-acct" style="display: none;">
+        <div class="logo-title">
+          <img
+            src="{% static 'img/transp-logo.png' %}"
+            alt="NNRA logo"
+            style="width: 40px"
+          />
+          <p style="font-weight: 500; font-size: 0.8rem">
+            NNRA Digital network
+          </p>
+        </div>
+
+        <div class="user-container">
+          <img
+            src="{% static 'img/samples/s3.jpg' %}"
+            alt=""
+            style="background-color: #e0dcd1"
+          />
+          <div class="user-info-con">
+            <input
+              type="hidden"
+              name="profileimg"
+              value="{{profile.profileImg.url}}"
+              id="profileimginput"
+            />
+            <input
+              type="hidden"
+              name="userid"
+              value="{{profile.user.id}}"
+              id="inputuserid"
+            />
+            <h5 class="username">Code bee</h5>
+            <p class="fullname">Onuh Kyrian Udochukwu</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="progress-indicator-container" style="display: none">
+        <div class="progress-indicator">
+          <div class="progress-body filled"></div>
+          <!-- <p>Configure your memo</p> -->
+        </div>
+
+        <div class="progress-indicator">
+          <div class="progress-body"></div>
+          <!-- <p>Choose an audience</p> -->
+        </div>
+
+        <div class="progress-indicator">
+          <div class="progress-body"></div>
+          <!-- <p>Select recipients</p> -->
+        </div>
+      </div>
+
+      <div class="progress-steps-container">
+        <div class="progress-step filled selected">
+          <div class="num-con">
+            <p>1</p>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="progress-step selected">
+          <div class="num-con">
+            <p>2</p>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="progress-step">
+          <div class="num-con">
+            <p>3</p>
+          </div>
+          <div class="line"></div>
+
+          <div class="num-con last">
+            <svg
+              class="svg-15"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M9.9997 15.1709L19.1921 5.97852L20.6063 7.39273L9.9997 17.9993L3.63574 11.6354L5.04996 10.2212L9.9997 15.1709Z"
+              ></path>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="memo-section configure-memo-section">
+      <h2>Configure your memo</h2>
+
+      <form action="" class="bottom-form">
+        {% csrf_token %}
+
+        <div class="account-information-container">
+          <label for="memo-title">Memo title</label>
+          <input
+            type="text"
+            name="memo-title"
+            value=""
+            class="text-input width-controller"
+          />
+
+          <label for="memo-body">Memo body</label>
+          <textarea
+            name="memo-body"
+            id=""
+            cols="30"
+            rows="10"
+            class="text-input width-controller"
+            placeholder="A very detailed description of your memo"
+          ></textarea>
+
+          <div class="supporting-documents-container">
+            <div class="attach-prompt">
+              <p>Attach supporting documents</p>
+              <span class="optional-txt">[optional]</span>
+            </div>
+
+            <div class="attached-files-container">
+              <div class="attached-file">
+                <p class="attached-file__name">memo_postings_document.pdf</p>
+                <svg
+                  class="svg-20"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path
+                    d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+                  ></path>
+                </svg>
+              </div>
+            </div>
+
+            <div class="file-select-container">
+              <input
+                type="file"
+                name=""
+                id="supporting-file-input"
+                style="display: none"
+                accept=".pdf, .doc, .docx"
+              />
+              <svg
+                class="svg-30"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M21 16L14.9968 22H4C3.44772 22 3 21.5523 3 21V3C3 2.44772 3.44772 2 4 2H20C20.5523 2 21 2.44772 21 3V16ZM19 15V4H5V20H14V15H19Z"
+                ></path>
+              </svg>
+
+              <p class="click-prompt-txt">Click to upload</p>
+              <p class="accepted-files">.pdf, .docx, .doc</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="attach-image-container">
+          <div class="attach-prompt">
+            <p>Memo Image</p>
+            <span class="optional-txt">[optional]</span>
+          </div>
+          <div class="add-image-explanation">
+            <p class="add-image-eplanation_txt">
+              Including an image can make your memo more engaging and visually
+              appealing for the reader
+            </p>
+          </div>
+
+          <img
+            class="memo-background-img"
+            src="{% static 'img/memo-background-img.png' %}"
+            alt=""
+          />
+
+          <button class="add-image-btn" type="button">
+            <div class="add-icon">
+              <svg
+                class="svg-20"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path d="M11 11V5H13V11H19V13H13V19H11V13H5V11H11Z"></path>
+              </svg>
+            </div>
+            Select an Image
+          </button>
+        </div>
+      </form>
+    </section>
+
+    {% include "footer.html" %}
+
+    <script src="{% static 'js/creatememo.js' %}"></script>
+  </body>
+</html>

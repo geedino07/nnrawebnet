@@ -673,7 +673,68 @@ footer .copyright-message p {
 }
 .container .form-holder .login-option p {
   margin-top: 10px;
-}/*# sourceMappingURL=auth_style.css.map */sparent;
+}/*# sourceMappingURL=auth_style.css.map */ 0;
+  align-items: center;
+  width: 95%;
+  max-width: 450px;
+  cursor: pointer;
+  text-align: center;
+  justify-content: center;
+  border-radius: 5px;
+  gap: 10px;
+}
+.toggler-btn img {
+  width: 20px !important;
+  height: 20px !important;
+  display: none;
+}
+
+.toggler-btn:disabled {
+  background-color: var(--soft-grey);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.toggler-btn:disabled img {
+  display: block;
+}
+
+form {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: -moz-max-content;
+  width: max-content;
+}
+form p {
+  width: 100%;
+  padding: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+form .errorlist {
+  width: 100%;
+  list-style-type: none;
+  padding: auto;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-left: 23px;
+  max-width: 350px;
+  text-align: start;
+}
+form .errorlist li {
+  color: var(--soft-red);
+  font-size: 0.85rem;
+}
+form label {
+  display: none;
+}
+form input {
+  width: 100%;
+  background-color: transparent;
   padding: 0.9rem;
   border: none;
   border-bottom: 0.5px solid rgb(126, 123, 123);
@@ -896,6 +957,9 @@ footer .copyright-message p {
   --chat-background:#FBFBFB;
   --faint-soft-green: #EBF5EA;
   --hard-light-green: #6BBC50;
+  --memo-background: #F9F9F9;
+  --progress-empty: #E2F0DE;
+  --txt-darker: #3C3C3C;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
 }

@@ -312,20 +312,7 @@
           }
         }
   
-        .user-container {
-          display: flex;
-          flex-direction: row;
-          align-items: center;
-  
-          .user-info-con {
-            margin-left: 0.3rem;
-  
-            .fullname {
-              font-size: 0.65rem;
-              opacity: 0.8;
-            }
-          }
-        }
+       
       }
   
       .center-item-bottom {
@@ -507,32 +494,7 @@
             flex-direction: column;
             height: 90vh;
   
-            .logged-in-user-info {
-              display: flex;
-              flex-direction: row;
-              align-items: center;
-              cursor: pointer;
-              .user-info {
-                margin-left: 15px;
-                .username {
-                  font-family: "inter", sans-serif;
-                  font-weight: 600;
-                }
-                .status {
-                  font-size: 0.8rem;
-                  opacity: 0.8;
-                }
-              
-              }
-              img {
-                width: 65px;
-                height: 65px;
-                background-color: #e5e5e5;
-                object-fit: cover;
-                object-position: center;
-                border-radius: 50%;
-              }
-            }
+            
   
             .conversation-container::-webkit-scrollbar {
               width: 0.3rem;
