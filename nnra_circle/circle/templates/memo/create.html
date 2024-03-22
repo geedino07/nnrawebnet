@@ -16,7 +16,7 @@
   </head>
   <body>
     <section class="memo-section top-section">
-      <div class="logo-acct" style="display: none;">
+      <div class="logo-acct" style="display: none">
         <div class="logo-title">
           <img
             src="{% static 'img/transp-logo.png' %}"
@@ -71,23 +71,23 @@
       </div>
 
       <div class="progress-steps-container">
-        <div class="progress-step filled selected">
+        <div class="progress-step">
           <div class="num-con">
-            <p>1</p>
-          </div>
-          <div class="line"></div>
-        </div>
-
-        <div class="progress-step selected">
-          <div class="num-con">
-            <p>2</p>
+            <p class="num">1</p>
           </div>
           <div class="line"></div>
         </div>
 
         <div class="progress-step">
           <div class="num-con">
-            <p>3</p>
+            <p class="num">2</p>
+          </div>
+          <div class="line"></div>
+        </div>
+
+        <div class="progress-step">
+          <div class="num-con">
+            <p class="num">3</p>
           </div>
           <div class="line"></div>
 
@@ -107,7 +107,7 @@
       </div>
     </section>
 
-    <section class="memo-section configure-memo-section">
+    <section class="memo-section configure-memo-section memo-body-section visible" id="configure-memo-section">
       <h2>Configure your memo</h2>
 
       <form action="" class="bottom-form">
@@ -129,18 +129,22 @@
             cols="30"
             rows="10"
             class="text-input width-controller"
-            placeholder="A very detailed description of your memo"
+            placeholder="A comprehensive overview of the memo's content."
           ></textarea>
 
           <div class="supporting-documents-container">
             <div class="attach-prompt">
-              <p>Attach supporting documents</p>
+              <p>Supporting documents</p>
               <span class="optional-txt">[optional]</span>
             </div>
 
+            <p class="eplanation_txt" style="max-width: 90%">
+              Attach file(s) to provide further information or data
+            </p>
+
             <div class="attached-files-container">
-              <div class="attached-file">
-                <p class="attached-file__name">memo_postings_document.pdf</p>
+              <!-- <div class="attached-file">
+                <p class="attached-file__name">memo_postings.pdf</p>
                 <svg
                   class="svg-20"
                   xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +155,7 @@
                     d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
                   ></path>
                 </svg>
-              </div>
+              </div> -->
             </div>
 
             <div class="file-select-container">
@@ -161,6 +165,7 @@
                 id="supporting-file-input"
                 style="display: none"
                 accept=".pdf, .doc, .docx"
+                multiple
               />
               <svg
                 class="svg-30"
@@ -185,7 +190,7 @@
             <span class="optional-txt">[optional]</span>
           </div>
           <div class="add-image-explanation">
-            <p class="add-image-eplanation_txt">
+            <p class="eplanation_txt">
               Including an image can make your memo more engaging and visually
               appealing for the reader
             </p>
@@ -195,9 +200,17 @@
             class="memo-background-img"
             src="{% static 'img/memo-background-img.png' %}"
             alt=""
+            id="memo-image-tag"
           />
 
           <button class="add-image-btn" type="button">
+            <input
+              type="file"
+              name="memo-image"
+              id="memo-image-input"
+              style="display: none"
+              accept="image/*"
+            />
             <div class="add-icon">
               <svg
                 class="svg-20"
@@ -212,10 +225,72 @@
           </button>
         </div>
       </form>
+
+      <div class="submit-btn-container">
+        <button class="toggler-btn" id="btn-swap-configure-memo" >Next</button>
+      </div>
+    </section>
+
+    <section class="memo-section choose-audience-section memo-body-section" id="choose-audience-section">
+        <div class="top-intro">
+            <h2 class="t-1">Who will receive this memo?</h2>
+            <p>Distribute your memo to selected users or 
+                departments within the platform</p>
+        </div>
+
+        <div class="audience-options-container">
+            <div class="audience-option selected" data-value="everyone">
+                <div class="top">
+                    <svg class="svg-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.7267 2.95694L16.2734 22.0432C16.1225 22.5716 15.7979 22.5956 15.5563 22.1126L11 13L1.9229 9.36919C1.41322 9.16532 1.41953 8.86022 1.95695 8.68108L21.0432 2.31901C21.5716 2.14285 21.8747 2.43866 21.7267 2.95694ZM19.0353 5.09647L6.81221 9.17085L12.4488 11.4255L15.4895 17.5068L19.0353 5.09647Z"></path></svg>
+                </div>
+
+                <div class="bottom">
+                    <p class="option-title">Everyone</p>
+                    <p class="option-description">
+                        All NNRA digital network registrants will receive this memo
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="audience-option" data-value="departments">
+                <div class="top">
+                    <svg class="svg-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19ZM8 15H16V17H8V15Z"></path></svg>                
+                
+                
+                </div>
+
+                <div class="bottom">
+                    <p class="option-title">Departments</p>
+                    <p class="option-description">
+                        This memo will be sent to employees in the departments you choose
+                    </p>
+                </div>
+            </div>
+
+
+            <div class="audience-option" data-value="individuals">
+                <div class="top">
+                    <svg class="svg-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M9.55 11.5C8.30736 11.5 7.3 10.4926 7.3 9.25C7.3 8.00736 8.30736 7 9.55 7C10.7926 7 11.8 8.00736 11.8 9.25C11.8 10.4926 10.7926 11.5 9.55 11.5ZM10 19.748V16.4C10 15.9116 10.1442 15.4627 10.4041 15.0624C10.1087 15.0213 9.80681 15 9.5 15C7.93201 15 6.49369 15.5552 5.37091 16.4797C6.44909 18.0721 8.08593 19.2553 10 19.748ZM4.45286 14.66C5.86432 13.6168 7.61013 13 9.5 13C10.5435 13 11.5431 13.188 12.4667 13.5321C13.3447 13.1888 14.3924 13 15.5 13C17.1597 13 18.6849 13.4239 19.706 14.1563C19.8976 13.4703 20 12.7471 20 12C20 7.58172 16.4183 4 12 4C7.58172 4 4 7.58172 4 12C4 12.9325 4.15956 13.8278 4.45286 14.66ZM18.8794 16.0859C18.4862 15.5526 17.1708 15 15.5 15C13.4939 15 12 15.7967 12 16.4V20C14.9255 20 17.4843 18.4296 18.8794 16.0859ZM12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22ZM15.5 12.5C14.3954 12.5 13.5 11.6046 13.5 10.5C13.5 9.39543 14.3954 8.5 15.5 8.5C16.6046 8.5 17.5 9.39543 17.5 10.5C17.5 11.6046 16.6046 12.5 15.5 12.5Z"></path></svg>                
+                </div>
+
+                <div class="bottom">
+                    <p class="option-title">Individuals</p>
+                    <p class="option-description">
+                        Memo will be sent to an individual or group of individuals you choose
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="submit-btn-container">
+            <button class="toggler-btn" id="btn-swap-choose-audience" >Next</button>
+          </div>
     </section>
 
     {% include "footer.html" %}
 
+    <script src="{% static 'js/components.js' %}"></script>
     <script src="{% static 'js/creatememo.js' %}"></script>
   </body>
 </html>

@@ -971,6 +971,14 @@ body {
   font-size: 0.9rem;
 }
 
+.eplanation_txt {
+  width: 90%;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  max-width: 400px;
+  line-height: 1.7;
+}
+
 .top-section {
   display: flex;
   flex-direction: column;
@@ -1000,10 +1008,10 @@ body {
 .top-section .progress-steps-container .progress-step .line {
   width: 100%;
   height: 3px;
-  background-color: #E2F0DE;
+  background-color: #e2f0de;
 }
 .top-section .progress-steps-container .progress-step .num-con {
-  background-color: #E2F0DE;
+  background-color: #e2f0de;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -1017,11 +1025,11 @@ body {
 }
 .top-section .progress-steps-container .progress-step .num-con p {
   color: var(--main-green);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 500;
 }
 .top-section .progress-steps-container .progress-step .num-con.last {
-  background-color: #E2F0DE;
+  background-color: #e2f0de;
   right: 0;
   left: auto;
 }
@@ -1035,7 +1043,7 @@ body {
   color: white;
 }
 .top-section .progress-steps-container .progress-step.selected .num-con.last {
-  background-color: #E2F0DE;
+  background-color: #e2f0de;
 }
 .top-section .progress-steps-container .progress-step.filled .line {
   background-color: var(--main-green);
@@ -1056,7 +1064,7 @@ body {
 .top-section .progress-indicator-container .progress-indicator .progress-body {
   width: 100%;
   height: 4px;
-  background-color: #E2F0DE;
+  background-color: #e2f0de;
   border-radius: 20px;
 }
 .top-section .progress-indicator-container .progress-indicator .progress-body.filled {
@@ -1064,6 +1072,14 @@ body {
 }
 .top-section .progress-indicator-container .progress-indicator p {
   font-size: 0.8rem;
+}
+
+.submit-btn-container {
+  width: 100%;
+  margin-top: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .configure-memo-section {
@@ -1102,10 +1118,12 @@ body {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin-top: 10px;
   max-width: 400px;
   border-radius: 10px;
   border: 0.5px solid rgba(0, 0, 0, 0.332);
   padding: 10px;
+  position: relative;
 }
 .configure-memo-section .bottom-form .account-information-container .supporting-documents-container .attached-files-container .attached-file p {
   font-size: 0.9rem;
@@ -1180,12 +1198,6 @@ body {
   flex-direction: column;
   align-items: flex-start;
 }
-.configure-memo-section .bottom-form .attach-image-container .add-image-eplanation_txt {
-  font-size: 0.8rem;
-  opacity: 0.7;
-  max-width: 400px;
-  line-height: 1.7;
-}
 .configure-memo-section .bottom-form .attach-image-container .memo-background-img {
   width: 100%;
   max-width: 400px;
@@ -1209,13 +1221,86 @@ body {
   gap: 10px;
 }
 .configure-memo-section .bottom-form .attach-image-container .add-image-btn .add-icon {
-  background-color: #D0E7CA;
+  background-color: #d0e7ca;
   width: 45px;
   height: 45px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.choose-audience-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
+}
+.choose-audience-section .top-intro {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.choose-audience-section .top-intro .t-1 {
+  color: var(--txt-darker);
+}
+.choose-audience-section .top-intro p {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  max-width: 400px;
+}
+.choose-audience-section .audience-options-container {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  width: 100%;
+  align-items: center;
+  justify-items: center;
+}
+.choose-audience-section .audience-options-container .audience-option {
+  padding: 30px;
+  background-color: white;
+  border: 0.9px solid var(--main-green);
+  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  cursor: pointer;
+  margin: 10px;
+}
+.choose-audience-section .audience-options-container .audience-option .top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 140px;
+}
+.choose-audience-section .audience-options-container .audience-option svg {
+  fill: var(--main-green);
+}
+.choose-audience-section .audience-options-container .audience-option .bottom .option-title {
+  font-weight: 500;
+  color: var(--txt-darker);
+  font-size: 1.3rem;
+}
+.choose-audience-section .audience-options-container .audience-option .bottom .option-description {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+.choose-audience-section .audience-options-container .audience-option.selected {
+  background-color: var(--faint-soft-green);
+}
+
+.memo-body-section {
+  display: none;
+  min-height: 80vh;
+}
+
+.memo-body-section.visible {
+  display: flex;
 }
 
 @media screen and (max-width: 1330px) {
