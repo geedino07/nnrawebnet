@@ -25,16 +25,18 @@ function selectProgressStep(number) {
     const value = step.querySelector(".num")?.textContent;
     if (!found){
         step.classList.add('selected')
+        
         if(value === String(number)){
-            found= true
+            step.classList.remove('filled')
+            found = true
         } 
         else{
-            step.classList.add('filled')
+          step.classList.add('filled')
         }
     }
     else{
-        step.classList.remove('selected', 'filled')
-        // step.classList.remove('filled')
+        step.classList.remove('selected')
+        step.classList.remove('filled')
     }
 
   });
@@ -52,8 +54,9 @@ function swapSections(progressStep, newSectionId, addtoHistory=false){
             section.classList.remove('visible')
         }
     })
-    window.scrollTo(0,0)
     selectProgressStep(progressStep)
+    window.scrollTo(0,0)
+
 }
 
 
