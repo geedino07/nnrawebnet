@@ -10,6 +10,14 @@ const selectedFiles = []; //keeps track of all supporting documents that has bee
 const selectedMemoImage = null;
 const acceptedFileExtension = [".docx", ".doc", ".pdf"];
 
+function addToHistory(pageIndex=1, sectionId='configure-memo-section') {
+  const stateObj = { 
+    pageIndex: pageIndex,
+    sectionId: sectionId 
+  };
+  history.pushState(stateObj, '', '/');
+}
+
 function selectProgressStep(number) {
   let found = false;
   const progresSteps = document.querySelectorAll(".progress-step");
@@ -25,8 +33,8 @@ function selectProgressStep(number) {
         }
     }
     else{
-        step.classList.remove('selected')
-        step.classList.remove('filled')
+        step.classList.remove('selected', 'filled')
+        // step.classList.remove('filled')
     }
 
   });
@@ -34,7 +42,8 @@ function selectProgressStep(number) {
 
 selectProgressStep(1)
 
-function swapSections(progressStep, newSectionId){
+
+function swapSections(progressStep, newSectionId, addtoHistory=false){
     document.querySelectorAll(`.memo-section`).forEach(function(section){
         if (section.id == newSectionId){
             section.classList.add('visible')
@@ -43,11 +52,10 @@ function swapSections(progressStep, newSectionId){
             section.classList.remove('visible')
         }
     })
-
+    window.scrollTo(0,0)
     selectProgressStep(progressStep)
 }
 
-swapSections(2, 'choose-audience-section')
 
 
 function getExtension(fileName) {
@@ -97,6 +105,15 @@ function displayImage(file) {
   selectedMemoImage = file;
 }
 
+
+window.addEventListener('popstate', function(event) {
+  if(event.state?.pageIndex){
+    swapSections(event.state.pageIndex, event.state.sectionId)
+  }
+  
+});
+
+
 document.querySelector('.audience-options-container').addEventListener('click', function(e){
     const audienceOption = e.target.closest('.audience-option')
     if(audienceOption){
@@ -115,6 +132,7 @@ document.getElementById('btn-swap-choose-audience').addEventListener('click',fun
 })
 
 btnSwapConfigureMemo.addEventListener('click', function(){
+    addToHistory(1, 'configure-memo-section')//adding the current section to history so we can navigate back to it on back button pressed
     swapSections(2, 'choose-audience-section')
 })
 

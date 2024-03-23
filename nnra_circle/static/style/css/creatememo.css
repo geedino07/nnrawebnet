@@ -1282,13 +1282,13 @@ body {
   fill: var(--main-green);
 }
 .choose-audience-section .audience-options-container .audience-option .bottom .option-title {
-  font-weight: 500;
+  font-weight: 600;
   color: var(--txt-darker);
   font-size: 1.3rem;
 }
 .choose-audience-section .audience-options-container .audience-option .bottom .option-description {
-  font-size: 0.9rem;
-  opacity: 0.8;
+  font-size: 0.8rem;
+  opacity: 0.6;
 }
 .choose-audience-section .audience-options-container .audience-option.selected {
   background-color: var(--faint-soft-green);
