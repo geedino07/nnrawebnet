@@ -334,7 +334,7 @@
 
         </div>
 
-        <button class="toggler-btn" id="submit-memo-btn">Submit</button>
+        <button class="toggler-btn" id="submit-memo-btn-dept">Submit</button>
               
       </div>
     </section>
@@ -359,9 +359,10 @@
       </div>
 
       <div class="bottom-holder">
-        <div class="selected-containers" id="selected-dept-containers">
+        <div class="selected-containers" id="selected-individuals-containers">
           <!-- <div class="selected-item">
-            <p class="selecte-item__name">memo_postings</p>
+            
+            <p class="selecte-item__name">Onuh Kyrian Udochukwu</p>
             <svg
               class="svg-20"
               xmlns="http://www.w3.org/2000/svg"
@@ -375,10 +376,29 @@
           </div>  -->
         </div>
 
-        <button class="toggler-btn" id="submit-individuals-memo-btn">Submit</button>
+        <button class="toggler-btn" id="submit-memo-btn-ind">Submit</button>
       </div>
     </section>
 
+    <section class="memo-section memo-body-section memo-success-section" id="memo-success-section">
+      <div class="image-container">
+        <img src="{% static 'img/rocket-two.svg' %}" alt="" class="rocket">
+        <img src="{% static 'img/clouds.svg' %}" alt="" class="clouds">
+      </div>
+
+      <div class="success-bottom-content">
+        <h1>Memo sent!</h1>
+        <p>Your memo has been successfully delivered to the email addresses of all selected recipients.</p>
+
+        <a href="{% url 'accounts:editprofile' %}" class="btn-arr-txt">
+          <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M16.0037 9.41421L7.39712 18.0208L5.98291 16.6066L14.5895 8H7.00373V6H18.0037V17H16.0037V9.41421Z"></path></svg>
+
+          <p>
+              View memo here
+          </p>
+      </a>
+      </div>
+    </section>
 
     <div class="modal-section" id="select-dept-modal">
       <div class="modal-content" style="padding: 10px;">
@@ -413,20 +433,21 @@
       </div>
 
 
-      <div class="modal-section" id="select-dept-modal">
+      <div class="modal-section" id="select-individual-modal">
+
         <div class="modal-content" style="padding: 10px;">
-          <div class="header-search-title">
+          <form class="header-search-title" id="search-form">
               <h3 style="font-size: 0.9rem;">Add Individual</h3>
-              <input type="text" placeholder="Search" class="search-input">
+              <input type="text" placeholder="Search" class="search-individuals-input">
               <div class="messages-container" id="messages-container">
       
               </div>
-          </div>
+          </form>
       
         <div class="hor-line"></div>
-          <div class="departments-container">
+          <div class="departments-container memo-users-container">
             {% for profile in user_profiles %}
-            <div class="chat-item">
+            <div class="chat-item visible individual chat-item-{{profile.id}}" data-profileid="{{profile.id}}" data-firstname="{{profile.user.first_name}}" data-lastname="{{profile.user.last_name}}" data-officename="{{profile.office.office_name}}" data-username="{{profile.user.username}}">
                   <div class="con">
                     <div class="image-container">
                       <img
@@ -449,7 +470,7 @@
         <div class="hor-line"></div>
       
         <div class="bottom-container" style="justify-content: center;">
-            <button class="toggler-btn" style="width: max-content;" id="btn-apply-checked-departments">
+            <button class="toggler-btn" style="width: max-content;" id="btn-apply-checked-individuals">
                 <img src="{% static 'img/spinner.gif' %}" alt="">Apply</button>
         </div>
       </div>

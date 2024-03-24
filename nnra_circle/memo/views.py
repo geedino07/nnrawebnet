@@ -28,7 +28,7 @@ def distribute_memo(memo, recipient_list, user):
     text_content = strip_tags(email_body)
 
     email = EmailMultiAlternatives(
-            'Subject test',
+            memo.title,
             text_content,
             sender,
             recipient_list
@@ -54,20 +54,29 @@ def create(request):
         memo_body = request.POST.get('memo-body')
         memo_image = request.FILES.get('memo-image')
         files= request.FILES.getlist('files')
-        selected_departments = json.loads(request.POST.get('selected-departments'))
+        audience = request.POST.get('audience')
 
-        recipients_profile = Profile.objects.filter(office__id__in=selected_departments).select_related('user')
+        if audience == 'departments':
+            selected_departments = json.loads(request.POST.get('selected-departments'))
+            recipients_profile = Profile.objects.filter(office__id__in=selected_departments).select_related('user')
+        
+        if audience == 'individuals':
+            selected_individuals = json.loads(request.POST.get('selected-individuals'))
+            recipients_profile = Profile.objects.filter(id__in=selected_individuals).select_related('user')
+        
+        if audience == 'all':
+            recipients_profile = Profile.objects.all().select_related('user')
 
         memo = Memo.objects.create(title=memo_title, body=memo_body, image=memo_image)
-        print(memo)
 
         for file in files:
-            memo_document= MemoDocument.objects.create(memo=memo, document=file, doc_name=file.name)
+            MemoDocument.objects.create(memo=memo, document=file, doc_name=file.name)
 
         recipients_emails = list(recipients_profile.values_list('user__email', flat=True))
         distribute_memo(memo, recipients_emails, request.user)
+
         return JsonResponse({
-            'message': 'temp success', 
+            'message': 'Memo distributed successfully', 
             'status': 200,
             'data': {}
         }, status=200)

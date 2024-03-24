@@ -1360,6 +1360,56 @@ body {
   cursor: pointer;
 }
 
+.memo-success-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  align-items: center;
+}
+.memo-success-section .image-container {
+  transition: all 0.5s ease-in-out;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.memo-success-section .image-container .rocket {
+  width: 40px;
+  animation: swerveY 1.5s ease-in-out infinite;
+}
+.memo-success-section .image-container .clouds {
+  width: 200px;
+}
+.memo-success-section .success-bottom-content {
+  margin-top: 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.memo-success-section .success-bottom-content h1 {
+  font-size: 2rem;
+  color: var(--txt-darker);
+}
+.memo-success-section .success-bottom-content p {
+  max-width: 400px;
+  opacity: 0.7;
+  font-size: 0.9rem;
+}
+.memo-success-section .success-bottom-content .btn-arr-txt {
+  margin-top: 20px;
+}
+@keyframes swerveY {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
 .memo-individuals-section {
   display: flex;
   flex-direction: column;
@@ -1429,13 +1479,13 @@ body {
 
 .chat-item {
   cursor: pointer;
-  display: flex;
   flex-direction: row;
   background-color: white;
   width: 100%;
   padding: 10px;
   align-items: center;
   justify-content: space-between;
+  display: none;
 }
 .chat-item .con {
   display: flex;
@@ -1473,6 +1523,10 @@ body {
   text-overflow: ellipsis;
   color: var(--soft-grey);
   text-wrap: nowrap;
+}
+
+.chat-item.visible {
+  display: flex;
 }
 
 .chat-item.selected {
