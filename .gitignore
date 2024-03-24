@@ -5,3 +5,5 @@ migrations
 .env
 staticfiles
 users
+memodoc
+memoimage
