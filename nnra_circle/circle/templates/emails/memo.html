@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+    *{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        p{
+            font-size: 0.8rem;
+        }
+</style>
+
+<body>
+    <h1>You recieved a memo from {{sender.get_full_name}}!.</h1>
+    <br>
+    <h3>{{memo.title}}</h3>
+    <p>{{memo.body}}</p>
+    <br>
+    <p>Click the link below to view memo </p>
+    <a href="https://google.com">[View memo]</a>
+</body>
+</html>

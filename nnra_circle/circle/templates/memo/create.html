@@ -15,6 +15,7 @@
     />
   </head>
   <body>
+    
     <section class="memo-section top-section">
       <div class="logo-acct" style="display: none">
         <div class="logo-title">
@@ -90,7 +91,9 @@
             <p class="num">3</p>
           </div>
           <div class="line"></div>
+        </div>
 
+        <div class="progress-step last">
           <div class="num-con last">
             <svg
               class="svg-15"
@@ -120,12 +123,14 @@
             name="memo-title"
             value=""
             class="text-input width-controller"
+            required
+            id="memo-title"
           />
 
           <label for="memo-body">Memo body</label>
           <textarea
             name="memo-body"
-            id=""
+            id="memo-body"
             cols="30"
             rows="10"
             class="text-input width-controller"
@@ -239,7 +244,7 @@
         </div>
 
         <div class="audience-options-container">
-            <div class="audience-option selected" data-value="everyone">
+            <div class="audience-option selected" data-value="memo-everyone-section">
                 <div class="top">
                   <img src="{% static 'img/send-all.svg' %}" alt="" style="width: 100px;">
                     <!-- <svg class="svg-30" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21.7267 2.95694L16.2734 22.0432C16.1225 22.5716 15.7979 22.5956 15.5563 22.1126L11 13L1.9229 9.36919C1.41322 9.16532 1.41953 8.86022 1.95695 8.68108L21.0432 2.31901C21.5716 2.14285 21.8747 2.43866 21.7267 2.95694ZM19.0353 5.09647L6.81221 9.17085L12.4488 11.4255L15.4895 17.5068L19.0353 5.09647Z"></path></svg> -->
@@ -254,7 +259,7 @@
             </div>
 
 
-            <div class="audience-option" data-value="departments">
+            <div class="audience-option" data-value="memo-departments-section">
                 <div class="top">
                   <img src="{% static 'img/departments.svg' %}" alt="" style="width: 100px;">
 
@@ -272,7 +277,7 @@
             </div>
 
 
-            <div class="audience-option" data-value="individuals">
+            <div class="audience-option" data-value="memo-individuals-section">
                 <div class="top">
                   <img src="{% static 'img/raw-people.svg' %}" alt="" style="width: 100px;">
 
@@ -292,6 +297,164 @@
             <button class="toggler-btn" id="btn-swap-choose-audience" >Next</button>
           </div>
     </section>
+
+    <section class="memo-section memo-body-section memo-departments-section" id="memo-departments-section">
+      <div  style="align-items: center; width: 100%;">
+        <h2 class="t-1" style="color: #3C3C3C;">Choose recipient departments.</h2>
+        <p style="margin-top: 5px;">Your memo will be sent to all employees in the departments you select.</p>
+    </div>
+      <div class="top-container">
+        <div class="left">
+
+          <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21H5C4.44772 21 4 20.5523 4 20V11L1 11L11.3273 1.6115C11.7087 1.26475 12.2913 1.26475 12.6727 1.6115L23 11L20 11V20C20 20.5523 19.5523 21 19 21ZM6 19H18V9.15745L12 3.7029L6 9.15745V19ZM8 15H16V17H8V15Z"></path></svg>
+          <p>Departments</p>
+        </div>
+
+        <div class="right">
+          <button id="btn-add-department">Add department</button>
+        </div>
+      </div>
+
+      <div class="bottom-holder">
+        <div class="selected-containers" id="selected-dept-containers">
+          <!-- <div class="selected-item">
+            <p class="selecte-item__name">memo_postings</p>
+            <svg
+              class="svg-20"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+              ></path>
+            </svg>
+          </div>  -->
+
+
+        </div>
+
+        <button class="toggler-btn" id="submit-memo-btn">Submit</button>
+              
+      </div>
+    </section>
+
+    <section class="memo-section memo-body-section memo-individuals-section" id="memo-individuals-section">
+      <div  style="align-items: center; width: 100%;">
+        <h2 class="t-1" style="color: #3C3C3C;">Choose recipient individuals.</h2>
+        <p style="margin-top: 5px; max-width: 400px;">Select the employees you want to receive the memo, and it will be sent directly to their mails.</p>
+    </div>
+
+      <div class="top-container">
+        <div class="left">
+
+          <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20 22H18V20C18 18.3431 16.6569 17 15 17H9C7.34315 17 6 18.3431 6 20V22H4V20C4 17.2386 6.23858 15 9 15H15C17.7614 15 20 17.2386 20 20V22ZM12 13C8.68629 13 6 10.3137 6 7C6 3.68629 8.68629 1 12 1C15.3137 1 18 3.68629 18 7C18 10.3137 15.3137 13 12 13ZM12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z"></path></svg>          
+    
+          <p>Individuals</p>
+        </div>
+
+        <div class="right">
+          <button id="btn-add-individual">Add Person</button>
+        </div>
+      </div>
+
+      <div class="bottom-holder">
+        <div class="selected-containers" id="selected-dept-containers">
+          <!-- <div class="selected-item">
+            <p class="selecte-item__name">memo_postings</p>
+            <svg
+              class="svg-20"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z"
+              ></path>
+            </svg>
+          </div>  -->
+        </div>
+
+        <button class="toggler-btn" id="submit-individuals-memo-btn">Submit</button>
+      </div>
+    </section>
+
+
+    <div class="modal-section" id="select-dept-modal">
+      <div class="modal-content" style="padding: 10px;">
+        <div class="header-search-title">
+            <h3 style="font-size: 0.9rem;">Add department</h3>
+            <!-- <input type="text" placeholder="Search" class="search-input"> -->
+            <div class="messages-container" id="messages-container">
+    
+            </div>
+        </div>
+    
+      <div class="hor-line"></div>
+        <div class="departments-container">
+          
+          {% for office in offices %}
+          <div class="department-item" data-office_name="{{office.office_name}}" data-dept_name="{{office.department.dept_name}}" data-office_id-="{{office.id}}">
+              <span class="checked-con"><input class="check-{{office.id}}" type="checkbox" name="checkdepartment" id="checkbox" data-officename="{{office.office_name}}" data-officeid="{{office.id}}"></span>
+              <div class="right">
+                  <p class="office-name">{{ office.office_name }}</p>
+                  <p class="department-name">{{ office.department.dept_name }}</p>
+              </div>
+          </div>
+          {% endfor %}
+      </div>
+      <div class="hor-line"></div>
+    
+      <div class="bottom-container" style="justify-content: center;">
+          <button class="toggler-btn" style="width: max-content;" id="btn-apply-checked-departments">
+              <img src="{% static 'img/spinner.gif' %}" alt="">Apply</button>
+      </div>
+    </div>
+      </div>
+
+
+      <div class="modal-section" id="select-dept-modal">
+        <div class="modal-content" style="padding: 10px;">
+          <div class="header-search-title">
+              <h3 style="font-size: 0.9rem;">Add Individual</h3>
+              <input type="text" placeholder="Search" class="search-input">
+              <div class="messages-container" id="messages-container">
+      
+              </div>
+          </div>
+      
+        <div class="hor-line"></div>
+          <div class="departments-container">
+            {% for profile in user_profiles %}
+            <div class="chat-item">
+                  <div class="con">
+                    <div class="image-container">
+                      <img
+                        src="{{profile.profileImg.url}}"
+                        alt=""
+                        style="background-color: #acacad"
+                      />
+                    </div>
+          
+                    <div class="username-msg">
+                      <h5>{{profile.user.get_full_name}}</h5>
+                      <p class="l-message">{{profile.office.office_name}}</p>
+                    </div>
+                  </div>
+          
+                  
+                </div>
+            {% endfor %}
+        </div>
+        <div class="hor-line"></div>
+      
+        <div class="bottom-container" style="justify-content: center;">
+            <button class="toggler-btn" style="width: max-content;" id="btn-apply-checked-departments">
+                <img src="{% static 'img/spinner.gif' %}" alt="">Apply</button>
+        </div>
+      </div>
+        </div>
+
 
     {% include "footer.html" %}
 

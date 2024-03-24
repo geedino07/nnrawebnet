@@ -30,6 +30,22 @@ function transitionModal(modalId, onCancel = function(){transitionModal('none')}
   }
 
 
+  function showDynamicLoadingModal(message) {
+    transitionModal("none");
+    const loadingDiv = document.createElement("div");
+    loadingDiv.classList.add("dynamic-d-div");
+    const loadingElement = `<div class="modal-section visible dynamic-loading-modal-section">
+    <div class="modal-content dynamic-loading-modal-con">
+        <img src="/static/img/spinner.gif" alt="loading..">
+        <p class="loading-text" id="loading-text">${message}</p>
+    </div>
+  </div>`;
+    loadingDiv.innerHTML = loadingElement;
+    document.body.appendChild(loadingDiv);
+    return loadingDiv;
+  }
+
+
 function showAlert(containerId, message, tag='success', append=false){
       const container = document.getElementById(containerId)
       const alertHtml = `

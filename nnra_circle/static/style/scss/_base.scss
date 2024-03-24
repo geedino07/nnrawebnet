@@ -39,6 +39,27 @@ html::-webkit-scrollbar-thumb {
 /// 
 /// 
 
+
+.dynamic-loading-modal-section{
+  .dynamic-loading-modal-con{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 40px;
+
+    img{
+        width: 30px;
+        height: 30px;
+    }
+  
+    p{
+        margin-top: 0.9rem;
+        text-align: center;
+        margin-left: 10px;
+    }
+  }
+}
+
 .user-container {
   display: flex;
   flex-direction: row;
@@ -446,6 +467,9 @@ html::-webkit-scrollbar-thumb {
   }
 }
 
+
+
+
 .user-item {
   display: flex;
   flex-direction: row;
@@ -805,6 +829,7 @@ form {
   transform: translateY(-150%); /* Initially off-screen */
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.07);
   transition: transform 0.5s ease-in-out; /* Animation duration and easing */
+  z-index: 999;
 
   .toast-con {
     display: flex;

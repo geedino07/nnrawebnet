@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'channels',
     'chat.apps.ChatConfig',
     'circle.apps.CircleConfig',
+    'memo.apps.MemoConfig',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',

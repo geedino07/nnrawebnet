@@ -673,7 +673,28 @@ footer .copyright-message p {
 }
 .container .form-holder .login-option p {
   margin-top: 10px;
-}/*# sourceMappingURL=auth_style.css.map */ 0;
+}/*# sourceMappingURL=auth_style.css.map */s: 5px;
+}
+.modal-section .modal-content p {
+  opacity: 0.7;
+}
+
+.modal-section.visible {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggler-btn {
+  background-color: var(--main-green);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  outline: none;
+  border: none;
+  padding: 15px !important;
+  margin: 10px 0;
   align-items: center;
   width: 95%;
   max-width: 450px;
@@ -791,6 +812,7 @@ form input[type=submit] {
   transform: translateY(-150%); /* Initially off-screen */
   box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.07);
   transition: transform 0.5s ease-in-out; /* Animation duration and easing */
+  z-index: 999;
 }
 .toast .toast-con {
   display: flex;
