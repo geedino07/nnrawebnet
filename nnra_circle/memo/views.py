@@ -82,3 +82,5 @@ def create(request):
         }, status=200)
     
 
+def test(): 
+    pass
