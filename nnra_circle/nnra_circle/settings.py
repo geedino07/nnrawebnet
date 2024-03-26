@@ -139,10 +139,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-if DEBUG:
-    STATIC_URL = 'static/'
-else:
-    STATIC_URL = '/home/nnraict/circle/NNRA-circle/nnra_circle/static'
+STATIC_URL = 'static/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#specifies where to keep all static files
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]#specifies where to draw static fiels from
 
