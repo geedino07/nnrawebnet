@@ -143,8 +143,8 @@ STATIC_URL = '/static/'
 if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#specifies where to keep all static files
 else:
-    STATIC_ROOT = '/home/kyrian/static/'
-    STATIC_ROOT = '/var/www/static/'
+    # STATIC_ROOT = '/home/kyrian/static/'
+    STATIC_ROOT = '/home/nnraict/static/'
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]#specifies where to draw static fiels from
