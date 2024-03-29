@@ -23,6 +23,7 @@ a {
   display: flex;
   flex-direction: column;
   width: 100%;
+  padding-top: 20px;
 
   .btn-create-memo {
     display: flex;
@@ -177,6 +178,7 @@ a {
                 }
 
                 .right{
+                  margin-left: 10px;
                     .publisher-name{
                         font-weight: 500;
                         color: black;

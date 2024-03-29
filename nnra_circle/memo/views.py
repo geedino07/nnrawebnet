@@ -10,6 +10,7 @@ from .models import Memo, MemoDocument, RecipientType, MemoRecipient
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 
@@ -19,7 +20,6 @@ from django.db.models import Q
 @login_required
 def memo_list(request):
     user = request.user
-    print(user)
     try:
         profile = Profile.objects.select_related('office').get(user__id=user.id)
     except Profile.DoesNotExist:
@@ -32,10 +32,21 @@ def memo_list(request):
     lookup_one = Q(rec_type=RecipientType.DEPARTMENT) & Q(recipient_id=profile.office.id)
     lookup_two = Q(rec_type=RecipientType.INDIVIDUAL) & Q(recipient_id=user.id)
     lookup_three = Q(rec_type=RecipientType.ALL)
-    memos = MemoRecipient.objects.filter(lookup_one | lookup_two | lookup_three).select_related('memo')
+    recipient_list = MemoRecipient.objects.filter(lookup_one | lookup_two | lookup_three).select_related('memo')
+
+    paginator = Paginator(recipient_list, 10)
+    page_number= request.GET.get('page')
+
+    try:
+        recipients = paginator.page(page_number)
+    except PageNotAnInteger:
+        recipients = paginator.page(1)
+    except EmptyPage:
+        recipients = paginator.page(paginator.num_pages)
 
     return render(request, 'memo/list.html', {
-        'recipients': memos
+        'recipients': recipients,
+        'user_profile': profile
     })
 
 def memo_detail(request, mid):

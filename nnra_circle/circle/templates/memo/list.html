@@ -23,7 +23,7 @@
   
           <div class="user-container">
             <img
-              src="{% static 'img/samples/s3.jpg' %}"
+              src="{{user_profile.profileImg.url}}"
               alt=""
               style="background-color: #e0dcd1"
             />
@@ -40,8 +40,8 @@
                 value="{{profile.user.id}}"
                 id="inputuserid"
               />
-              <h5 class="username">Code bee</h5>
-              <p class="fullname">Onuh Kyrian Udochukwu</p>
+              <h5 class="username">{{user_profile.user.username}}</h5>
+              <p class="fullname">{{user_profile.user.get_full_name}}</p>
             </div>
         </div>
 
@@ -110,6 +110,11 @@
            {% endfor %}
         </div>
     </section>
+
+    {% include "pagination.html" with page=recipients %}
+
     
+    {% include "footer.html" %}
+
 </body>
 </html>

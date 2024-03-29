@@ -673,7 +673,39 @@ footer .copyright-message p {
 }
 .container .form-holder .login-option p {
   margin-top: 10px;
-}/*# sourceMappingURL=auth_style.css.map */width: 400px;
+}/*# sourceMappingURL=auth_style.css.map */s: center;
+}
+.bottom-container img {
+  width: 30px;
+  height: 30px;
+}
+.bottom-container button {
+  background-color: var(--main-green);
+  width: 90% !important;
+}
+
+.hor-line {
+  width: 90%;
+  background-color: #f3f4f4;
+  height: 1.7px;
+}
+
+.modal-section {
+  z-index: 999;
+  background-color: rgba(0, 0, 0, 0.3);
+  position: fixed;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  align-items: center;
+  justify-content: center;
+  display: none;
+  transition: all 0.5s ease-in-out;
+}
+.modal-section .modal-content {
+  background-color: white;
+  width: 90%;
+  max-width: 400px;
   padding: var(--default-modal-padding);
   border-radius: 5px;
 }
@@ -721,7 +753,7 @@ footer .copyright-message p {
   display: block;
 }
 
-form {
+.mod-form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -730,14 +762,14 @@ form {
   width: -moz-max-content;
   width: max-content;
 }
-form p {
+.mod-form p {
   width: 100%;
   padding: auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-form .errorlist {
+.mod-form .errorlist {
   width: 100%;
   list-style-type: none;
   padding: auto;
@@ -748,14 +780,14 @@ form .errorlist {
   max-width: 350px;
   text-align: start;
 }
-form .errorlist li {
+.mod-form .errorlist li {
   color: var(--soft-red);
   font-size: 0.85rem;
 }
-form label {
+.mod-form label {
   display: none;
 }
-form input {
+.mod-form input {
   width: 100%;
   background-color: transparent;
   padding: 0.9rem;
@@ -763,7 +795,7 @@ form input {
   border-bottom: 0.5px solid rgb(126, 123, 123);
   outline: none;
 }
-form input[type=submit] {
+.mod-form input[type=submit] {
   background-color: var(--main-green);
   color: white;
   cursor: pointer;

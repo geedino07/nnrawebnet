@@ -57,6 +57,39 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.pagination {
+  width: 100%;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+.pagination a {
+  margin: 0;
+  text-decoration: none;
+  display: flex;
+}
+.pagination .step-links {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.pagination p {
+  margin: 0 10px;
+}
+.pagination .current input[type=text] {
+  padding: 10px;
+  display: flex;
+  width: 40px;
+  height: 40px;
+  outline: none;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+}
+
 .memo-section {
   background-color: white;
   padding: 10px 200px;
@@ -532,7 +565,7 @@ html::-webkit-scrollbar-thumb {
 .header-search-title input[type=text] {
   padding: 15px;
   width: 90%;
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
   outline: none;
   border-radius: 20px;
   border: none;
@@ -599,7 +632,7 @@ html::-webkit-scrollbar-thumb {
   opacity: 0.6;
 }
 .departments-container .department-item.selected {
-  background-color: #F3F3F3;
+  background-color: #f3f3f3;
 }
 .departments-container .department-item.selected .selected-indicator {
   background-color: var(--main-green);
@@ -624,7 +657,7 @@ html::-webkit-scrollbar-thumb {
 
 .hor-line {
   width: 90%;
-  background-color: #F3F4F4;
+  background-color: #f3f4f4;
   height: 1.7px;
 }
 
@@ -691,7 +724,7 @@ html::-webkit-scrollbar-thumb {
   display: block;
 }
 
-form {
+.mod-form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -700,14 +733,14 @@ form {
   width: -moz-max-content;
   width: max-content;
 }
-form p {
+.mod-form p {
   width: 100%;
   padding: auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-form .errorlist {
+.mod-form .errorlist {
   width: 100%;
   list-style-type: none;
   padding: auto;
@@ -718,14 +751,14 @@ form .errorlist {
   max-width: 350px;
   text-align: start;
 }
-form .errorlist li {
+.mod-form .errorlist li {
   color: var(--soft-red);
   font-size: 0.85rem;
 }
-form label {
+.mod-form label {
   display: none;
 }
-form input {
+.mod-form input {
   width: 100%;
   background-color: transparent;
   padding: 0.9rem;
@@ -733,7 +766,7 @@ form input {
   border-bottom: 0.5px solid rgb(126, 123, 123);
   outline: none;
 }
-form input[type=submit] {
+.mod-form input[type=submit] {
   background-color: var(--main-green);
   color: white;
   cursor: pointer;
