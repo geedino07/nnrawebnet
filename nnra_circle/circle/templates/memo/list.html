@@ -1,0 +1,186 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Memo | NNRA Digital Network</title>
+
+    <link rel="stylesheet" href="{% static 'style/css/memo.css' %}" />
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{% static 'img/logo.png' %}"
+    />
+  </head>
+</head>
+<body>
+
+    <section class="memo-section top-section">
+        <div class="logo-acct">
+    
+  
+          <div class="user-container">
+            <img
+              src="{% static 'img/samples/s3.jpg' %}"
+              alt=""
+              style="background-color: #e0dcd1"
+            />
+            <div class="user-info-con">
+              <input
+                type="hidden"
+                name="profileimg"
+                value="{{profile.profileImg.url}}"
+                id="profileimginput"
+              />
+              <input
+                type="hidden"
+                name="userid"
+                value="{{profile.user.id}}"
+                id="inputuserid"
+              />
+              <h5 class="username">Code bee</h5>
+              <p class="fullname">Onuh Kyrian Udochukwu</p>
+            </div>
+        </div>
+
+        <a href="{% url 'memo:create' %}">
+            <button class="btn-create-memo">
+                <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M10 6V8H5V19H16V14H18V20C18 20.5523 17.5523 21 17 21H4C3.44772 21 3 20.5523 3 20V7C3 6.44772 3.44772 6 4 6H10ZM21 3V11H19L18.9999 6.413L11.2071 14.2071L9.79289 12.7929L17.5849 5H13V3H21Z"></path></svg>            
+                <p>Create memo</p>
+            </button>
+            </a>
+        </div>
+
+        <div class="section-header">
+            <div class="left">
+                <h1>Internal Correspondence <br>
+                    From The NNRA Team.</h1>
+                
+                <p>Browse through updates and latest information within NNRA</p>
+            </div>
+
+            <div class="right">
+                <form class="search-input-container" id="search-form">
+                    {% csrf_token %}
+                    <input type="text" class="search-input" placeholder="Search memos"/>
+                    
+                    <svg class="svg-15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 2C15.968 2 20 6.032 20 11C20 15.968 15.968 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2ZM11 18C14.8675 18 18 14.8675 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18ZM19.4853 18.0711L22.3137 20.8995L20.8995 22.3137L18.0711 19.4853L19.4853 18.0711Z"></path></svg>
+          
+                  </form>
+            </div>
+          
+        </div>
+
+        <div class="line"></div>
+
+    </section>
+
+    <section class="memo-section memo-list-section">
+        <div class="memos-container">
+            <div class="memo-item">
+                <div class="left">
+                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
+                </div>
+
+                <div class="right">
+                    <p class="date-published">Feb 2, 2:23pm</p>
+                    <h1 class="memo-title">Address to all procurement 
+                        staff concerning cleanup services</h1>
+                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
+                    
+                    <div class="memo-publisher">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
+                        <div class="right">
+                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
+                            <p class="publisher-dept">Nuclear division</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="memo-item">
+                <div class="left">
+                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
+                </div>
+
+                <div class="right">
+                    <p class="date-published">Feb 2, 2:23pm</p>
+                    <h1 class="memo-title">Address to all procurement 
+                        staff concerning cleanup services</h1>
+                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
+                    
+                    <div class="memo-publisher">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
+                        <div class="right">
+                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
+                            <p class="publisher-dept">Nuclear division</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="memo-item">
+                <div class="left">
+                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
+                </div>
+
+                <div class="right">
+                    <p class="date-published">Feb 2, 2:23pm</p>
+                    <h1 class="memo-title">Address to all procurement 
+                        staff concerning cleanup services</h1>
+                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
+                    
+                    <div class="memo-publisher">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
+                        <div class="right">
+                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
+                            <p class="publisher-dept">Nuclear division</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="memo-item">
+                <div class="left">
+                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
+                </div>
+
+                <div class="right">
+                    <p class="date-published">Feb 2, 2:23pm</p>
+                    <h1 class="memo-title">Address to all procurement 
+                        staff concerning cleanup services</h1>
+                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
+                    
+                    <div class="memo-publisher">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
+                        <div class="right">
+                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
+                            <p class="publisher-dept">Nuclear division</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="memo-item">
+                <div class="left">
+                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
+                </div>
+
+                <div class="right">
+                    <p class="date-published">Feb 2, 2:23pm</p>
+                    <h1 class="memo-title">Address to all procurement 
+                        staff concerning cleanup services</h1>
+                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
+                    
+                    <div class="memo-publisher">
+                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
+                        <div class="right">
+                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
+                            <p class="publisher-dept">Nuclear division</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</body>
+</html>

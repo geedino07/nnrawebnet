@@ -12,6 +12,9 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+def memo_list(request):
+    return render(request, 'memo/list.html')
+
 def memo_detail(request, mid):
     return JsonResponse({
         'message': 'Memo detail comming soon'
