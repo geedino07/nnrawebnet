@@ -180,6 +180,62 @@ a {
 }
 
 
+@media screen and (max-width: 1330px) {
+    .memo-section {
+      padding: 10px 100px;
+    }
+  }
+  
+  @media screen and (max-width: 1050px) {
+    .memo-section {
+      padding: 10px 50px;
+    }
+  }
+
+  @media screen and (max-width: 950px) {
+    .memo-section {
+      padding: 10px 20px;
+    }
+  }
+
+  @media screen and (max-width: 600px){
+    .memo-list-section{
+        .memos-container{
+            .memo-item{
+                .left{
+                    img{
+                        height: 240px;
+                    }
+                }
+              
+                flex-direction: column;
+            }
+        }
+    }
+  }
+  @media screen and (max-width: 810px){
+    .top-section{
+        .btn-create-memo{
+            padding: 10px;
+            font-size: 0.8rem;
+            svg{
+                width: 15px;
+                height: 15px;
+            }
+
+        }
+        .section-header{
+            flex-direction: column;
+            align-items: flex-start;
+
+            .right{
+                margin-top: 20px;
+            }
+        }
+    }
+  }
+
+
 
 
 

@@ -1109,4 +1109,45 @@ a {
 .memo-list-section .memos-container .memo-item .right .memo-publisher .right .publisher-dept {
   font-size: 0.9rem;
   opacity: 0.5;
+}
+
+@media screen and (max-width: 1330px) {
+  .memo-section {
+    padding: 10px 100px;
+  }
+}
+@media screen and (max-width: 1050px) {
+  .memo-section {
+    padding: 10px 50px;
+  }
+}
+@media screen and (max-width: 950px) {
+  .memo-section {
+    padding: 10px 20px;
+  }
+}
+@media screen and (max-width: 600px) {
+  .memo-list-section .memos-container .memo-item {
+    flex-direction: column;
+  }
+  .memo-list-section .memos-container .memo-item .left img {
+    height: 240px;
+  }
+}
+@media screen and (max-width: 810px) {
+  .top-section .btn-create-memo {
+    padding: 10px;
+    font-size: 0.8rem;
+  }
+  .top-section .btn-create-memo svg {
+    width: 15px;
+    height: 15px;
+  }
+  .top-section .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .top-section .section-header .right {
+    margin-top: 20px;
+  }
 }/*# sourceMappingURL=memo.css.map */
