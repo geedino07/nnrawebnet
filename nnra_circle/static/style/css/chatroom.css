@@ -79,6 +79,9 @@ html::-webkit-scrollbar-thumb {
 .pagination p {
   margin: 0 10px;
 }
+.pagination .current {
+  background-color: transparent;
+}
 .pagination .current input[type=text] {
   padding: 10px;
   display: flex;
@@ -88,6 +91,7 @@ html::-webkit-scrollbar-thumb {
   border-radius: 5px;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
 }
 
 .memo-section {

@@ -11,6 +11,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from .utils import paginate
 
 
 
@@ -33,16 +34,9 @@ def memo_list(request):
     lookup_two = Q(rec_type=RecipientType.INDIVIDUAL) & Q(recipient_id=user.id)
     lookup_three = Q(rec_type=RecipientType.ALL)
     recipient_list = MemoRecipient.objects.filter(lookup_one | lookup_two | lookup_three).select_related('memo')
-
-    paginator = Paginator(recipient_list, 10)
     page_number= request.GET.get('page')
 
-    try:
-        recipients = paginator.page(page_number)
-    except PageNotAnInteger:
-        recipients = paginator.page(1)
-    except EmptyPage:
-        recipients = paginator.page(paginator.num_pages)
+    recipients = paginate(recipient_list, 10, page_number)
 
     return render(request, 'memo/list.html', {
         'recipients': recipients,

@@ -100,6 +100,7 @@ def list_people(request):
         # department_lookup = Q(office__department__dept_name__icontains=fd)
         profiles = profiles.filter(office_lookup)
 
+    
     return render(request, 'accounts/listitems.html', {
         'page': 'people',
         'profiles': profiles,

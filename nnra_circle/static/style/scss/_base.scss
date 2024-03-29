@@ -65,6 +65,7 @@ html::-webkit-scrollbar-thumb {
   }
 
   .current {
+    background-color: transparent;
     input[type="text"] {
       padding: 10px;
       display: flex;
@@ -74,6 +75,7 @@ html::-webkit-scrollbar-thumb {
       border-radius: 5px;
       align-items: center;
       justify-content: center;
+      background-color: transparent;
     }
   }
 }
