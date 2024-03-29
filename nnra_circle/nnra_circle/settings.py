@@ -79,8 +79,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'nnra_circle.wsgi.application'
 
 LOGIN_REDIRECT_URL = 'room'
-LOGIN_URL = 'login'
-LOGOUT_URL = 'logout'
+LOGIN_URL = 'accounts:login'
+LOGOUT_URL = 'accounts:logout'
 
 
 # Database

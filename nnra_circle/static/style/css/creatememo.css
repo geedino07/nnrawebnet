@@ -1386,6 +1386,9 @@ body {
   flex-direction: column;
   align-items: center;
 }
+.memo-success-section .success-bottom-content b {
+  color: var(--hard-light-green);
+}
 .memo-success-section .success-bottom-content h1 {
   font-size: 2rem;
   color: var(--txt-darker);

@@ -79,106 +79,35 @@
 
     <section class="memo-section memo-list-section">
         <div class="memos-container">
+            {% for recipient in recipients %}
+            {% with recipient.memo as memo %}
             <div class="memo-item">
                 <div class="left">
-                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
+                    <img src="{{memo.image.url}}" alt="{{memo.image}}" loading="lazy">
                 </div>
 
                 <div class="right">
-                    <p class="date-published">Feb 2, 2:23pm</p>
-                    <h1 class="memo-title">Address to all procurement 
-                        staff concerning cleanup services</h1>
-                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
-                    
-                    <div class="memo-publisher">
-                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
+                    <p class="date-published">{{memo.get_formated_date}}</p>
+                    <h1 class="memo-title">{{memo.title}}</h1>
+                    <p class="memo-desc">{{memo.body}}</p>
+
+                    {% if user.id == memo.sender.user.id %}
+                    <div class="status">
+                        <p>Published by you</p>
+                      </div>
+                      {% endif %}
+
+                      <div class="memo-publisher">
+                        <img src="{{memo.sender.profileImg.url}}" alt="{{memo.sender.user.get_full_name}}" loading="lazy">
                         <div class="right">
-                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
-                            <p class="publisher-dept">Nuclear division</p>
+                            <p class="publisher-name">{{memo.sender.user.get_full_name}}</p>
+                            <p class="publisher-dept">{{memo.sender.office.office_name}}</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="memo-item">
-                <div class="left">
-                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
-                </div>
-
-                <div class="right">
-                    <p class="date-published">Feb 2, 2:23pm</p>
-                    <h1 class="memo-title">Address to all procurement 
-                        staff concerning cleanup services</h1>
-                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
-                    
-                    <div class="memo-publisher">
-                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
-                        <div class="right">
-                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
-                            <p class="publisher-dept">Nuclear division</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="memo-item">
-                <div class="left">
-                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
-                </div>
-
-                <div class="right">
-                    <p class="date-published">Feb 2, 2:23pm</p>
-                    <h1 class="memo-title">Address to all procurement 
-                        staff concerning cleanup services</h1>
-                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
-                    
-                    <div class="memo-publisher">
-                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
-                        <div class="right">
-                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
-                            <p class="publisher-dept">Nuclear division</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="memo-item">
-                <div class="left">
-                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
-                </div>
-
-                <div class="right">
-                    <p class="date-published">Feb 2, 2:23pm</p>
-                    <h1 class="memo-title">Address to all procurement 
-                        staff concerning cleanup services</h1>
-                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
-                    
-                    <div class="memo-publisher">
-                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
-                        <div class="right">
-                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
-                            <p class="publisher-dept">Nuclear division</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="memo-item">
-                <div class="left">
-                    <img src="{% static 'img/memo-background-img.png' %}" alt="">
-                </div>
-
-                <div class="right">
-                    <p class="date-published">Feb 2, 2:23pm</p>
-                    <h1 class="memo-title">Address to all procurement 
-                        staff concerning cleanup services</h1>
-                    <p class="memo-desc">Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci lor in hendrerit in vulputate velit esse molestie ...</p>
-                    
-                    <div class="memo-publisher">
-                        <img src="{% static 'img/samples/s4.jpg' %}" alt="">
-                        <div class="right">
-                            <p class="publisher-name">Onuh Kyrian Udochukwu</p>
-                            <p class="publisher-dept">Nuclear division</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endwith %}
+           {% endfor %}
         </div>
     </section>
     

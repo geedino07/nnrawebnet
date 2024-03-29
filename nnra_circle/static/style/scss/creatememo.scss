@@ -499,6 +499,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    b{
+      color: var(--hard-light-green);
+    }
     h1{
       font-size: 2rem;
       color: var(--txt-darker);
