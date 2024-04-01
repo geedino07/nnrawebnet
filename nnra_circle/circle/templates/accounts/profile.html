@@ -25,7 +25,9 @@
                 </p>
                 <p class="p-username">{{profile.user.username}}</p>
 
+                {% if profile.about %}
                 <p class="p-about">{{profile.about}}</p>
+                {% endif %}
 
                 <div class="extras-container">
                     <div class="extra">
