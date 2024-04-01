@@ -383,7 +383,8 @@ def reset_password(request, uid, code):
 
             valid_code.used = True
             valid_code.save()
-            messages.success(request, 'Password reset successful, you can now login using your newly created password')
+            messages.success(request, 'Password reset successful, you can now login using your newly created password.')
+            return redirect('accounts:login')
     
     return render(request, 'registration/confirmresetcode.html', {
         'form': form,
