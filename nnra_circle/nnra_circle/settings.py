@@ -36,9 +36,9 @@ ALLOWED_HOSTS = ['*']
 INSTALLED_APPS = [
     'daphne',
     'channels',
-    'chat.apps.ChatConfig',
-    'circle.apps.CircleConfig',
-    'memo.apps.MemoConfig',
+    'chat',
+    'circle',
+    'memo',
     'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
