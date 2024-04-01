@@ -1355,11 +1355,12 @@ header .container .el-three.phone {
 }
 
 .why-use-digital-network .container {
-  margin-top: 100px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   width: 100%;
+  max-width: 1500px;
+  margin: 100px auto;
 }
 .why-use-digital-network .container h1 {
   font-family: "Poppins", sans-serif;
