@@ -19,12 +19,14 @@
         }
 </style>
 
-<body style="padding: 30px;">
+<body style="padding: 30px; max-width: 400;">
     <h1>You recieved a memo from {{sender.get_full_name}}!.</h1>
     <br>
     <h3>{{memo.title}}</h3>
     <p>{{memo.body}}</p>
     <br>
+    <p><b>{{documentcount}}</b> Attached document{{documentcount|pluralize}}</p>
+    <br> <br>
     <p>Click the link below to view memo </p>
     <a href="http://{{domain}}{{memo.get_absolute_url}}">[View memo]</a>
 </body>

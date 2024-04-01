@@ -45,22 +45,28 @@ def memo_list(request):
 
 def memo_detail(request, mid):
     try:
-        memo = Memo.objects.get(id=mid) 
+        memo = Memo.objects.select_related('sender').get(id=mid) 
     except Memo.DoesNotExist:
         render_404(request=request)
 
-    return render(request, 'memo/detail.html', {
+    print(memo.image)
 
+    supporting_documents = MemoDocument.objects.filter(memo=memo)
+
+    return render(request, 'memo/detail.html', {
+        'memo': memo,
+        'documents': supporting_documents
     })
 
 
-def distribute_memo(memo, recipient_list, user, request=None):
+def distribute_memo(memo, recipient_list, user, request=None, documentcount=0):
     domain = get_current_site(request)    
     sender = 'Nigerian Nuclear Regulatory Authority <' + str(settings.EMAIL_HOST_USER) + '>' 
     email_body = render_to_string('emails/memo.html', {
         'sender': user,
         'memo': memo,
-        'domain': domain
+        'domain': domain,
+        'documentcount': documentcount
 
     })
     text_content = strip_tags(email_body)
@@ -123,17 +129,19 @@ def create(request):
             recipients_profile = Profile.objects.all().select_related('user')
             MemoRecipient.objects.create(memo=memo, rec_type=RecipientType.ALL)
 
+        documentcount = 0
         for file in files:
+            documentcount += 1
             MemoDocument.objects.create(memo=memo, document=file, doc_name=file.name)
 
         recipients_emails = list(recipients_profile.values_list('user__email', flat=True))
-        distribute_memo(memo, recipients_emails, request.user, request)
+        distribute_memo(memo, recipients_emails, request.user, request, documentcount)
 
         return JsonResponse({
             'message': 'Memo distributed successfully', 
             'status': 200,
             'data': {
-                'url': memo.get_absolute_url()
+                'url': memo.get_absolute_url(),
             }
         }, status=200)
     

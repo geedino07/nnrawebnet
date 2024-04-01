@@ -15,76 +15,51 @@
   </head>
   <body>
     <section class="view-memo-section">
+        {% if memo.image != 'def-memo-img.png' %}
       <div class="left">
-        <img src="{% static 'img/memo-background-img.png' %}" alt="Memo" />
+        <img src="{{memo.image.url}}" alt="Memo" />
       </div>
+      {% endif %}
 
       <div class="right">
         <div class="content-container">
-          <p class="memo-title">Directives for all cleaning services</p>
+          <p class="memo-title">{{memo.title}}</p>
 
           <div class="publisher-container">
             <img src="{% static 'img/samples/s4.jpg' %}" alt="" />
             <div class="right-info">
-                <p class="publisher-name">Onuh Udochukwu</p>
-                <p class="date-pubilshed"> Published Feb 30, 2023, 9:00pm</p>
+                <p class="publisher-name">{{memo.sender.user.get_full_name}}</p>
+                <p class="date-pubilshed"> Published {{memo.get_formated_date}}</p>
               </div>
           </div>
 
           <div class="memo-body-con">
-            <p class="memo-body">Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo aspernatur nesciunt, ipsa blanditiis, ratione fugit impedit eum voluptates ea, accusamus maiores hic nemo? Nulla quidem nostrum, placeat ratione doloribus totam.
-            Labore inventore officiis officia beatae, dolores porro expedita, quos dolore eligendi quibusdam amet eius ea nemo sit earum ducimus odit? Porro dignissimos debitis numquam similique totam consequuntur optio dolore nulla.</p>
+            <p class="memo-body">{{memo.body}}</p>
           </div>
 
+          {% if documents|length > 0 %}
 
           <div class="attached-documents-container">
             <p class="attached-intro">Attached Documents:</p>
             <p class="message">Click to download</p>
 
             <div class="documents-container">
-                <a class="document" href="#">
+                {% for document in documents %}
+                <a class="document" href="{{document.document.url}}" download="">
                     <div class="file-icon-con">
                         <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8ZM19 9H14V4H5V20H19V9ZM8 7H11V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"></path></svg>
                     </div>
                     <div class="file-info">
-                        <p class="file-name">Meeeting submit July 2017 by ugly hounourable chiarman </p>
-                        <p class="file-size">1.0MB</p>
+                        <p class="file-name">{{document.doc_name}}</p>
+                        <p class="file-size">{{document.get_fill_size_mb}}</p>
                     </div>
                 </a>
-
-                <a class="document" href="#">
-                    <div class="file-icon-con">
-                        <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8ZM19 9H14V4H5V20H19V9ZM8 7H11V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"></path></svg>
-                    </div>
-                    <div class="file-info">
-                        <p class="file-name">Meeeting submit July 2017 by ugly hounourable chiarman </p>
-                        <p class="file-size">1.0MB</p>
-                    </div>
-                </a>
-
-
-                <a class="document" href="#">
-                    <div class="file-icon-con">
-                        <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8ZM19 9H14V4H5V20H19V9ZM8 7H11V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"></path></svg>
-                    </div>
-                    <div class="file-info">
-                        <p class="file-name">Meeeting submit July 2017 by ugly hounourable chiarman </p>
-                        <p class="file-size">1.0MB</p>
-                    </div>
-                </a>
-
-
-                <a class="document" href="#">
-                    <div class="file-icon-con">
-                        <svg class="svg-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8ZM19 9H14V4H5V20H19V9ZM8 7H11V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z"></path></svg>
-                    </div>
-                    <div class="file-info">
-                        <p class="file-name">Meeeting submit July 2017 by ugly hounourable chiarman </p>
-                        <p class="file-size">1.0MB</p>
-                    </div>
-                </a>
+                {% endfor %}
             </div>
           </div>
+
+          {% endif %}
+
         
         </div>
       </div>

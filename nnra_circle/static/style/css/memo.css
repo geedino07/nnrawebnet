@@ -1244,6 +1244,7 @@ a {
 }
 .view-memo-section .right .content-container .attached-documents-container {
   margin-top: 30px;
+  width: 100%;
 }
 .view-memo-section .right .content-container .attached-documents-container .attached-intro {
   font-weight: 600;
@@ -1259,6 +1260,7 @@ a {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 20px;
+  width: 100%;
 }
 .view-memo-section .right .content-container .attached-documents-container .documents-container .document {
   display: flex;
@@ -1349,5 +1351,30 @@ a {
   }
   .top-section .section-header .right {
     margin-top: 20px;
+  }
+}
+@media screen and (max-width: 370px) {
+  .view-memo-section .right .content-container {
+    width: 100%;
+  }
+  .view-memo-section .right .content-container .memo-title {
+    font-size: 2rem;
+  }
+  .view-memo-section .right .content-container .memo-body-con .memo-body {
+    font-size: 0.9rem;
+  }
+  .view-memo-section .right .content-container .attached-documents-container .documents-container {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+  .view-memo-section .right .content-container .attached-documents-container .documents-container .document .file-icon-con {
+    width: 25px;
+    height: 25px;
+  }
+  .view-memo-section .right .content-container .attached-documents-container .documents-container .document .file-icon-con svg {
+    width: 15px;
+    height: 15px;
+  }
+  .view-memo-section .right .content-container .attached-documents-container .documents-container .document .file-info .file-name {
+    font-size: 0.8rem;
   }
 }/*# sourceMappingURL=memo.css.map */

@@ -274,6 +274,7 @@ a {
 
       .attached-documents-container {
         margin-top: 30px;
+        width: 100%;
 
         .attached-intro {
           font-weight: 600;
@@ -292,7 +293,7 @@ a {
           display: grid;
           grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
           gap: 20px;
-
+          width: 100%;
           .document {
             display: flex;
             flex-direction: row;
@@ -307,7 +308,6 @@ a {
             text-overflow: ellipsis;
             text-decoration: none;
 
-           
             .file-icon-con {
               width: 35px;
               height: 35px;
@@ -325,7 +325,7 @@ a {
               overflow: hidden;
               white-space: nowrap;
               text-overflow: ellipsis;
-              
+
               flex-grow: 1;
 
               .file-name {
@@ -336,7 +336,6 @@ a {
                 text-overflow: ellipsis;
                 max-width: 250px;
                 padding-right: 30px;
-                
               }
 
               .file-size {
@@ -409,6 +408,51 @@ a {
 
       .right {
         margin-top: 20px;
+      }
+    }
+  }
+}
+
+
+@media screen and (max-width: 370px){
+  .view-memo-section{
+    .right{
+      .content-container{
+        width: 100%;
+
+        .memo-title{
+          font-size: 2rem;
+        }
+
+        .memo-body-con{
+          .memo-body{
+            font-size: 0.9rem;
+          }
+        }
+
+        .attached-documents-container{
+          .documents-container{
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
+            .document{
+              .file-icon-con{
+                width: 25px;
+                height: 25px;
+
+                svg{
+                  width: 15px;
+                  height: 15px;
+                }
+              }
+
+              .file-info{
+                .file-name{
+                  font-size: 0.8rem;
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

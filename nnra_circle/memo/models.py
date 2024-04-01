@@ -34,6 +34,16 @@ class MemoDocument(models.Model):
     document = models.FileField(upload_to='memodoc/%Y/%M/%d', blank=False, null=False)
     doc_name = models.CharField(max_length=250, null=False, blank=False, default='')
 
+    def get_fill_size_mb(self):
+        file_size_bytes = self.document.size
+        file_size_mb = file_size_bytes / (1024*1024)
+        if file_size_mb >= 1:
+            return "{:.2f}".format(file_size_mb) + 'MB'
+        else:
+            file_size_kb = file_size_bytes /1024
+            return "{:.2f}".format(file_size_kb) + "KB"
+        
+
 class MemoRecipient(models.Model):
     memo = models.ForeignKey(Memo, on_delete=models.CASCADE, null=False, blank=False)
     rec_type = models.CharField(max_length=2, null=False, blank=False, choices =RecipientType.choices, default=RecipientType.ALL)
