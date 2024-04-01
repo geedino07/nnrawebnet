@@ -523,7 +523,10 @@ def user_login(request):
                     login(request, user)
                     return redirect('/')
                 else:
-                    messages.error(request, 'Your account seems to be deactivated at this moment, please seek admin support.')
+                    if Profile.objects.filter(user=user).exists():
+                        messages.error(request, 'Your account seems to be deactivated at this moment, please seek admin support.')
+                    else:
+                        return redirect('accounts:resendcode', uid=user.id)
             else:
                 messages.error(request, 'Invalid email or password.')
         else:
