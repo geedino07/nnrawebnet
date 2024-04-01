@@ -10,8 +10,8 @@ from .models import Memo, MemoDocument, RecipientType, MemoRecipient
 from django.contrib.auth.decorators import login_required
 from django.contrib.sites.shortcuts import get_current_site
 from django.db.models import Q
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .utils import paginate
+from accounts.utils import render_404
 
 
 
@@ -44,8 +44,13 @@ def memo_list(request):
     })
 
 def memo_detail(request, mid):
-    return JsonResponse({
-        'message': 'Memo detail comming soon'
+    try:
+        memo = Memo.objects.get(id=mid) 
+    except Memo.DoesNotExist:
+        render_404(request=request)
+
+    return render(request, 'memo/detail.html', {
+
     })
 
 

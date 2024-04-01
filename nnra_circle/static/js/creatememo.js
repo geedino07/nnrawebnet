@@ -22,7 +22,7 @@ let selectedAudience = 'memo-everyone-section';
 let selectedIndividuals = []
 
 function submitMemo(memoTitle, memoBody, audience='departments') {
-  showDynamicLoadingModal("Building memo...");
+  showDynamicLoadingModal("The distribution of your memo is in progress. Please allow a short moment for completion");
 
   const formData = new FormData();
   formData.append("memo-title", memoTitle);

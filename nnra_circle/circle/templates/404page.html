@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Not found {% endblock %}
+
+{% block content %}
+    <div class="not-found-section">
+        <h1>404</h1>
+        <p class="oops-txt">Oops the requested url was not found on this server :( </p>
+        <a href="/">Back to home</a>
+    </div>
+
+    {% include "footer.html" %}
+
+{% endblock %}

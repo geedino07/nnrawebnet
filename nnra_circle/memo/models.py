@@ -30,7 +30,7 @@ class Memo(models.Model):
         ]
 
 class MemoDocument(models.Model):
-    memo = models.ForeignKey(Memo, on_delete=models.CASCADE, null=False, blank=False)
+    memo = models.ForeignKey(Memo, on_delete=models.CASCADE, null=False, blank=False, related_name='documents')
     document = models.FileField(upload_to='memodoc/%Y/%M/%d', blank=False, null=False)
     doc_name = models.CharField(max_length=250, null=False, blank=False, default='')
 
