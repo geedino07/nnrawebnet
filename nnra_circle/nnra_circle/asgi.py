@@ -12,6 +12,7 @@ from django.core.asgi import get_asgi_application
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'nnra_circle.settings')
 
+django_asgi_app = get_asgi_application()
 
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
@@ -21,7 +22,6 @@ from django.conf import settings
 
 # settings.configure()
 
-django_asgi_app = get_asgi_application()
 
 # application = get_asgi_application()
 
