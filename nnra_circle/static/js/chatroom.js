@@ -12,6 +12,8 @@ const miniUserInfo = document.querySelector(".logged-in-user-info");
 const networkDepartmentsContainer = document.querySelector(".all-departments");
 const allChatsButton = document.querySelector(".all-chats");
 const allDeptTopHolder = document.querySelector(".all-dept-top-holder");
+const showCenterLeft = document.getElementById('show-center-left')
+const centerLeft = document.querySelector('.center-left')
 
 const profileImg = document.getElementById("profileimginput").value; //the profile image of the currently logged in user
 const userId = document.getElementById("inputuserid").value;
@@ -115,6 +117,8 @@ networkDepartmentsContainer.addEventListener("click", function (e) {
 
   getNetworkDepartmentThreads(clicked.getAttribute("data-officeid"));
   toggleLeftTogglers(clicked.id);
+
+  if(isMobile) showCenterLeftMobileUi()
 });
 
 allDeptTopHolder.addEventListener("click", function () {
@@ -143,8 +147,22 @@ conversationContainer.addEventListener("click", function (e) {
   }
 });
 
+showCenterLeft.addEventListener('click', showCenterLeftMobileUi)
+
+function showCenterLeftMobileUi(){
+  centerLeft.classList.add('visible')
+}
+
+function hideCenterLeftMobileUi(){
+  centerLeft.classList.remove('visible')
+}
+
 function getDigitsFromText(text){
   return parseInt(text.match(/\d+/)[0]);
+}
+
+function isMobile(){
+  return window.innerHeight <= 590
 }
 
 function showEditModal(messageid, messagebody) {
@@ -649,6 +667,10 @@ function setFocusUser(userid) {
       selectThread(focusUser.user.id);
       toggleContainerState("center-right", "focused");
       populateChatMessages(data.data.chat_messages);
+
+      if(isMobile){
+        hideCenterLeftMobileUi()
+      }
     });
 }
 

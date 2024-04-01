@@ -26,7 +26,7 @@ load_dotenv()
 SECRET_KEY = 'django-insecure-8gy%-bc__6#t@q(ad^m-!mr3danz!80@j#0nt=&qqvb=2e#%(4'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -86,12 +86,24 @@ LOGOUT_URL = 'accounts:logout'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
+# if DEBUG:
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+# else:
+#     DATABASES = {
+#         'default': {
+#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#             'NAME': 'nnracircle',
+#             'USER': 'kyrian',
+#             'PASSWORD': 'kyrian', 
+#             'HOST': 'localhost', 
+#             'PORT': '',
+#         }
+#     }
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
@@ -143,8 +155,8 @@ STATIC_URL = '/static/'
 if DEBUG:
     STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')#specifies where to keep all static files
 else:
-    # STATIC_ROOT = '/home/kyrian/static/'
-    STATIC_ROOT = '/home/nnraict/static/'
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+    # STATIC_ROOT = '/home/nnraict/static/'
 
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]#specifies where to draw static fiels from

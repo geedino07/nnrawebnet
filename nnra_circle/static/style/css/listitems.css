@@ -1725,6 +1725,16 @@ html {
   }
   .chat-section .center-tile .center-item-bottom .center-left {
     display: none;
+    position: absolute;
+    z-index: 99999;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    padding-top: 30px;
+    width: 100%;
+  }
+  .chat-section .center-tile .center-item-bottom .center-left.visible {
+    display: flex;
   }
 }
 @media screen and (max-width: 470px) {
