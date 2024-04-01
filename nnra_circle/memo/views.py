@@ -47,9 +47,8 @@ def memo_detail(request, mid):
     try:
         memo = Memo.objects.select_related('sender').get(id=mid) 
     except Memo.DoesNotExist:
-        render_404(request=request)
+        return render_404(request=request)
 
-    print(memo.image)
 
     supporting_documents = MemoDocument.objects.filter(memo=memo)
 

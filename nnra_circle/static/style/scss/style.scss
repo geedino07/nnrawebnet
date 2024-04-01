@@ -1,6 +1,12 @@
 @import "base";
 @import "config/config";
 
+
+html{
+  scroll-behavior: smooth;
+}
+
+
 .profile-tile {
   width: 100%;
   position: relative;

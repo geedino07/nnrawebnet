@@ -23,6 +23,10 @@
   --menu-size: 1.7rem;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -993,6 +997,14 @@ footer .copyright-message p {
   --main-green: #355E2D;
   --section-edge-padding: 100px;
   --menu-size: 1.7rem;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 .profile-tile {
