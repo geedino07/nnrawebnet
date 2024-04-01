@@ -58,3 +58,12 @@ class Otpcode(models.Model):
         expiration_time = self.created + expiration_duration
         return timezone.now() > expiration_time
     
+    def get_tte(self):#returns the time to expiry 
+        expiration_duration = timedelta(minutes=10)
+        expiration_time = self.created + expiration_duration
+        now = timezone.now()
+     
+        # Calculate remaining time (if not expired)
+        remaining_time = expiration_time - now
+        remaining_minutes = int(remaining_time.total_seconds() / 60)
+        return remaining_minutes

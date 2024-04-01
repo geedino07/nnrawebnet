@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Not found {% endblock %}
+
+{% block content %}
+    <div class="not-found-section">
+        <h1 style="font-size: 1.5rem; color: red;">An error occured :(</h1>
+        <p class="oops-txt">{{message}}</p>
+    </div>
+
+    {% include "footer.html" %}
+{% endblock %}

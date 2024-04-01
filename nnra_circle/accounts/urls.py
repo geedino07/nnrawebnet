@@ -10,6 +10,11 @@ urlpatterns = [
     path('resendcode/<int:uid>/', views.resend_activation_code, name='resendcode'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
+    path('password/request/', views.reqeust_reset_password, name='passwordrequest'),
+    path('password/<int:uid>/confirm/', views.confirm_reset_code, name='confirmreset'),
+    path('password/<int:uid>/resend/', views.resend_password_reset_code, name='resendpasswordreset'),
+    path('password/<int:uid>/<str:code>/reset/', views.reset_password, name='passwordreset'),
+    
     path('selectdept/<int:uid>/', views.select_dept, name='selectdept'),
     path('welcomeuser/<int:uid>/', views.welcome_user, name='welcomeuser'),
     path('profile/edit/', views.edit_profile, name='editprofile'),

@@ -1,26 +1,27 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | NNRA Digital Network</title>
-    <link rel="stylesheet" href="{% static 'style/css/auth_style.css' %}">
+    <title>Request a new password | NNRA digital network</title>
 
-    <!--=============== REMIX ICONS ===============-->
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'style/css/auth_style.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'img/logo.png' %}">
+
+     <!--=============== REMIX ICONS ===============-->
+     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 </head>
 <body>
-
     <img src="{% static 'img/lock-top-left.png' %}" alt="" class="graphic-top-left graphic-lock">
     <img src="{% static 'img/lock-bottom-right.png' %}" alt="" class="graphic-bottom-right graphic-lock">
 
     <div class="container">
         <div class="form-holder">
             <img src="{% static 'img/logo.png' %}" alt="Nnra logo">
-            <h3 class="form-title">NNRA Digital Network <br> <span>Login</span> </h3>
-            <!-- <p class="form-prompt">Welcome to NNRA digital network, please fill the form below to signup for an account</p> -->
+            <h3 class="form-title">NNRA Digital Network <br> <span>Reset password</span> </h3>
+
+            <p class="form-prompt">Enter the email address associated with your account</p>
             <div class="alert-containers" id="con-one">
                 {% for message in messages %}
                 <div class="alert {{ message.tags }}">
@@ -32,17 +33,10 @@
             </div>
             <form action="" method="post">
                 
-                {{ form.as_p }}
                 {% csrf_token %}
-                <input type="submit" value="Login" >
+                <input type="email" name="email" id="email" placeholder="Email">
+                <input type="submit" value="Submit" >
             </form>
-
-            <div class="login-option">
-                <p>Dont have an account? <span><a href="{% url "accounts:register" %}">Sign up</a></span></p>
-                <p style="font-size: 0.9pwerem;">Forgot your password? <span><a href="{% url "accounts:passwordrequest" %}">Reset password</a></span></p>
-
-            </div>
-
             
         </div>
     </div>

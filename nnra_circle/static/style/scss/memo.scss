@@ -155,10 +155,15 @@ a {
         }
 
         .memo-desc {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 4; 
           margin-top: 10px;
           opacity: 0.6;
           font-size: 0.9rem;
           line-height: 1.7;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
 
         .memo-publisher {
@@ -413,40 +418,39 @@ a {
   }
 }
 
-
-@media screen and (max-width: 370px){
-  .view-memo-section{
-    .right{
-      .content-container{
+@media screen and (max-width: 370px) {
+  .view-memo-section {
+    .right {
+      .content-container {
         width: 100%;
 
-        .memo-title{
+        .memo-title {
           font-size: 2rem;
         }
 
-        .memo-body-con{
-          .memo-body{
+        .memo-body-con {
+          .memo-body {
             font-size: 0.9rem;
           }
         }
 
-        .attached-documents-container{
-          .documents-container{
+        .attached-documents-container {
+          .documents-container {
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
 
-            .document{
-              .file-icon-con{
+            .document {
+              .file-icon-con {
                 width: 25px;
                 height: 25px;
 
-                svg{
+                svg {
                   width: 15px;
                   height: 15px;
                 }
               }
 
-              .file-info{
-                .file-name{
+              .file-info {
+                .file-name {
                   font-size: 0.8rem;
                 }
               }

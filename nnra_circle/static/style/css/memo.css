@@ -61,6 +61,25 @@ html::-webkit-scrollbar-thumb {
   background: #ebf5ea;
 }
 
+.not-found-section {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.not-found-section h1 {
+  font-size: 5rem;
+}
+.not-found-section .oops-txt {
+  font-size: 0.9rem;
+  opacity: 0.6;
+}
+.not-found-section a {
+  margin-top: 10px;
+}
+
 .pagination {
   width: 100%;
   margin-top: 20px;
@@ -732,7 +751,7 @@ html::-webkit-scrollbar-thumb {
   display: block;
 }
 
-.mod-form {
+.mod-form, form {
   margin-top: 20px;
   display: flex;
   flex-direction: column;
@@ -741,14 +760,14 @@ html::-webkit-scrollbar-thumb {
   width: -moz-max-content;
   width: max-content;
 }
-.mod-form p {
+.mod-form p, form p {
   width: 100%;
   padding: auto;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.mod-form .errorlist {
+.mod-form .errorlist, form .errorlist {
   width: 100%;
   list-style-type: none;
   padding: auto;
@@ -759,14 +778,14 @@ html::-webkit-scrollbar-thumb {
   max-width: 350px;
   text-align: start;
 }
-.mod-form .errorlist li {
+.mod-form .errorlist li, form .errorlist li {
   color: var(--soft-red);
   font-size: 0.85rem;
 }
-.mod-form label {
+.mod-form label, form label {
   display: none;
 }
-.mod-form input {
+.mod-form input, form input {
   width: 100%;
   background-color: transparent;
   padding: 0.9rem;
@@ -774,7 +793,7 @@ html::-webkit-scrollbar-thumb {
   border-bottom: 0.5px solid rgb(126, 123, 123);
   outline: none;
 }
-.mod-form input[type=submit] {
+.mod-form input[type=submit], form input[type=submit] {
   background-color: var(--main-green);
   color: white;
   cursor: pointer;
@@ -1143,10 +1162,15 @@ a {
   color: #3c3c3c;
 }
 .memo-list-section .memos-container .memo-item .right .memo-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
   margin-top: 10px;
   opacity: 0.6;
   font-size: 0.9rem;
   line-height: 1.7;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .memo-list-section .memos-container .memo-item .right .memo-publisher {
   margin-top: 10px;

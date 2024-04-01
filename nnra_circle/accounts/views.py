@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from .forms import UserRegistrationForm, LoginForm, OtpForm
+from .forms import UserRegistrationForm, LoginForm, OtpForm, ResetPasswordForm
 from django.contrib.auth.models import User
 from .utils import generate_send_otp_code
 from .models import Otpcode, Profile, Office
@@ -10,6 +10,7 @@ from .serializers import ProfileSerializer
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
+from .utils import render_404, user_exists, validate_otp_code, render_error_page
 
 
 # Create your views here.
@@ -273,9 +274,8 @@ def welcome_user(request, uid):
     try:
         user = User.objects.get(id=uid)
     except User.DoesNotExist:
-        user= None
-
-    #TODO: create a 404 page and render thatt page if user is none
+        return render_404(request)
+    
     return render(request, 'registration/regcomplete.html', {
         'user': user
     })
@@ -324,12 +324,22 @@ def select_dept(request, uid):
                 'message': 'User profile not found'
             }, status=404)
 
+def resend_password_reset_code(request, uid):
+    user = user_exists(uid)
+
+    if user is not None:
+        if generate_send_otp_code(user=user, type=Otpcode.Type.PASSWORD_RESET):
+            messages.success(request, f"A new password reset code has been sent to {user.email}")
+        else:
+            messages.error(request, 'An error occured while resending your password reset code.')
+    else:
+        messages.error(request, 'FATAL: An error occured')
+    
+    return redirect('accounts:confirmreset', uid=user.id)
+    
 def resend_activation_code(request, uid):
     #get the user
-    try:
-        user = User.objects.get(id=uid)
-    except User.DoesNotExist:
-        user= None
+    user = user_exists(uid)
 
     #generate and resend an activation code for that user
     if user is not None:
@@ -343,10 +353,76 @@ def resend_activation_code(request, uid):
             messages.success(request, f"A new verification code has been sent to {user.email}.")
         else:
             messages.error(request, 'An error occured while resending your verification code.')
-
-        return redirect('accounts:confirmcode', uid=user.id)
     else:
         messages.error(request, 'Fatal: An error occured.')
+    
+    return redirect('accounts:confirmcode', uid=user.id)
+
+def reset_password(request, uid, code):
+    user = user_exists(uid)
+    if not user:
+        return render_404(request)
+    
+    valid_code, reason = validate_otp_code(code, Otpcode.Type.PASSWORD_RESET, user)
+
+    if not valid_code:
+        return render_error_page(request, "The provided url is expired or invalid") 
+
+    time_to_expiry = valid_code.get_tte()
+
+    if request.method == 'GET':
+        form = ResetPasswordForm()
+    elif request.method == 'POST':
+        form = ResetPasswordForm(request.POST)
+        if form.is_valid():
+            cd = form.cleaned_data
+            password = cd['password']
+
+            user.set_password(password)
+            user.save()
+
+            valid_code.used = True
+            valid_code.save()
+            messages.success(request, 'Password reset successful, you can now login using your newly created password')
+    
+    return render(request, 'registration/confirmresetcode.html', {
+        'form': form,
+        'user': user,
+        'view': 'reset',
+        'tte': time_to_expiry
+    })
+
+def confirm_reset_code(request, uid):
+    try:
+        user =User.objects.get(id=uid)
+    except User.DoesNotExist:
+        return render_404(request)
+
+    if request.method == 'GET':
+        form = OtpForm()
+    elif request.method == 'POST':
+        form = OtpForm(request.POST)
+
+        if form.is_valid():
+            cd = form.cleaned_data
+            code = cd['code']
+
+            otpcode, reason = validate_otp_code(code, Otpcode.Type.PASSWORD_RESET, user)
+            if otpcode:
+                # messages.success(request, reason)
+                return redirect('accounts:passwordreset', uid=user.id, code=code)
+            else:
+                messages.error(request, reason)
+                return render(request, 'registration/confirmresetcode.html', {
+                        'form': form,
+                        'user': user,
+                        'view': 'confirm'
+                    })
+    return render(request, 'registration/confirmresetcode.html', {
+        'form': form,
+        'user': user,
+        'view': 'confirm'
+    })
 
 def confirmcode(request, uid):
     #get the user with the uid
@@ -377,7 +453,6 @@ def confirmcode(request, uid):
                     })
                 else:
                     return redirect('accounts:selectdept', uid=user.id)
-
 
             #Validate otpcode
             if otpcode.code == code:
@@ -418,6 +493,22 @@ def confirmcode(request, uid):
         'form': form,
         'user': user
     })
+
+def reqeust_reset_password(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            messages.error(request, 'Email does not exist.')
+            return render(request, 'registration/requestreset.html')
+        
+        code_sent = generate_send_otp_code(user, Otpcode.Type.PASSWORD_RESET)
+        if code_sent:
+            return redirect('accounts:confirmreset', uid=user.id)
+        else:
+            messages.error(request, 'An error occured')
+    return render(request, 'registration/requestreset.html')
 
 def user_login(request):
     if request.method == 'POST':
