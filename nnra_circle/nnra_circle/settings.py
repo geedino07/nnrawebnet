@@ -18,6 +18,8 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv()
 
+import dj_database_url
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
@@ -87,24 +89,23 @@ LOGOUT_URL = 'accounts:logout'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# if DEBUG:
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
     }
-}
-# else:
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#             'NAME': 'nnracircle',
-#             'USER': 'kyrian',
-#             'PASSWORD': 'kyrian', 
-#             'HOST': 'localhost', 
-#             'PORT': '',
-#         }
-#     }
+else:
+    # Replace the SQLite DATABASES configuration with PostgreSQL:
+    DATABASES = {
+        'default': dj_database_url.config(
+            # Replace this value with your local database's connection string.
+            default='postgres://nnra_circle_user:5Q1gf1XA1zP20ieKrgij4j93IvZiJ4Mj@dpg-coc7u3u3e1ms73b05m20-a.oregon-postgres.render.com/nnra_circle',
+            conn_max_age=600
+        )
+    }
+
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media') 
