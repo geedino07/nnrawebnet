@@ -14,7 +14,7 @@ python -m venv venv
 ### Activate the virtual environment
 Activate the virtual environment using `.\venv\Scripts\activate` on windows and `source venv/bin/activate`  for mac and Linux
 
-After this, _venv_ should now be prepened to the file path on the terminal, this indicates the virtual environment is successfully activated
+After this, _venv_ should now be prepended to the file path on the terminal, this indicates the virtual environment is successfully activated
 
 ### Install requirements
 For this step, ensure the virtual environment is activated and you are in the folder containing the requirements.txt file
