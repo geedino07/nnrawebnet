@@ -3,7 +3,7 @@
 ### Clone the repository
 
 ``` 
-git clone https://github.com/Codebee50/NNRA-circle.git
+git clone https://github.com/geedino07/nnrawebnet.git
 ```
 
 ### Create a virtual environment 
