@@ -12,9 +12,12 @@ python -m venv venv
 ```
 
 ### Activate the virtual environment
-Activate the virtual environment using `.\venv\Scripts\activate` on windows and `source venv/bin/activate`  for mac and Linux
+Activate the virtual environment using `source .\venv\Scripts\activate` on windows and `source venv/bin/activate`  for mac and Linux
 
 After this, _venv_ should now be prepended to the file path on the terminal, this indicates the virtual environment is successfully activated
+
+To confirm this type `which python` on your terminal. 
+The python path will show the current directory where virtual environment was just installed
 
 ### Install requirements
 For this step, ensure the virtual environment is activated and you are in the folder containing the requirements.txt file
